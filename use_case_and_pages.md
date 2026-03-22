@@ -1,11 +1,11 @@
-# Documentation du Projet : Lodestone - La Charge Sans Fil, Réinventée
+# Documentation du Projet : SOLARIS LUX — SmartCharge Edition
 
-Ce document présente l'analyse des cas d'utilisation et l'architecture des pages (sections) du site **Lodestone**.
+Ce document présente l'analyse des cas d'utilisation et l'architecture des sections du site **Solaris Lux**.
 
 ---
 
 ## 1. Aperçu du Projet
-**Lodestone** est une plateforme de présentation et de vente d'un chargeur sans fil premium de type MagSafe. Le site est conçu comme une **Landing Page (SPA)** haut de gamme, utilisant des animations modernes pour refléter l'aspect technologique et luxueux du produit.
+**Solaris Lux** est une plateforme de présentation et de vente du chargeur sans fil premium **SmartCharge V1**. Le site est conçu comme une **Landing Page (SPA)** haut de gamme, utilisant des animations modernes pour refléter l'aspect technologique et luxueux du produit.
 
 ---
 
@@ -20,7 +20,7 @@ Ce document présente l'analyse des cas d'utilisation et l'architecture des page
 
 ### CU01 : Découverte du produit
 - **Acteur** : Visiteur
-- **Objectif** : Comprendre ce qu'est Lodestone et ses points forts.
+- **Objectif** : Comprendre ce qu'est Solaris Lux et ses points forts.
 - **Flux** :
     1. Arrivée sur la section **Hero**.
     2. Lecture du badge "Édition 2026" et du titre principal.
@@ -58,7 +58,7 @@ Comme le site est une application à page unique (Single Page Application), les 
 
 | Identifiant | Section | Description |
 | :--- | :--- | :--- |
-| **01** | **Hero** | Accroche visuelle, titre "Lodestone", et premier bouton d'achat. |
+| **01** | **Hero** | Accroche visuelle, titre "SmartCharge", et premier bouton d'achat. |
 | **02** | **StatsBanner** | Validation sociale et marketing (Chiffres clés). |
 | **03** | **Gallery** | Vitrine visuelle montrant le produit sous différents angles. |
 | **04** | **Features** | Grille des 4 innovations majeures (MagSafe, 15W, LED, Design). |

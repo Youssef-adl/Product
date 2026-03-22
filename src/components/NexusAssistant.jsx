@@ -3,7 +3,7 @@ import HackyText from './HackyText'
 import AiHandshake from './AiHandshake'
 
 const NEXUS_RESPONSES = {
-  power: "LODESTONE_PWR: 15W Max Wireless. Qi Integrated System.",
+  power: "Solaris_PWR: 15W Max Wireless. Qi Integrated System.",
   material: "CHASSIS: Aerospace-grade 6061 Aluminum. CNC Machined.",
   safety: "SAFE_GUARD: Heat-sync architecture active. Overcharge protection enabled.",
   compatibility: "LINK_SYNC: iPhone 12+ (MagSafe) and all Qi devices.",

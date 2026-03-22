@@ -1,51 +1,34 @@
-import { useReveal } from '../hooks/useReveal'
+import React from 'react';
+import useReveal from '../hooks/useReveal';
+import { Settings, PenTool, Globe } from 'lucide-react';
 
-const steps = [
-  {
-    num: '01',
-    title: 'Positionnez',
-    desc: 'Laissez la base lestée du Lodestone trouver son équilibre sur votre bureau.',
-    icon: 'fa-solid fa-location-dot',
-  },
-  {
-    num: '02',
-    title: 'Clipsez',
-    desc: 'Les aimants s\'alignent en un instant. Plus de tâtonnements.',
-    icon: 'fa-solid fa-magnet',
-  },
-  {
-    num: '03',
-    title: 'Chargez',
-    desc: 'La charge rapide 15W s\'enclenche immédiatement.',
-    icon: 'fa-solid fa-bolt-lightning',
-  },
-]
-
-function HowItWorks() {
-  const [ref, visible] = useReveal()
+export default function HowItWorks() {
+  const [ref, isVisible] = useReveal(0.1);
 
   return (
-    <section id="howitworks" aria-labelledby="how-it-works-heading" ref={ref} className={`section container reveal${visible ? ' is-visible' : ''}`}>
-      <span className="section-label" aria-hidden="true">Utilisation</span>
-      <h2 id="how-it-works-heading" className="section-title">Aussi Simple<br />Que Magique</h2>
-      <p className="section-subtitle">
-        L'expérience utilisateur repensée pour être la plus intuitive possible.
-      </p>
+    <section ref={ref} className="section" style={{ padding: '40px 0' }}>
+      <div className="card" style={{ padding: '40px' }}>
+         <h2 style={{ fontSize: '22px', fontWeight: 800, marginBottom: '30px' }}>Customization Services</h2>
+         
+         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '30px' }}>
+            {[
+              { icon: <PenTool size={32}/>, title: 'Customized Logo', desc: 'Min. Order: 50 Pieces. Laser engraving or high-quality silk print.' },
+              { icon: <Settings size={32}/>, title: 'Customized Packaging', desc: 'Min. Order: 500 Pieces. Full color gift box with custom inserts.' },
+              { icon: <Globe size={32}/>, title: 'Regional Standards', desc: 'Custom plug types and local certifications (KC, BIS, etc.) available.' }
+            ].map((service, i) => (
+              <div key={i} style={{ padding: '20px', background: '#FDFDFD', border: '1px solid var(--c-border)', borderRadius: '8px' }}>
+                 <div style={{ color: 'var(--c-primary)', marginBottom: '20px' }}>{service.icon}</div>
+                 <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '10px' }}>{service.title}</h4>
+                 <p style={{ fontSize: '13px', color: 'var(--c-muted)', lineHeight: 1.6 }}>{service.desc}</p>
+              </div>
+            ))}
+         </div>
 
-      <div className="steps__grid">
-        {steps.map((s, i) => (
-          <article key={i} className="step">
-            <div className="step-number" aria-hidden="true">{s.num}</div>
-            <div className="icon-container" style={{ marginBottom: '16px', marginLeft: 0 }}>
-              <i className={s.icon} aria-hidden="true"></i>
-            </div>
-            <h3 style={{ marginBottom: '8px' }}>{s.title}</h3>
-            <p className="text-secondary" style={{ fontSize: '0.9rem' }}>{s.desc}</p>
-          </article>
-        ))}
+         <div style={{ marginTop: '40px', padding: '20px', background: 'rgba(255, 102, 0, 0.05)', borderRadius: '8px', border: '1px solid rgba(255,102,0,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ fontWeight: 600, color: 'var(--c-primary)' }}>Need a custom prototype for your project?</div>
+            <button className="btn-secondary">Request a Sample</button>
+         </div>
       </div>
     </section>
-  )
+  );
 }
-
-export default HowItWorks

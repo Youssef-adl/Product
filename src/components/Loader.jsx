@@ -1,83 +1,51 @@
-import { useState, useEffect } from 'react'
-import HackyText from './HackyText'
+import React, { useState, useEffect } from 'react';
 
-const BOOT_LOGS = [
-  "INITIALIZING_QUANTUM_CORE...",
-  "LOADING_VECTORS_CALIBRATION...",
-  "ESTABLISHING_MAGSAFE_LINK...",
-  "REPLICATING_STITCH_MATRICES...",
-  "SYNCING_PRECISION_CLOCK...",
-  "READY_FOR_DEPLOYMENT."
-]
-
-const Loader = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [isFading, setIsFading] = useState(false)
-  const [logIndex, setLogIndex] = useState(0)
+export default function Loader() {
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Scroll through technical logs
-    const logInterval = setInterval(() => {
-      setLogIndex(prev => (prev < BOOT_LOGS.length - 1 ? prev + 1 : prev))
-    }, 150)
-
-    // Complete loader sequence
-    const timer = setTimeout(() => {
-      setIsFading(true)
-      setTimeout(() => setIsLoading(false), 800)
-    }, 1200)
-
-    return () => {
-      clearInterval(logInterval)
-      clearTimeout(timer)
-    }
-  }, [])
-
-  if (!isLoading) return null
+    const interval = setInterval(() => {
+      setProgress(prev => (prev < 100 ? prev + 2 : 100));
+    }, 20);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div 
-      className={`loader-container ${isFading ? 'fade-out' : ''}`}
-      style={{
-        background: 'linear-gradient(135deg, #0f4c81 0%, #153e63 100%)',
-        color: 'var(--precision-cyan)',
-        fontFamily: 'var(--font-mono)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
-    >
-      <div className="loader-content" style={{ textAlign: 'center', width: '300px' }}>
-        <div style={{ fontSize: '32px', fontWeight: '800', marginBottom: '30px', letterSpacing: '-0.02em' }}>
-          LODESTONE
-        </div>
-        
-        <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.2em', opacity: 0.6, marginBottom: '10px' }}>
-          Chargement de l'expérience
+    <div className="fixed inset-0 z-[1000] bg-[#0A0A0A] flex flex-col items-center justify-center overflow-hidden">
+      {/* BACKGROUND DATA STREAM */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+           style={{ background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, #FFF 2px, #FFF 4px)' }} />
+      
+      <div className="relative z-10 flex flex-col items-center gap-16">
+        <div className="relative">
+           {/* SPINNING MONOCOQUE */}
+           <div className="w-40 h-40 border-8 border-white/5 border-t-[var(--color-racing-yellow)] rounded-none rotate-45 animate-spin duration-500" />
+           <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-16 h-16 bg-[var(--color-racing-yellow)] rotate-45 animate-pulse" />
+           </div>
         </div>
 
-        <div className="loader-progress-bar" style={{ 
-          width: '100%', 
-          height: '2px', 
-          background: 'rgba(0, 210, 255, 0.1)', 
-          marginTop: '20px',
-          position: 'relative',
-          overflow: 'hidden'
-        }}>
-          <div style={{
-            position: 'absolute',
-            left: 0, top: 0,
-            height: '100%',
-            width: `${((logIndex + 1) / BOOT_LOGS.length) * 100}%`,
-            background: 'var(--precision-cyan)',
-            transition: 'width 0.2s ease-out',
-            boxShadow: '0 0 10px var(--precision-cyan)'
-          }} />
+        <div className="flex flex-col items-center gap-8 text-center">
+           <div className="headline-editorial text-5xl lg:text-7xl text-white tracking-[0.5em] animate-pulse">
+              SYS.INIT // LOADING
+           </div>
+           
+           <div className="w-80 h-[2px] bg-white/10 relative">
+              <div 
+                className="absolute top-0 left-0 h-full bg-[var(--color-racing-yellow)] transition-all duration-300"
+                style={{ width: `${progress}%`, boxShadow: '0 0 20px var(--color-racing-yellow)' }}
+              />
+           </div>
+
+           <div className="title-tech text-[10px] text-[var(--color-racing-yellow)] tracking-[0.8em]">
+              ESTABLISHING TELEMETRY LINK... {progress}%
+           </div>
         </div>
       </div>
-    </div>
-  )
-}
 
-export default Loader
+      {/* CORNER DATA */}
+      <div className="absolute top-20 left-20 title-tech text-white/10 text-xl tracking-[0.5em]">Solaris // SPEC-R</div>
+      <div className="absolute bottom-20 right-20 title-tech text-white/10 text-xl tracking-[0.5em]">EST. 2026 // MONACO</div>
+    </div>
+  );
+}

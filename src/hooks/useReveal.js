@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-export function useReveal(threshold = 0.15) {
+export default function useReveal(threshold = 0.15) {
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)
 

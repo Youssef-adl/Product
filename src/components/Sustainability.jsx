@@ -19,7 +19,7 @@ function Sustainability() {
           <span className="section-label">Engagement</span>
           <h2 className="section-title">Conçu pour durer, pas pour durer un instant.</h2>
           <p className="section-subtitle">
-            Lodestone est fabriqué à partir d'aluminium 100% recyclé et emballé dans des matériaux sans plastique. 
+            Solaris est fabriqué à partir d'aluminium 100% recyclé et emballé dans des matériaux sans plastique. 
             Nous croyons que la technologie premium doit être responsable.
           </p>
           <div style={{ display: 'flex', gap: 'var(--space-6)', marginTop: 'var(--space-8)' }}>

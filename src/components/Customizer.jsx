@@ -21,10 +21,10 @@ function Customizer() {
     >
       <div className="customizer-header" style={{ textAlign: 'center', marginBottom: 'var(--space-12)' }}>
         <span className="section-label">Studio Interactif</span>
-        <h2 className="section-title">Lodestone <span className="underline-cyan">Pro Viewer</span></h2>
+        <h2 className="section-title">Solaris <span className="underline-cyan">Pro Viewer</span></h2>
         <p className="section-subtitle">
           Examinez chaque courbe et chaque port. Changez l'environnement pour 
-          visualiser le Lodestone dans toutes les conditions.
+          visualiser le Solaris dans toutes les conditions.
         </p>
       </div>
 

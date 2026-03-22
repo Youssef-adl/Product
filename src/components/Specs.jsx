@@ -1,53 +1,62 @@
-import { useReveal } from '../hooks/useReveal'
+import React from 'react';
+import { motion } from 'framer-motion';
 
-const comparisonData = [
-  { feature: 'Puissance de charge', lodestone: '15W Sertifié', apple: '15W', belkin: '15W' },
-  { feature: 'Matériau Premium', lodestone: 'Aluminium CNC', apple: 'Plastique/Silicone', belkin: 'Plastique' },
-  { feature: 'Anneau LED Statut', lodestone: '✔ Oui (RGB)', apple: '✖ Non', belkin: '✔ Oui (Simple)' },
-  { feature: 'Câble Tressé Inclus', lodestone: '✔ Oui (1.5m)', apple: '✖ Non', belkin: '✔ Oui (1.2m)' },
-  { feature: 'Inclinaison ajustable', lodestone: '✔ 30° à 90°', apple: '✖ Fixe', belkin: '✔ Fixe' },
-  { feature: 'Garantie', lodestone: '2 Ans', apple: '1 An', belkin: '2 Ans' },
-]
-
-function Specs() {
-  const [ref, visible] = useReveal()
+export default function Specs() {
+  const specs = [
+    { category: 'TECHNIQUE', items: [
+      { label: 'Multi-emplacements', value: 'Trafic fluide' },
+      { label: 'Design Ergonomique', value: 'Compact & robuste' },
+      { label: 'Compatibilité', value: 'Standard Qi Universel' }
+    ]},
+    { category: 'SÉCURITÉ', items: [
+      { label: 'Thermique', value: 'Anti-surchauffe' },
+      { label: 'Électrique', value: 'Anti-surtensions' },
+      { label: 'Interface', value: 'Utilisateur intuitive' }
+    ]},
+    { category: 'ÉCOSYSTÈME (Mosquée)', items: [
+      { label: 'Flux', value: 'Passage Intuitif' },
+      { label: 'Visibilité', value: 'Disponible 24/7' },
+      { label: 'Adoption', value: 'Naturelle' }
+    ]}
+  ];
 
   return (
-    <section id="specs" aria-labelledby="specs-heading" ref={ref} className={`section container reveal${visible ? ' is-visible' : ''}`}>
-      <span className="section-label" aria-hidden="true">Comparatif</span>
-      <h2 id="specs-heading" className="section-title">Pourquoi Lodestone ?</h2>
-      <p className="section-subtitle">
-        Une ingénierie supérieure pour ceux qui ne font aucun compromis.
-      </p>
+    <section id="specs" className="relative py-32 overflow-hidden bg-solar-ivory">
+      <div className="container-solar relative z-10 flex flex-col lg:flex-row gap-24">
+        <div className="lg:w-1/3">
+           <motion.div 
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true }}
+             className="sticky top-32 flex flex-col gap-10"
+           >
+              <div className="subtitle-silk !before:hidden !after:hidden">Radiographie Technique</div>
+              <h2 className="title-solar text-5xl lg:text-7xl leading-[1.1]">
+                 La Finesse de <br />
+                 <em className="text-gradient-sun">L'Ingénierie.</em>
+              </h2>
+              <p className="text-slate-400 text-sm tracking-widest uppercase font-sans font-semibold max-w-xs leading-loose">
+                Un écosystème conçu pour s'intégrer parfaitement à l'ISTA Témara.
+              </p>
+           </motion.div>
+        </div>
 
-      <div className="comparison-container">
-        <table className="comparison-table">
-          <thead>
-            <tr>
-              <th>Caractéristique</th>
-              <th className="highlight">Lodestone</th>
-              <th>Apple MagSafe</th>
-              <th>Belkin Boost</th>
-            </tr>
-          </thead>
-          <tbody>
-            {comparisonData.map((item, i) => (
-              <tr key={i}>
-                <td className="feature-name">{item.feature}</td>
-                <td className="highlight">{item.lodestone}</td>
-                <td>{item.apple}</td>
-                <td>{item.belkin}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-10">
+           {specs.map((group, i) => (
+             <div key={group.category} className="glass-solar p-10 hover:border-gold-sun transition-colors duration-500">
+                <span className="font-sans text-[10px] text-coral-deep tracking-[0.4em] uppercase font-bold block mb-10">{group.category}</span>
+                <div className="flex flex-col gap-8">
+                   {group.items.map((item, j) => (
+                      <div key={item.label} className="grid grid-cols-[1fr_auto] gap-4 items-end pb-4 border-b border-sand/30 group">
+                         <span className="font-serif text-slate-500 text-lg group-hover:text-navy-deep transition-colors italic leading-none">{item.label}</span>
+                         <span className="font-sans text-navy-deep text-xs font-bold group-hover:text-coral-deep transition-colors uppercase tracking-widest leading-none text-right">{item.value}</span>
+                      </div>
+                   ))}
+                </div>
+             </div>
+           ))}
+        </div>
       </div>
-      
-      <p style={{ textAlign: 'center', fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '24px' }}>
-        * Comparaison basée sur les modèles standards équivalents en 2026.
-      </p>
     </section>
-  )
+  );
 }
-
-export default Specs

@@ -1,76 +1,72 @@
-function Footer() {
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Github, Twitter, Instagram, Sparkles } from 'lucide-react';
+
+export default function Footer() {
   return (
-    <footer className="footer section" style={{ borderTop: '1px solid var(--border-medium)', marginTop: 'var(--space-10)' }}>
-      <div className="container">
-        <div className="footer__grid" style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: 'var(--space-8)',
-          marginBottom: 'var(--space-10)'
-        }}>
-          {/* Brand Column */}
-          <div className="footer__brand">
-            <div className="navbar__logo footer__logo">Lodestone<span>.</span></div>
-            <p className="footer__tagline text-muted" style={{ marginTop: 'var(--space-2)' }}>
-              L'excellence au bout des doigts.<br />
-              Conçu pour l'espace de travail moderne.
+    <footer className="bg-navy-deep pt-40 pb-20 relative overflow-hidden border-t border-gold-sun/10">
+      
+      {/* WATERMARK SOLARIS */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-serif text-[15vw] text-white/[0.02] pointer-events-none select-none whitespace-nowrap italic">
+         SOLARIS LUX
+      </div>
+
+      <div className="container-solar relative z-10">
+        <div className="grid lg:grid-cols-12 gap-20">
+          <div className="lg:col-span-4 flex flex-col gap-10">
+            <Link to="/" className="title-solar text-4xl text-white hover:text-gold-sun transition-colors">
+              SOLARIS
+            </Link>
+            <p className="max-w-xs font-sans text-xs uppercase tracking-[0.2em] leading-loose text-slate-300">
+               CONÇU DANS LA LUMIÈRE. FORGÉ PAR DES MAINS EXPERTES. 
+               L'ARTEFACT ULTIME POUR L'ÈRE MODERNE.
             </p>
-          </div>
-          
-          {/* Products Column */}
-          <div className="footer__nav-group">
-            <h4 className="footer__heading">Produits</h4>
-            <ul className="footer__links">
-              <li><a href="#hero" className="footer__link">Stand Lodestone MagSafe</a></li>
-              <li><a href="#features" className="footer__link">Nouveautés 2026</a></li>
-              <li><a href="#specs" className="footer__link">Spécifications techniques</a></li>
-              <li><a href="#order" className="footer__link">Acheter maintenant</a></li>
-            </ul>
+            <div className="flex gap-10">
+              {[Instagram, Twitter, Github].map((Icon, i) => (
+                <a key={i} href="#" className="text-slate-300 hover:text-gold-sun transition-all">
+                  <Icon size={24} />
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* Support Column */}
-          <div className="footer__nav-group">
-            <h4 className="footer__heading">Support</h4>
-            <ul className="footer__links">
-              <li><a href="#faq" className="footer__link">FAQ</a></li>
-              <li><a href="#" className="footer__link">Guide d'installation</a></li>
-              <li><a href="#" className="footer__link">Garantie 2 ans</a></li>
-              <li><a href="#" className="footer__link">Nous contacter</a></li>
-            </ul>
-          </div>
-          
-          {/* Socials Column */}
-          <div className="footer__socials-group">
-            <h4 className="footer__heading">Rejoignez-nous</h4>
-            <div className="footer__socials">
-              <a href="#" aria-label="X (Twitter)" className="footer__social-link"><i className="fa-brands fa-x"></i></a>
-              <a href="#" aria-label="Instagram" className="footer__social-link"><i className="fa-brands fa-instagram"></i></a>
-              <a href="#" aria-label="YouTube" className="footer__social-link"><i className="fa-brands fa-youtube"></i></a>
-              <a href="#" aria-label="LinkedIn" className="footer__social-link"><i className="fa-brands fa-linkedin-in"></i></a>
-            </div>
+          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-20">
+             <div className="flex flex-col gap-10">
+                <h4 className="subtitle-silk !text-slate-100">NAVIGATION</h4>
+                <div className="flex flex-col gap-6">
+                   <Link to="/" className="font-sans text-[11px] tracking-widest text-slate-300 hover:text-white transition-colors">ACCUEIL</Link>
+                   <Link to="/boutique" className="font-sans text-[11px] tracking-widest text-slate-300 hover:text-white transition-colors">BOUTIQUE</Link>
+                   <Link to="/technique" className="font-sans text-[11px] tracking-widest text-slate-300 hover:text-white transition-colors">TÉLÉMÉTRIE</Link>
+                </div>
+             </div>
+
+             <div className="flex flex-col gap-10">
+                <h4 className="subtitle-silk !text-slate-100">PROTOCOLE</h4>
+                <div className="flex flex-col gap-6">
+                   <Link to="#" className="font-sans text-[11px] tracking-widest text-slate-300 hover:text-white transition-colors">CONFIDENTIALITÉ</Link>
+                   <Link to="#" className="font-sans text-[11px] tracking-widest text-slate-300 hover:text-white transition-colors">TERMES</Link>
+                   <Link to="#" className="font-sans text-[11px] tracking-widest text-slate-300 hover:text-white transition-colors">COOKIES</Link>
+                </div>
+             </div>
+
+             <div className="flex flex-col gap-10">
+                <h4 className="subtitle-silk !text-slate-100">MAISON</h4>
+                <div className="flex flex-col gap-6">
+                   <div className="font-sans text-[11px] tracking-widest text-slate-400">© 2026 SOLARIS LUX</div>
+                   <div className="font-sans text-[11px] tracking-widest text-gold-sun font-semibold">DIVISION LUMIÈRE</div>
+                </div>
+             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="footer__bottom" style={{
-          borderTop: '1px solid var(--border-light)',
-          paddingTop: 'var(--space-6)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: 'var(--space-4)'
-        }}>
-          <p className="text-xs text-muted" style={{ margin: 0 }}>© 2026 Lodestone Technologies. Tous droits réservés.</p>
-          <div className="footer__legal">
-            <a href="#" className="footer__legal-link">Mentions Légales</a>
-            <a href="#" className="footer__legal-link">Politique de Confidentialité</a>
-            <a href="#" className="footer__legal-link">Conditions Générales de Vente</a>
-          </div>
+        <div className="mt-40 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+           <span className="font-sans text-[10px] tracking-[0.3em] text-slate-600 uppercase">EST. 2026 // MANUFACTURE CÉLESTE</span>
+           <div className="flex items-center gap-3">
+              <Sparkles size={14} className="text-gold-sun animate-pulse" />
+              <span className="font-sans text-[10px] tracking-[0.3em] text-gold-sun uppercase font-bold">SYSTÈME EN LIGNE</span>
+           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }
-
-export default Footer

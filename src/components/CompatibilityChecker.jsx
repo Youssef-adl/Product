@@ -29,7 +29,7 @@ function CompatibilityChecker() {
       <div className="glass-card compatibility-box">
         <h3 className="compatibility-title">Vérifiez votre compatibilité</h3>
         <p className="compatibility-desc">
-          Lodestone utilise les dernières normes MagSafe et Qi2 pour une performance optimale.
+          Solaris utilise les dernières normes MagSafe et Qi2 pour une performance optimale.
         </p>
         
         <div className="compatibility-input-group">
