@@ -9,7 +9,7 @@ const PRODUCTS = [
     name: 'SmartCharge V1 (Edition Titane)', 
     price: 159, 
     category: 'UNITÉ PRINCIPALE', 
-    image: '/hero-product.png', 
+    image: '/product-v1.png', 
     spec: 'TITANE G5 USINÉ',
     desc: 'L\'unité phare avec recharge 15W et dissipateur thermique ionique.',
     trending: true
@@ -19,7 +19,7 @@ const PRODUCTS = [
     name: 'Câble Solaris Precision (2m)', 
     price: 39, 
     category: 'ACCESSOIRE', 
-    image: '/cable.png', 
+    image: '/product-cable.png', 
     spec: 'TRESSAGE ARAMIDE',
     desc: 'Conductivité maximale pour une charge sans perte thermique.'
   },
@@ -28,7 +28,7 @@ const PRODUCTS = [
     name: 'Support Stasis v2', 
     price: 89, 
     category: 'ACCESSOIRE', 
-    image: '/gallery_1.png', 
+    image: '/product-stasis.png', 
     spec: 'ALUMINIUM AÉRONAUTIQUE',
     desc: 'Angle de vue optimisé à 45° pour un usage bureau.'
   },
@@ -37,7 +37,7 @@ const PRODUCTS = [
     name: 'Adaptateur Mural 45W Plus', 
     price: 59, 
     category: 'ACCESSOIRE', 
-    image: '/gallery_2.png', 
+    image: '/product-gan.png', 
     spec: 'GAN TECHNOLOGY',
     desc: 'Énergie ultra-compacte avec protection contre les surtensions.'
   }

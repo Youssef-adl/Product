@@ -268,7 +268,7 @@ export default function Hero() {
                 <div className="flex-1 flex flex-col items-center justify-center w-full relative p-4">
                   <div className="relative z-10 w-full h-full flex items-center justify-center scale-125 hover:scale-150 transition-transform duration-700">
                     <img 
-                      src="/hero-image.png" 
+                      src="/product-v1.png" 
                       alt="SmartCharge V1" 
                       className="w-full h-full object-contain mix-blend-normal"
                     />
