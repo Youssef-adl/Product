@@ -14,7 +14,7 @@ const MOCK_PRODUCTS = [
     category: "UNITÉ PRINCIPALE",
     price: 159,
     sku: "SL-V1-TITAN",
-    images: ["/product-v1.png", "/product-v1-alt.png", "/product-material.png"],
+    images: ["/product-v1.png", "/product-v1-alt.png"],
     description: "Le summum de la charge inductive. Usiné dans un bloc de titane Grade 5 avec gestion thermique passive avancée. Conçu pour durer une vie entière.",
     specs: [
       { label: "Puissance", value: "15W Qi Certified" },
@@ -29,7 +29,7 @@ const MOCK_PRODUCTS = [
     category: "ACCESSOIRE",
     price: 39,
     sku: "SL-ACC-CABLE",
-    images: ["/product-cable.png", "/product-cable-alt.png", "/product-material.png"],
+    images: ["/product-cable.png", "/product-cable-alt.png"],
     description: "Câble USB-C renforcé en fibre d'aramide (Kevlar) pour une durabilité extrême et une perte d'énergie minimale.",
     specs: [
       { label: "Longueur", value: "2.0 Mètres" },
@@ -44,7 +44,7 @@ const MOCK_PRODUCTS = [
     category: "ACCESSOIRE",
     price: 89,
     sku: "SL-ACC-STAND",
-    images: ["/product-stasis.png", "/product-stasis-alt.png", "/product-material.png"],
+    images: ["/product-stasis.png", "/product-stasis-alt.png"],
     description: "Support ergonomique usiné CNC pour un alignement magnétique parfait. Idéal pour le mode StandBy d'iOS.",
     specs: [
       { label: "Inclinaison", value: "45° Fixe" },
@@ -59,7 +59,7 @@ const MOCK_PRODUCTS = [
     category: "ACCESSOIRE",
     price: 59,
     sku: "SL-ACC-WALL",
-    images: ["/product-gan.png", "/product-gan-alt.png", "/product-material.png"],
+    images: ["/product-gan.png", "/product-gan-alt.png"],
     description: "Adaptateur secteur GaN ultra-compact. Fournit l'énergie nécessaire pour exploiter 100% du potentiel Solaris.",
     specs: [
       { label: "Technologie", value: "GaN Fast III" },
