@@ -20,7 +20,7 @@ const FAQS = [
   },
   {
     q: "Quel est le tarif et comment commander ?",
-    a: "Le SmartCharge V1 est au prix spécial de lancement pour les établissements ISTA et OFPPT. Cliquez sur 'PRÉ-COMMANDER' pour accèder au formulaire de commande groupée. Des tarifs dégressifs sont disponibles à partir de 5 unités."
+    a: "Les tarifs sont affichés directement dans notre BOUTIQUE. Vous pouvez ajouter les articles à votre panier et valider votre commande en quelques clics. La livraison est effectuée directement sur le campus ISTA Témara ou par point relais."
   },
   {
     q: "Quelle est la garantie ?",

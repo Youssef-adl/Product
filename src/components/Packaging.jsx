@@ -4,8 +4,8 @@ import { Package, CheckCircle2 } from 'lucide-react';
 
 const inclusions = [
   'SmartCharge V1 — station principale',
-  'Câble USB-C haute puissance (2m)',
-  'Adaptateur secteur 15W certifié',
+  'Câble Solaris Precision (2m)',
+  'Adaptateur Mural 45W Plus',
   'Ruban d\'authenticité Solaris Lux',
   'Guide de démarrage rapide',
   'Garantie 2 ans ISTA Témara',
