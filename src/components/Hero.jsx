@@ -128,14 +128,14 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative min-h-screen bg-[#FFFBF7]" style={{ overflowX: 'clip', overflowY: 'visible' }}>
+    <section ref={containerRef} className="relative min-h-screen bg-bg-primary transition-colors duration-500" style={{ overflowX: 'clip', overflowY: 'visible' }}>
       <SunGlow />
       <GoldDust />
       
       {/* Grille de fond subtile */}
       <div className="absolute inset-0 opacity-[0.015]" 
         style={{ 
-          backgroundImage: `radial-gradient(circle at 1px 1px, #E85D4E 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 1px 1px, var(--color-coral) 1px, transparent 0)`,
           backgroundSize: '40px 40px'
         }} 
       />
@@ -150,14 +150,14 @@ export default function Hero() {
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
             
             {/* Meta header — animé par GSAP */}
-            <div ref={metaRef} className="meta-text mb-8">
+            <div ref={metaRef} className="meta-text mb-8 text-text-muted">
               POUR L'ISTA TÉMARA // PAR ADLANI &amp; ZHAR
             </div>
 
             {/* Titre principal — split-line reveal GSAP */}
-            <h1 ref={titleRef} className="hero-title mb-8">
+            <h1 ref={titleRef} className="hero-title mb-8 text-text-primary">
               <span className="split-line-wrap" style={{ display: 'block' }}>SmartCharge</span>
-              <span className="split-line-wrap" style={{ display: 'block', color: '#E85D4E', fontStyle: 'italic', fontWeight: 300, marginTop: '0.25rem' }}>
+              <span className="split-line-wrap" style={{ display: 'block', color: 'var(--color-coral)', fontStyle: 'italic', fontWeight: 300, marginTop: '0.25rem' }}>
                 V1
               </span>
             </h1>
@@ -168,9 +168,9 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="hero-subtitle mb-12"
+              className="hero-subtitle mb-12 text-text-secondary"
             >
-              La station de recharge sans fil pour le <em className="text-[#E85D4E] not-italic font-medium">campus de demain</em>. 
+              La station de recharge sans fil pour le <em className="text-accent-sun not-italic font-medium">campus de demain</em>. 
               L'outil pédagogique central face à la crise d'énergie quotidienne.
             </motion.p>
 
@@ -202,12 +202,12 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className="grid grid-cols-3 gap-8 w-full max-w-md lg:max-w-none pt-8 border-t border-[#E85D4E]/10"
+              className="grid grid-cols-3 gap-8 w-full max-w-md lg:max-w-none pt-8 border-t border-glass-border"
             >
               {[
-                { label: "Puissance", value: "15W Qi", icon: Sun, color: "#FFB347" },
-                { label: "Vitesse", value: "2× Plus", icon: Zap, color: "#E85D4E" },
-                { label: "Disponibilité", value: "24/7", icon: Shield, color: "#1E293B" }
+                { label: "Puissance", value: "15W Qi", icon: Sun, color: "var(--color-accent-sun)" },
+                { label: "Vitesse", value: "2× Plus", icon: Zap, color: "var(--color-coral)" },
+                { label: "Disponibilité", value: "24/7", icon: Shield, color: "var(--color-text-primary)" }
               ].map((stat, idx) => (
                 <div key={idx} className="flex flex-col items-center lg:items-start gap-2">
                   <div 
@@ -216,8 +216,8 @@ export default function Hero() {
                   >
                     <stat.icon size={18} style={{ color: stat.color }} />
                   </div>
-                  <div className="font-serif text-2xl text-[#1A1A1A] tracking-tight">{stat.value}</div>
-                  <div className="text-[10px] uppercase tracking-[0.2em] text-[#9CA3AF] font-semibold">
+                  <div className="font-serif text-2xl text-text-primary tracking-tight">{stat.value}</div>
+                  <div className="text-[10px] uppercase tracking-[0.2em] text-text-muted font-semibold">
                     {stat.label}
                   </div>
                 </div>
@@ -232,7 +232,7 @@ export default function Hero() {
               className="relative w-full max-w-[380px] aspect-[4/5]"
             >
               {/* Halo doré derrière */}
-              <div className="absolute inset-0 bg-gradient-radial from-[#FFB347]/30 via-[#FFB347]/10 to-transparent blur-2xl scale-110 transform translate-y-8" />
+              <div className="absolute inset-0 bg-gradient-radial from-accent-sun/20 via-accent-sun/5 to-transparent blur-2xl scale-110 transform translate-y-8" />
               
               {/* Carte Produit Glass */}
               <motion.div 
@@ -264,27 +264,24 @@ export default function Hero() {
                   Luxe Durable
                 </motion.div>
 
-                {/* Contenu central */}
+                {/* Image Produit */}
                 <div className="flex-1 flex flex-col items-center justify-center w-full relative p-4">
-                  {/* Image SmartCharge V1 avec effet de survol */}
                   <div className="relative z-10 w-full h-full flex items-center justify-center scale-125 hover:scale-150 transition-transform duration-700">
                     <img 
                       src="/hero-image.png" 
                       alt="SmartCharge V1" 
-                      className="w-full h-full object-contain mix-blend-multiply"
+                      className="w-full h-full object-contain mix-blend-normal"
                     />
                   </div>
-                  
-                  {/* Glow effect */}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-32 h-32 bg-[#FFB347]/20 rounded-full blur-3xl" />
+                    <div className="w-32 h-32 bg-accent-sun/10 rounded-full blur-3xl opacity-50" />
                   </div>
                 </div>
 
                 {/* Code produit */}
                 <div className="product-code">
-                  <div className="label">Authenticité</div>
-                  <div className="code">SL-2026-PRESTIGE</div>
+                  <div className="label text-text-muted">Authenticité</div>
+                  <div className="code text-text-primary">SL-2026-PRESTIGE</div>
                 </div>
 
                 {/* Shine effect */}
@@ -292,7 +289,7 @@ export default function Hero() {
               </motion.div>
 
               {/* Ombre portée douce */}
-              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/5 blur-xl rounded-full" />
+              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/10 blur-xl rounded-full" />
             </motion.div>
           </div>
         </div>
@@ -303,12 +300,12 @@ export default function Hero() {
         style={{ opacity }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
       >
-        <span className="text-[10px] uppercase tracking-[0.3em] text-[#9CA3AF] font-medium">
+        <span className="text-[10px] uppercase tracking-[0.3em] text-text-muted font-medium">
           Initialiser
         </span>
-        <div className="w-px h-12 bg-gradient-to-b from-[#E85D4E] to-transparent relative overflow-hidden">
+        <div className="w-px h-12 bg-gradient-to-b from-coral to-transparent relative overflow-hidden">
           <motion.div 
-            className="w-full h-1/2 bg-[#E85D4E]"
+            className="w-full h-1/2 bg-coral"
             animate={{ y: ["-100%", "200%"] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           />

@@ -17,6 +17,7 @@ import FAQ from './components/FAQ';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminProducts from './pages/AdminProducts';
 import AdminOrders from './pages/AdminOrders';
+import ThemeToggle from './components/ThemeToggle';
 
 function App() {
   const [auth, setAuth] = useState({
@@ -80,11 +81,10 @@ function App() {
 
   return (
     <Router>
-      {/* Page load overlay — Lando Norris-inspired splash screen */}
       <PageTransition />
-      {/* Scroll progress bar — coral/gold gradient fixed at top */}
       <ScrollProgress />
-      <div className="bg-[#FFFBF5] text-slate-800 min-h-screen selection:bg-[#FFB347] selection:text-white">
+      <ThemeToggle />
+      <div className="min-h-screen selection:bg-coral selection:text-white">
         <Navbar cart={cart} />
         
         <Routes>

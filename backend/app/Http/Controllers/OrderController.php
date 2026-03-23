@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Product;
 use App\Services\TelegramService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -22,35 +25,57 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'customer_name' => 'required|string',
-            'total' => 'required|numeric',
-            'address' => 'required|string',
+            'user_id' => 'required|exists:users,id',
+            'total_amount' => 'required|numeric',
+            'shipping_address' => 'required|string',
+            'phone' => 'nullable|string',
+            'items' => 'required|array',
+            'items.*.product_id' => 'required|exists:products,id',
+            'items.*.quantity' => 'required|integer|min:1',
+            'items.*.price' => 'required|numeric',
         ]);
 
-        $orderNumber = 'LS-' . date('Y') . '-' . mt_rand(10000, 99999);
+        return DB::transaction(function () use ($validated) {
+            $orderNumber = 'SOL-' . date('Ymd') . '-' . mt_rand(1000, 9999);
 
-        $order = Order::create([
-            'order_number' => $orderNumber,
-            'customer_name' => $validated['customer_name'],
-            'total' => $validated['total'],
-            'address' => $validated['address'],
-            'status' => 'pending',
-        ]);
+            $order = Order::create([
+                'user_id' => $validated['user_id'],
+                'order_number' => $orderNumber,
+                'total_amount' => $validated['total_amount'],
+                'shipping_address' => $validated['shipping_address'],
+                'phone' => $validated['phone'] ?? null,
+                'status' => 'pending',
+            ]);
 
-        // Format and Send Telegram Notification
-        $message = "🚀 <b>Nouvelle Commande B2B !</b>\n\n";
-        $text = "🆔 <b>ID:</b> {$orderNumber}\n";
-        $text .= "👤 <b>Client:</b> {$order->customer_name}\n";
-        $text .= "💰 <b>Total:</b> \${$order->total}\n";
-        $text .= "📍 <b>Adresse:</b> {$order->address}\n\n";
-        $text .= "🕒 <b>Date:</b> " . now()->format('d/m/Y H:i');
+            $itemsList = "";
+            foreach ($validated['items'] as $itemData) {
+                $item = $order->items()->create($itemData);
+                $product = Product::find($itemData['product_id']);
+                $itemsList .= "• {$product->name} (x{$itemData['quantity']})\n";
+            }
 
-        $this->telegram->sendMessage($message . $text);
+            // Format and Send Telegram Notification
+            $message = "☀️ <b>NOUVELLE COMMANDE SOLARIS !</b>\n\n";
+            $text = "🆔 <b>CODE:</b> <code>{$orderNumber}</code>\n";
+            $text .= "👤 <b>CLIENT ID:</b> {$order->user_id}\n";
+            $text .= "📞 <b>TEL:</b> " . ($order->phone ?? 'N/A') . "\n";
+            $text .= "📍 <b>LIVRAISON:</b> {$order->shipping_address}\n\n";
+            $text .= "📦 <b>ARTICLES:</b>\n{$itemsList}\n";
+            $text .= "💰 <b>TOTAL:</b> \${$order->total_amount}\n";
+            $text .= "🕒 <b>DATE:</b> " . now()->format('d/m/Y H:i');
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Order placed successfully',
-            'order_id' => $order->id
-        ], 201);
+            try {
+                $this->telegram->sendMessage($message . $text);
+            } catch (\Exception $e) {
+                // Log error but don't fail the order if Telegram is down
+                \Log::error("Telegram Notification Failed: " . $e->getMessage());
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Order placed successfully',
+                'order' => $order->load('items.product')
+            ], 201);
+        });
     }
 }

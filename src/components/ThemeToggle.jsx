@@ -1,84 +1,66 @@
-import { useEffect, useState } from 'react'
-
-const IconSun = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="5" />
-    <line x1="12" y1="1" x2="12" y2="3" />
-    <line x1="12" y1="21" x2="12" y2="23" />
-    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-    <line x1="1" y1="12" x2="3" y2="12" />
-    <line x1="21" y1="12" x2="23" y2="12" />
-    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-  </svg>
-)
-
-const IconMoon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-  </svg>
-)
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Sun, Moon } from 'lucide-react';
 
 export default function ThemeToggle() {
-  const [isDark, setIsDark] = useState(true)
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('solaris-theme') || 'solar';
+  });
 
   useEffect(() => {
-    // Check initial preference from localStorage or default to dark
-    const savedTheme = localStorage.getItem('Solaris-theme')
-    if (savedTheme === 'light') {
-      setIsDark(false)
-      document.body.classList.add('light-theme')
-    } else {
-      setIsDark(true)
-      document.body.classList.remove('light-theme')
-    }
-  }, [])
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('solaris-theme', theme);
+  }, [theme]);
 
   const toggleTheme = () => {
-    setIsDark(prev => {
-      const newTheme = !prev
-      if (newTheme) {
-        document.body.classList.remove('light-theme')
-        localStorage.setItem('Solaris-theme', 'dark')
-      } else {
-        document.body.classList.add('light-theme')
-        localStorage.setItem('Solaris-theme', 'light')
-      }
-      return newTheme
-    })
-  }
+    setTheme(prev => prev === 'solar' ? 'eclipse' : 'solar');
+  };
 
   return (
-    <button
+    <motion.button
       onClick={toggleTheme}
-      className="theme-toggle-btn"
-      aria-label="Toggle theme"
-      style={{
-        background: 'transparent',
-        border: 'none',
-        color: 'var(--color-text)',
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '40px',
-        height: '40px',
-        borderRadius: '50%',
-        transition: 'all 0.3s ease',
-        marginLeft: '1rem',
-        opacity: 0.7,
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.opacity = '1'
-        e.currentTarget.style.background = 'var(--color-glass)'
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.opacity = '0.7'
-        e.currentTarget.style.background = 'transparent'
-      }}
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      whileHover={{ scale: 1.05, y: -2 }}
+      whileTap={{ scale: 0.95 }}
+      className="fixed bottom-10 left-10 z-[100] px-6 h-14 bg-glass-bg backdrop-blur-3xl border border-glass-border rounded-2xl flex items-center gap-4 shadow-2xl overflow-hidden group transition-all duration-500"
     >
-      {isDark ? <IconSun /> : <IconMoon />}
-    </button>
-  )
+      {/* GLOW EFFECT */}
+      <div className="absolute inset-0 bg-accent-sun/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+      
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={theme}
+          initial={{ y: 15, opacity: 0, rotate: -45 }}
+          animate={{ y: 0, opacity: 1, rotate: 0 }}
+          exit={{ y: -15, opacity: 0, rotate: 45 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-10"
+        >
+          {theme === 'solar' ? (
+            <Sun className="text-accent-sun w-5 h-5" strokeWidth={2.5} />
+          ) : (
+            <Moon className="text-accent-sun w-5 h-5" strokeWidth={2.5} />
+          )}
+        </motion.div>
+      </AnimatePresence>
+
+      <div className="flex flex-col items-start pr-2">
+        <span className="font-sans text-[9px] font-black tracking-[0.2em] text-accent-sun uppercase leading-none">
+          Mode
+        </span>
+        <span className="font-sans text-[11px] font-bold tracking-[0.1em] text-text-primary uppercase leading-tight">
+          {theme === 'solar' ? 'Solaire' : 'Éclipse'}
+        </span>
+      </div>
+
+      {/* RIPPLE EFFECT */}
+      <motion.div 
+        className="absolute inset-0 bg-accent-sun/10 pointer-events-none"
+        initial={{ scale: 0, opacity: 0 }}
+        whileTap={{ scale: 4, opacity: 0.2 }}
+        transition={{ duration: 0.5 }}
+      />
+    </motion.button>
+  );
 }

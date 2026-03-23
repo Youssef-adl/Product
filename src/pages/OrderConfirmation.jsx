@@ -20,6 +20,39 @@ export default function OrderConfirmation() {
     );
   }
 
+  const handleDownloadInvoice = () => {
+    const invoiceContent = `
+SOLARIS LUX - PROCURMENT INVOICE
+---------------------------------
+Order Number: ${order.order_number}
+Date: ${new Date().toLocaleDateString()}
+Status: ${order.status.toUpperCase()}
+
+SHIPPING DETAILS:
+Address: ${order.shipping_address}
+Phone: ${order.phone || 'N/A'}
+
+ORDER SUMMARY:
+${order.items?.map(item => `- ${item.product?.name || 'Product'} x${item.quantity}: $${(item.price * item.quantity).toFixed(2)}`).join('\n')}
+
+---------------------------------
+TOTAL AMOUNT: $${order.total_amount}
+
+Thank you for choosing Solaris Lux.
+High-Performance Engineering for Eternity.
+    `;
+
+    const blob = new Blob([invoiceContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `Solaris_Invoice_${order.order_number}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="bg-white min-h-screen pt-32 pb-20 font-sans">
       <div className="container mx-auto px-6 max-w-3xl">
@@ -60,10 +93,13 @@ export default function OrderConfirmation() {
            </div>
 
            <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/store" className="flex-1 bg-black text-white p-5 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-800 transition-all flex items-center justify-center gap-3 no-underline">
+              <Link to="/boutique" className="flex-1 bg-black text-white p-5 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-800 transition-all flex items-center justify-center gap-3 no-underline">
                  Continue Sourcing <ArrowRight size={16}/>
               </Link>
-              <button className="flex-1 bg-white text-gray-900 p-5 rounded-2xl font-black text-[10px] uppercase tracking-widest border border-gray-200 hover:border-black transition-all flex items-center justify-center gap-3">
+              <button 
+                onClick={handleDownloadInvoice}
+                className="flex-1 bg-white text-gray-900 p-5 rounded-2xl font-black text-[10px] uppercase tracking-widest border border-gray-200 hover:border-black transition-all flex items-center justify-center gap-3"
+              >
                  <Printer size={16}/> Download Invoice
               </button>
            </div>

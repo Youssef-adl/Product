@@ -29,7 +29,7 @@ export default function Cart({ cart, removeFromCart, updateQuantity }) {
                    </div>
                    <h2 className="text-2xl font-black text-gray-900 mb-2">Cart is empty</h2>
                    <p className="text-gray-500 font-medium mb-8 max-w-xs">You haven't added any industrial components to your procurement list yet.</p>
-                   <Link to="/store" className="bg-black text-white px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest hover:bg-gray-800 transition-all no-underline">
+                   <Link to="/boutique" className="bg-black text-white px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest hover:bg-gray-800 transition-all no-underline">
                       Explore Catalogue
                    </Link>
                 </div>
@@ -85,7 +85,7 @@ export default function Cart({ cart, removeFromCart, updateQuantity }) {
                      </div>
                    ))}
                    
-                   <Link to="/store" className="inline-flex items-center gap-2 text-xs font-black text-gray-400 hover:text-black transition-colors uppercase tracking-[0.2em] no-underline pt-4 pl-4">
+                   <Link to="/boutique" className="inline-flex items-center gap-2 text-xs font-black text-gray-400 hover:text-black transition-colors uppercase tracking-[0.2em] no-underline pt-4 pl-4">
                       <ChevronLeft size={16} /> Continue Selection
                    </Link>
                 </div>

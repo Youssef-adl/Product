@@ -29,13 +29,13 @@ function TickerItem({ label, value }) {
 }
 
 export default function MarqueeTicker() {
-  // Doubler le tableau pour la boucle continue CSS
-  const doubled = [...items, ...items];
+  // Quadrupler le tableau pour la boucle continue CSS (écrans larges)
+  const quadrupled = [...items, ...items, ...items, ...items];
 
   return (
     <div className="marquee-outer" aria-hidden="true">
       <div className="marquee-track">
-        {doubled.map((item, i) => (
+        {quadrupled.map((item, i) => (
           <TickerItem key={i} label={item.label} value={item.value} />
         ))}
       </div>

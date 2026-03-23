@@ -17,16 +17,16 @@ export default function Newsletter() {
   };
 
   return (
-    <section className="relative py-24 overflow-hidden bg-solar-warm border-t border-gold-sun/10">
+    <section className="relative py-24 overflow-hidden bg-bg-primary transition-colors duration-500 border-t border-glass-border/10">
       <div className="container-solar relative z-10">
-        <div className="glass-solar p-12 lg:p-20 flex flex-col lg:flex-row items-center justify-between gap-12 border border-gold-sun/20 shadow-2xl">
+        <div className="glass-solar p-12 lg:p-20 flex flex-col lg:flex-row items-center justify-between gap-12 border border-glass-border/20 shadow-2xl">
           <div className="flex flex-col gap-6 text-center lg:text-left">
-            <div className="subtitle-silk text-coral-deep mx-auto lg:mx-0">
+            <div className="subtitle-silk text-coral mx-auto lg:mx-0">
                Signal // Solaire
             </div>
             <h2 className="title-solar text-4xl lg:text-6xl">RESTEZ <em className="text-gradient-sun">ÉCLAIRÉ</em>.</h2>
-            <p className="max-w-md font-sans text-base text-slate-500 font-light leading-relaxed italic">
-               Inscrivez-vous pour recevoir les protocoles de mise à jour et les alertes de réapprovisionnement de la série <span className="text-coral-deep font-semibold">Solaris Lux</span>.
+            <p className="max-w-md font-sans text-base text-text-secondary font-light leading-relaxed italic">
+               Inscrivez-vous pour recevoir les protocoles de mise à jour et les alertes de réapprovisionnement de la série <span className="text-coral font-semibold">Solaris Lux</span>.
             </p>
           </div>
           
@@ -35,13 +35,13 @@ export default function Newsletter() {
             className="w-full max-w-xl flex flex-col gap-4"
           >
             <div className="relative group">
-              <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-gold-sun transition-colors" size={20} />
+              <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-coral transition-colors" size={20} />
               <input 
                 type="email" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="VOTRE@EMAIL.PRESTIGE" 
-                className="w-full py-6 pl-16 pr-44 bg-white/70 border border-gold-sun/20 focus:border-gold-sun outline-none font-sans text-slate-800 transition-all tracking-wide text-sm rounded-xl backdrop-blur-md placeholder:text-slate-300"
+                className="w-full py-6 pl-16 pr-44 bg-bg-secondary border border-glass-border/20 focus:border-coral outline-none font-sans text-text-primary transition-all tracking-wide text-sm rounded-xl backdrop-blur-md placeholder:text-text-muted"
                 required
               />
               <button 

@@ -34,7 +34,7 @@ export default function PageTransition() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15, ease: 'easeOut' }}
           >
-            Smart<span style={{ color: 'var(--color-coral)', fontStyle: 'italic' }}>Charge</span>
+            <span className="text-text-primary">Smart</span><span style={{ color: 'var(--color-coral)', fontStyle: 'italic' }}>Charge</span>
           </motion.div>
 
           {/* Ligne animée descendante (cue de chargement) */}

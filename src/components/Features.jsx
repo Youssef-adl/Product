@@ -1,72 +1,60 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Zap, Shield, Target, Smartphone, Wind, Maximize } from 'lucide-react';
 
+const features = [
+  { icon: Zap,        title: 'Charge Turbo 15W',      desc: 'Puissance maximale sans compromis — vitesse certifiée Qi pour chaque smartphone.' },
+  { icon: Shield,     title: 'Dissipation Thermique', desc: 'Système de gestion de chaleur actif pour une sécurité totale en continu.' },
+  { icon: Target,     title: 'Alignement Magnétique', desc: 'Positionnement automatique pour une connexion instantanée et fiable.' },
+  { icon: Wind,       title: 'Profil Ultra-mince',    desc: 'Seulement 15mm d\'épaisseur — s\'intègre naturellement à tout espace.' },
+  { icon: Smartphone, title: 'Protocole Universel',   desc: 'Compatibilité totale iOS & Android. Un seul chargeur pour tous les appareils.' },
+  { icon: Maximize,   title: 'Aluminium Usiné CNC',   desc: 'Châssis en alliage d\'aluminium pour une durabilité et une esthétique premium.' },
+];
+
 export default function Features() {
-  const features = [
-    { 
-      icon: <Zap size={32} />, 
-      title: "CHARGE TURBO 15W", 
-      desc: "Optimisé pour le circuit digital. Vitesse maximale sans compromis." 
-    },
-    { 
-      icon: <Shield size={32} />, 
-      title: "DISSIPATION IONIQUE", 
-      desc: "Gestion thermique active issue de l'ingénierie aérospatiale." 
-    },
-    { 
-      icon: <Target size={32} />, 
-      title: "ALIGNEMENT N52", 
-      desc: "Aimants haute force pour une connexion instantanée à 300km/h." 
-    },
-    { 
-      icon: <Wind size={32} />, 
-      title: "SLICK DESIGN", 
-      desc: "Seulement 15mm. Un profil aérodynamique pour votre setup." 
-    },
-    { 
-      icon: <Smartphone size={32} />, 
-      title: "PROTOCOLE UNIFIÉ", 
-      desc: "Compatibilité totale avec l'écosystème MagSafe Certifié." 
-    },
-    { 
-      icon: <Maximize size={32} />, 
-      title: "CNC ALUMINIUM", 
-      desc: "Usiné dans un bloc de 7075-T6 pour une rigidité extrême." 
-    }
-  ];
-
   return (
-    <section id="features" className="section bg-[#F5F5F5] py-40 border-y-[6px] border-[var(--color-racing-yellow)]">
-      <div className="container">
-        <div className="col-span-12 flex flex-col gap-8 mb-24 items-center text-center">
-           <div className="flex items-center gap-4">
-              <span className="h-0.5 w-12 bg-black" />
-              <span className="title-tech text-black text-xl tracking-[0.3em]">ACCÉLÉRATION TECHNIQUE</span>
-              <span className="h-0.5 w-12 bg-black" />
-           </div>
-           <h2 className="headline-editorial text-7xl lg:text-[120px] text-black">
-              L'ADN DE LA<br />
-              <span className="text-[var(--color-racing-yellow)]" style={{ WebkitTextStroke: '2px black' }}>PERFORMANCE.</span>
-           </h2>
-        </div>
+    <section id="features" className="relative py-32 lg:py-48 bg-bg-primary overflow-hidden transition-colors duration-500">
+      {/* Background solar glow */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-accent-sun/5 blur-[150px] pointer-events-none rounded-full" />
 
-        <div className="col-span-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className="container-solar relative z-10">
+        {/* Header */}
+        <motion.div
+          className="flex flex-col items-center text-center gap-6 mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.7 }}
+        >
+          <div className="subtitle-silk">L'ADN de la Performance</div>
+          <h2 className="title-solar text-5xl lg:text-7xl">
+            Six innovations <br />
+            <em className="text-gradient-sun">essentielles.</em>
+          </h2>
+          <p className="max-w-xl text-text-muted font-light text-lg leading-relaxed italic font-sans">
+            Chaque détail du SmartCharge V1 a été conçu pour répondre aux besoins réels du campus.
+          </p>
+        </motion.div>
+
+        {/* Cards grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((f, i) => (
-            <div 
-              key={i} 
-              className="group p-12 bg-white border-2 border-transparent hover:border-[var(--color-racing-yellow)] transition-all duration-500 cursor-default relative shadow-sm hover:shadow-2xl hover:-translate-y-4"
+            <motion.div
+              key={i}
+              className="bg-glass-bg backdrop-blur-3xl border border-glass-border rounded-3xl group cursor-default p-10 shadow-lg"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.6, delay: i * 0.09, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              <div className="absolute top-0 right-0 w-12 h-12 bg-[var(--color-racing-yellow)] p-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                 <Zap size={24} className="text-black" />
+              <div className="solar-icon mb-6">
+                <f.icon size={22} />
               </div>
-              <div className="text-black mb-8 group-hover:text-[var(--color-racing-yellow)] transition-colors">
-                {f.icon}
-              </div>
-              <h3 className="title-tech text-2xl text-black mb-4 tracking-widest">{f.title}</h3>
-              <p className="text-[var(--color-industrial-grey)] font-medium leading-relaxed uppercase text-xs tracking-widest">
-                {f.desc}
-              </p>
-            </div>
+              <h3 className="font-serif text-2xl text-text-primary mb-3 tracking-tight">{f.title}</h3>
+              <p className="font-sans text-sm text-text-muted leading-relaxed font-light">{f.desc}</p>
+              {/* Accent line */}
+              <div className="mt-6 h-px w-0 group-hover:w-full bg-gradient-to-r from-coral to-accent-sun transition-all duration-700 ease-out" />
+            </motion.div>
           ))}
         </div>
       </div>

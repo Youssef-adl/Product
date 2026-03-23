@@ -1,18 +1,42 @@
 import React, { useState } from 'react';
-import { Plus, Minus, Circle } from 'lucide-react';
+import { Plus, Minus } from 'lucide-react';
 
 const FAQS = [
-  { q: "EST-IL RÉELLEMENT FAIT EN TITANE ?", a: "Oui. Le châssis est usiné dans un bloc de Titane G5, garantissant une rigidité absolue et une signature thermique unique." },
-  { q: "QUELLE EST LA VITESSE DE CHARGE ?", a: "Nous délivrons 15W constants via le protocole Stasis, optimisé pour préserver la santé de votre batterie sur le long terme." },
-  { q: "COMPATIBILITÉ MAGSAFE ?", a: "Totalement compatible avec tous les iPhones de la série 12 à 17, ainsi qu'avec les accessoires standard Qi." },
-  { q: "COMMENT FONCTIONNE L'IONIC COOL ?", a: "Un micro-générateur d'ions négatifs dissipe la chaleur avant même qu'elle n'atteigne les composants sensibles." }
+  {
+    q: "Quelle est la vitesse de charge du SmartCharge V1 ?",
+    a: "Le SmartCharge V1 délivre une puissance constante de 15W via le protocole Qi certifié. En pratique, cela représente une vitesse de charge 2× plus rapide qu'un chargeur standard de 5W — idéal pour récupérer rapidement entre deux cours."
+  },
+  {
+    q: "Compatible avec mon iPhone / Android ?",
+    a: "Oui, totalement. Le SmartCharge V1 est compatible avec tous les appareils Qi : iPhone 8 et supérieur (dont toute la série MagSafe), Samsung Galaxy S/Note/Z, Pixel, et tout smartphone Android certifié Qi. Un seul chargeur pour tout l'écosystème."
+  },
+  {
+    q: "Est-ce que mon téléphone peut surchauffer ?",
+    a: "Non. Le SmartCharge V1 intègre un système de protection thermique actif — détection automatique de la chaleur, modulation de la puissance, et arrêt de sécurité si nécessaire. La sécurité électrique ISO est garantie par le design."
+  },
+  {
+    q: "La recharge fonctionne avec une coque de téléphone ?",
+    a: "Oui, jusqu'à 5mm d'épaisseur. Les coques standard en plastique, silicone ou cuir n'affectent pas la recharge. Les coques métalliques épaisses ou magnétiques peuvent réduire l'efficacité — retirez-les dans ce cas."
+  },
+  {
+    q: "Quel est le tarif et comment commander ?",
+    a: "Le SmartCharge V1 est au prix spécial de lancement pour les établissements ISTA et OFPPT. Cliquez sur 'PRÉ-COMMANDER' pour accèder au formulaire de commande groupée. Des tarifs dégressifs sont disponibles à partir de 5 unités."
+  },
+  {
+    q: "Quelle est la garantie ?",
+    a: "Le SmartCharge V1 est couvert par une garantie de 2 ans pièces et main-d'œuvre, valable pour tout défaut de fabrication. En cas de problème, contacter directement l'équipe Adlani & Zhar via le formulaire en bas de page."
+  },
+  {
+    q: "Peut-on installer plusieurs stations sur un même campus ?",
+    a: "Absolument — c'est même l'usage recommandé. Chaque unité fonctionne de manière autonome sur secteur 220V standard. Nous proposons un plan de déploiement multi-stations pour les salles de classe et espaces communs de l'ISTA Témara."
+  },
 ];
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden bg-[#FDF8F3]">
+    <section id="faq" className="relative py-24 lg:py-32 overflow-hidden bg-[#FDF8F3]">
       {/* Éléments décoratifs solaires */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-gold-sun/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4" />
       <div className="absolute bottom-0 left-0 w-64 h-64 bg-coral-soft/5 rounded-full blur-2xl translate-y-1/4 -translate-x-1/4" />
@@ -22,7 +46,7 @@ export default function FAQ() {
            <div className="subtitle-silk text-coral-deep">
               Archive // Q&A
            </div>
-           <h2 className="title-solar text-6xl lg:text-7xl">
+           <h2 className="title-solar text-6xl lg:text-7xl text-slate-900">
               PROTOCOLE<br/>
               <em className="text-gradient-sun">SOLAIRE</em>
            </h2>
