@@ -14,46 +14,50 @@ class ProductSeeder extends Seeder
     {
         \App\Models\Product::create([
             'id' => 1,
-            'name' => 'SOLARIS PRO 2026',
-            'description' => 'Le summum de la charge inductive. Usiné dans un bloc d\'aluminium aéronautique 7075-T6 avec gestion thermique Ionic-Cooling.',
+            'name' => 'SmartCharge V1 (Edition Titane)',
+            'description' => 'L\'unité phare avec recharge 15W et dissipateur thermique ionique.',
             'price' => 159.00,
             'category' => 'UNITÉ PRINCIPALE',
             'stock' => 500,
-            'sku' => 'SOL-2026-X1',
-            'image_url' => '/hero-product.png'
+            'sku' => 'SL-V1-TITAN',
+            'spec' => 'TITANE G5 USINÉ',
+            'image_url' => '/product-v1.png'
         ]);
 
         \App\Models\Product::create([
             'id' => 2,
-            'name' => 'CÂBLE LI-ION PRECISION',
-            'description' => 'Câble USB-C renforcé en fibre d\'aramide pour une durabilité extrême.',
+            'name' => 'Câble Solaris Precision (2m)',
+            'description' => 'Conductivité maximale pour une charge sans perte thermique.',
             'price' => 39.00,
             'category' => 'ACCESSOIRE',
             'stock' => 1200,
-            'sku' => 'SOL-ACC-C1',
-            'image_url' => '/cable.png'
+            'sku' => 'SL-ACC-CABLE',
+            'spec' => 'TRESSAGE ARAMIDE',
+            'image_url' => '/product-cable.png'
         ]);
 
         \App\Models\Product::create([
             'id' => 3,
-            'name' => 'SUPPORT BUREAU CNC',
-            'description' => 'Support ergonomique usiné dans la masse pour un alignement magnétique parfait.',
+            'name' => 'Support Stasis v2',
+            'description' => 'Angle de vue optimisé à 45° pour un usage bureau.',
             'price' => 89.00,
             'category' => 'ACCESSOIRE',
             'stock' => 800,
-            'sku' => 'SOL-ACC-S1',
-            'image_url' => '/gallery_1.png'
+            'sku' => 'SL-ACC-STAND',
+            'spec' => 'ALUMINIUM AÉRONAUTIQUE',
+            'image_url' => '/product-stasis.png'
         ]);
 
         \App\Models\Product::create([
             'id' => 4,
-            'name' => 'ADAPTATEUR IONIC 45W',
-            'description' => 'Adaptateur secteur haute efficacité optimisé pour la charge ultra-rapide.',
+            'name' => 'Adaptateur Mural 45W Plus',
+            'description' => 'Énergie ultra-compacte avec protection contre les surtensions.',
             'price' => 59.00,
             'category' => 'ACCESSOIRE',
             'stock' => 1500,
-            'sku' => 'SOL-ACC-P1',
-            'image_url' => '/gallery_2.png'
+            'sku' => 'SL-ACC-WALL',
+            'spec' => 'GAN TECHNOLOGY',
+            'image_url' => '/product-gan.png'
         ]);
     }
 }

@@ -16,6 +16,7 @@ class Product extends Model
         'category',
         'stock',
         'sku',
+        'spec',
         'image_url',
     ];
 }

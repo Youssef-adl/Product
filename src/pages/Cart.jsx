@@ -65,10 +65,10 @@ export default function Cart({ cart, removeFromCart, updateQuantity }) {
                                      </button>
                                   </div>
                               </div>
-                              <div className="text-right">
-                                 <div className="text-lg font-black text-gray-900">${(item.price * item.quantity).toFixed(2)}</div>
-                                 <div className="text-[10px] font-bold text-gray-400 mt-1">${item.price} / unit</div>
-                              </div>
+                               <div className="text-right">
+                                  <div className="text-lg font-black text-gray-900">{(item.price * item.quantity).toFixed(2)} DH</div>
+                                  <div className="text-[10px] font-bold text-gray-400 mt-1">{item.price} DH / unité</div>
+                               </div>
                            </div>
                            <div className="flex justify-between items-center mt-4">
                               <span className="text-[10px] font-bold text-green-600 flex items-center gap-1 uppercase tracking-widest">
@@ -100,15 +100,15 @@ export default function Cart({ cart, removeFromCart, updateQuantity }) {
                  <div className="space-y-4 mb-10">
                     <div className="flex justify-between items-center text-sm">
                        <span className="font-bold text-gray-400 uppercase tracking-widest">Subtotal Assets</span>
-                       <span className="font-black text-gray-900">${subtotal.toFixed(2)}</span>
+                       <span className="font-black text-gray-900">{subtotal.toFixed(2)} DH</span>
                     </div>
                     <div className="flex justify-between items-center text-sm">
                        <span className="font-bold text-gray-400 uppercase tracking-widest">Logistics Est.</span>
-                       <span className="font-black text-blue-600">{shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}</span>
+                       <span className="font-black text-blue-600">{shipping === 0 ? 'GRATUIT' : `${shipping.toFixed(2)} DH`}</span>
                     </div>
                     <div className="pt-6 border-t border-gray-100 flex justify-between items-center">
                        <span className="text-xs font-black text-gray-900 uppercase tracking-[0.2em]">Total Investment</span>
-                       <span className="text-2xl font-black text-gray-900">${total.toFixed(2)}</span>
+                        <span className="text-2xl font-black text-gray-900">{total.toFixed(2)} DH</span>
                     </div>
                  </div>
 

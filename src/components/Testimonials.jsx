@@ -85,8 +85,6 @@ export default function Testimonials() {
                 <div
                   className="w-12 h-12 rounded-full flex items-center justify-center font-sans text-sm font-bold flex-shrink-0 
                              bg-[#FFF5EB] text-coral 
-                             [data-theme='eclipse']:bg-coral [data-theme='eclipse']:text-white 
-                             [data-theme='eclipse']:shadow-[0_0_15px_rgba(232,93,78,0.3)]
                              transition-all duration-300"
                 >
                   {r.initials}

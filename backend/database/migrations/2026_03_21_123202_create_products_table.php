@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('category');
             $table->integer('stock')->default(0);
             $table->string('sku')->unique();
+            $table->string('spec')->nullable();
             $table->string('image_url')->nullable();
             $table->timestamps();
         });

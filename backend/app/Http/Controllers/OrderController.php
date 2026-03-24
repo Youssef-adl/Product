@@ -20,6 +20,22 @@ class OrderController extends Controller
     }
 
     /**
+     * Display a listing of the user's orders.
+     */
+    public function index(Request $request)
+    {
+        $orders = Order::where('user_id', $request->user()->id)
+            ->with(['items.product'])
+            ->latest()
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'orders' => $orders
+        ]);
+    }
+
+    /**
      * Store a newly created order in storage.
      */
     public function store(Request $request)

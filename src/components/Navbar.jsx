@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Menu, X, ArrowRight } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ShoppingBag, Menu, X, ArrowRight, User, LogOut } from 'lucide-react';
 
-export default function Navbar({ cart = [] }) {
+export default function Navbar({ cart = [], auth, setAuth }) {
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -15,6 +16,26 @@ export default function Navbar({ cart = [] }) {
   }, []);
 
   const isHome = location.pathname === '/';
+
+  const handleLogout = async () => {
+    try {
+      await fetch('http://localhost:8000/api/logout', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${auth.token}`,
+          'Accept': 'application/json'
+        }
+      });
+    } catch (err) {
+      console.error('Logout error:', err);
+    } finally {
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('user');
+      setAuth({ token: null, user: null });
+      setIsMenuOpen(false);
+      navigate('/');
+    }
+  };
 
   // Smooth scroll helper for anchor links on homepage
   const handleAnchor = (e, id) => {
@@ -63,13 +84,13 @@ export default function Navbar({ cart = [] }) {
 
         {/* ACTIONS */}
         <div className="flex items-center gap-3 ml-2">
-          {/* PRÉ-COMMANDER CTA */}
+          {/* PRÉ-COMMANDER CTA (Only if on Home or Not Logged In) */}
           <a
             href="#cta"
             onClick={(e) => handleAnchor(e, 'cta')}
             className="hidden md:flex btn-sun !px-5 !py-2 !text-[10px] whitespace-nowrap"
           >
-            PRÉ-COMMANDER
+            S'ABONNER
           </a>
 
           <Link to="/cart" className="hidden sm:flex btn-sun !px-5 !py-2.5 !text-[11px] shadow-sm relative group/cart">
@@ -81,6 +102,29 @@ export default function Navbar({ cart = [] }) {
               </span>
             )}
           </Link>
+
+          {/* AUTH SECTION */}
+          <div className="hidden md:flex items-center gap-2 ml-2">
+            {auth.user ? (
+              <>
+                <Link to="/account" className="btn-sun !px-4 !py-2.5 !text-[10px] flex items-center gap-2">
+                  <User size={14} />
+                  <span className="uppercase tracking-widest">COMPTE</span>
+                </Link>
+                <button 
+                  onClick={handleLogout}
+                  className="nav-item !p-2 !rounded-full hover:bg-coral/10 hover:text-coral"
+                  title="Déconnexion"
+                >
+                  <LogOut size={16} />
+                </button>
+              </>
+            ) : (
+              <Link to="/login" className="nav-item !px-4 !py-2 !text-[11px] uppercase tracking-widest font-bold border border-glass-border">
+                CONNEXION
+              </Link>
+            )}
+          </div>
 
           <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden text-text-muted hover:text-accent-sun p-2 transition-colors">
             {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -102,13 +146,32 @@ export default function Navbar({ cart = [] }) {
             {link.name}
           </Link>
         ))}
-        <a
-          href="#cta"
-          onClick={(e) => handleAnchor(e, 'cta')}
-          className="btn-sun w-full justify-center"
-        >
-          PRÉ-COMMANDER <ArrowRight size={18} />
-        </a>
+        <div className="w-full h-[1px] bg-glass-border my-2" />
+        {auth.user ? (
+          <>
+            <Link 
+              to="/account" 
+              onClick={() => setIsMenuOpen(false)}
+              className="font-serif text-3xl text-text-primary hover:text-accent-sun"
+            >
+              MON COMPTE
+            </Link>
+            <button 
+              onClick={handleLogout}
+              className="font-serif text-3xl text-coral"
+            >
+              DÉCONNEXION
+            </button>
+          </>
+        ) : (
+          <Link 
+            to="/login" 
+            onClick={() => setIsMenuOpen(false)}
+            className="font-serif text-3xl text-text-primary hover:text-accent-sun font-bold"
+          >
+            CONNEXION
+          </Link>
+        )}
       </div>
     </nav>
   );

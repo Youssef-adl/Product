@@ -15,12 +15,12 @@ const MOCK_PRODUCTS = [
     price: 159,
     sku: "SL-V1-TITAN",
     images: ["/product-v1.png", "/product-v1-alt.png"],
-    description: "Le summum de la charge inductive. Usiné dans un bloc de titane Grade 5 avec gestion thermique passive avancée. Conçu pour durer une vie entière.",
+    description: "L'unité phare avec recharge 15W et dissipateur thermique ionique.",
     specs: [
       { label: "Puissance", value: "15W Qi Certified" },
       { label: "Matériau", value: "Titane G5 & Verre Saphir" },
       { label: "Connexion", value: "USB-C Stasis" },
-      { label: "Poids", value: "450g (Densité Premium)" }
+      { label: "Spécificité", value: "TITANE G5 USINÉ" }
     ]
   },
   {
@@ -30,11 +30,11 @@ const MOCK_PRODUCTS = [
     price: 39,
     sku: "SL-ACC-CABLE",
     images: ["/product-cable.png", "/product-cable-alt.png"],
-    description: "Câble USB-C renforcé en fibre d'aramide (Kevlar) pour une durabilité extrême et une perte d'énergie minimale.",
+    description: "Conductivité maximale pour une charge sans perte thermique.",
     specs: [
       { label: "Longueur", value: "2.0 Mètres" },
       { label: "Revêtement", value: "Tressage Double" },
-      { label: "Débit", value: "10 Gbps Data" },
+      { label: "Conductivité", value: "TRESSAGE ARAMIDE" },
       { label: "Garantie", value: "À vie" }
     ]
   },
@@ -45,11 +45,11 @@ const MOCK_PRODUCTS = [
     price: 89,
     sku: "SL-ACC-STAND",
     images: ["/product-stasis.png", "/product-stasis-alt.png"],
-    description: "Support ergonomique usiné CNC pour un alignement magnétique parfait. Idéal pour le mode StandBy d'iOS.",
+    description: "Angle de vue optimisé à 45° pour un usage bureau.",
     specs: [
       { label: "Inclinaison", value: "45° Fixe" },
       { label: "Base", value: "Nano-succion" },
-      { label: "Matériau", value: "Alu 7075" },
+      { label: "Matériau", value: "ALUMINIUM AÉRONAUTIQUE" },
       { label: "Compatibilité", value: "MagSafe & Qi" }
     ]
   },
@@ -60,9 +60,9 @@ const MOCK_PRODUCTS = [
     price: 59,
     sku: "SL-ACC-WALL",
     images: ["/product-gan.png", "/product-gan-alt.png"],
-    description: "Adaptateur secteur GaN ultra-compact. Fournit l'énergie nécessaire pour exploiter 100% du potentiel Solaris.",
+    description: "Énergie ultra-compacte avec protection contre les surtensions.",
     specs: [
-      { label: "Technologie", value: "GaN Fast III" },
+      { label: "Technologie", value: "GAN TECHNOLOGY" },
       { label: "Ports", value: "2x USB-C" },
       { label: "Protection", value: "ISO Thermal" },
       { label: "Sortie Max", value: "45W PD" }

@@ -167,23 +167,23 @@ export default function Checkout({ auth, cart, clearCart }) {
                     {cart.map(item => (
                       <div key={item.id} className="flex justify-between items-center text-xs">
                          <span className="font-bold text-gray-500 truncate max-w-[150px]">{item.name} x{item.quantity}</span>
-                         <span className="font-black text-gray-900">${(item.price * item.quantity).toFixed(2)}</span>
+                         <span className="font-black text-gray-900">{(item.price * item.quantity).toFixed(2)} DH</span>
                       </div>
                     ))}
                  </div>
 
                  <div className="space-y-4 mb-10 pt-6 border-t border-gray-100">
                     <div className="flex justify-between items-center text-sm">
-                       <span className="font-bold text-gray-400 uppercase tracking-widest">Subtotal Assets</span>
-                       <span className="font-black text-gray-900">${subtotal.toFixed(2)}</span>
+                       <span className="font-bold text-gray-400 uppercase tracking-widest">Sous-total actifs</span>
+                       <span className="font-black text-gray-900">{subtotal.toFixed(2)} DH</span>
                     </div>
                     <div className="flex justify-between items-center text-sm">
-                       <span className="font-bold text-gray-400 uppercase tracking-widest">Logistics</span>
-                       <span className="font-black text-blue-600">{shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}</span>
+                       <span className="font-bold text-gray-400 uppercase tracking-widest">Logistique</span>
+                       <span className="font-black text-blue-600">{shipping === 0 ? 'GRATUIT' : `${shipping.toFixed(2)} DH`}</span>
                     </div>
                     <div className="pt-6 border-t border-gray-100 flex justify-between items-center">
-                       <span className="text-xs font-black text-gray-900 uppercase tracking-[0.2em]">Total Value</span>
-                       <span className="text-2xl font-black text-gray-900">${total.toFixed(2)}</span>
+                       <span className="text-xs font-black text-gray-900 uppercase tracking-[0.2em]">Valeur Totale</span>
+                       <span className="text-2xl font-black text-gray-900">{total.toFixed(2)} DH</span>
                     </div>
                  </div>
 

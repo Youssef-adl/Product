@@ -28,27 +28,51 @@ const SunGlow = () => {
   );
 };
 
-// Particules dorées flottantes
+// Grille technique industrielle
+const TechnicalGrid = () => {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+      <div className="absolute inset-0" 
+        style={{ 
+          backgroundImage: `linear-gradient(to right, var(--solar-glass-border) 1px, transparent 1px), linear-gradient(to bottom, var(--solar-glass-border) 1px, transparent 1px)`,
+          backgroundSize: '80px 80px'
+        }} 
+      />
+      <div className="absolute inset-0" 
+        style={{ 
+          backgroundImage: `linear-gradient(to right, var(--solar-glass-border) 1px, transparent 1px), linear-gradient(to bottom, var(--solar-glass-border) 1px, transparent 1px)`,
+          backgroundSize: '20px 20px',
+          opacity: 0.3
+        }} 
+      />
+      {/* Marqueurs de coordonnées */}
+      <div className="absolute top-10 left-10 text-[8px] font-mono text-text-muted uppercase tracking-widest">Ref. SL-2026 / 40.7128° N, 74.0060° W</div>
+      <div className="absolute bottom-10 right-10 text-[8px] font-mono text-text-muted uppercase tracking-widest">Hardware Dev Kit v1.0.4</div>
+    </div>
+  );
+};
+
+// Particules dorées flottantes (plus ordonnées)
 const GoldDust = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(8)].map((_, i) => (
+      {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 bg-[#FFB347] rounded-full blur-[1px]"
+          className="absolute w-[1px] h-12 bg-gradient-to-b from-coral/0 via-coral/40 to-coral/0"
           initial={{ 
-            x: `${Math.random() * 100}%`, 
-            y: `${Math.random() * 100}%`,
+            x: `${15 + i * 15}%`, 
+            y: `-20%`,
             opacity: 0 
           }}
           animate={{ 
-            y: [null, `-=${Math.random() * 100 + 50}`],
-            opacity: [0, 0.6, 0]
+            y: ['0%', '120%'],
+            opacity: [0, 0.5, 0]
           }}
           transition={{ 
-            duration: Math.random() * 4 + 4,
+            duration: 8 + i,
             repeat: Infinity,
-            delay: Math.random() * 3,
+            delay: i * 1.2,
             ease: "linear"
           }}
         />
@@ -128,189 +152,139 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative min-h-screen bg-bg-primary transition-colors duration-500" style={{ overflowX: 'clip', overflowY: 'visible' }}>
+    <section ref={containerRef} className="relative min-h-screen bg-bg-primary transition-colors duration-500">
       <SunGlow />
+      <TechnicalGrid />
       <GoldDust />
-      
-      {/* Grille de fond subtile */}
-      <div className="absolute inset-0 opacity-[0.015]" 
-        style={{ 
-          backgroundImage: `radial-gradient(circle at 1px 1px, var(--color-coral) 1px, transparent 0)`,
-          backgroundSize: '40px 40px'
-        }} 
-      />
       
       <motion.div 
         style={{ opacity }} 
-        className="relative z-10 container-solar min-h-screen flex items-center pt-32 pb-20"
+        className="relative z-10 container-solar min-h-screen flex items-center pt-32 pb-32"
       >
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-12 items-center w-full">
+        <div className="relative w-full flex flex-col lg:block">
           
-          {/* Colonne Gauche - Contenu */}
-          <div className="flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
-            
-            {/* Meta header — animé par GSAP */}
-            <div ref={metaRef} className="meta-text mb-8 text-text-muted">
-              POUR L'ISTA TÉMARA // PAR ADLANI &amp; ZHAR
+          {/* BACKGROUND TEXT (Asymmetric Anchor) */}
+          <div className="hidden lg:block absolute -top-12 -left-12 pointer-events-none select-none">
+             <span className="font-serif text-[12rem] text-text-primary/5 italic opacity-20 -rotate-12 block">Solaris</span>
+          </div>
+
+          {/* MAIN CONTENT AREA */}
+          <div className="lg:max-w-3xl relative z-20">
+            <div ref={metaRef} className="flex items-center gap-4 mb-10">
+               <div className="w-12 h-[1px] bg-coral"></div>
+               <span className="meta-text text-coral">Industrial Design / Edition 2026</span>
             </div>
 
-            {/* Titre principal — split-line reveal GSAP */}
-            <h1 ref={titleRef} className="hero-title mb-8 text-text-primary">
+            <h1 ref={titleRef} className="hero-title !text-[clamp(4rem,10vw,8rem)] !leading-[0.85] mb-10 mix-blend-multiply">
               <span className="split-line-wrap" style={{ display: 'block' }}>SmartCharge</span>
-              <span className="split-line-wrap" style={{ display: 'block', color: 'var(--color-coral)', fontStyle: 'italic', fontWeight: 300, marginTop: '0.25rem' }}>
-                V1
-              </span>
+              <div className="flex items-baseline gap-4">
+                 <span className="split-line-wrap text-coral italic font-light">V1</span>
+                 <span className="text-[10px] uppercase tracking-[0.5em] font-black text-text-muted">Pro Edition</span>
+              </div>
             </h1>
 
-            {/* Description */}
             <motion.p 
               ref={subtitleRef}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              className="hero-subtitle mb-12 text-text-secondary"
+              transition={{ delay: 0.4 }}
+              className="hero-subtitle !max-w-md text-lg text-text-secondary mb-12 border-l-2 border-glass-border pl-8"
             >
-              La station de recharge sans fil pour le <em className="text-accent-sun not-italic font-medium">campus de demain</em>. 
-              L'outil pédagogique central face à la crise d'énergie quotidienne.
+              L'excellence de la recharge par induction pour les environnements de haute technologie. 
+              <span className="block mt-4 italic text-sm text-text-muted">Conçu à Témara. Propulsé par le soleil.</span>
             </motion.p>
 
-            {/* CTA Buttons */}
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4 mb-16"
+              className="flex items-center gap-6"
             >
-              <Link 
-                to="/boutique" 
-                className="btn-primary group"
-              >
-                DÉCOUVRIR LE PROJET
-                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-              </Link>
-              
-              <Link 
-                to="/boutique" 
-                className="btn-secondary"
-              >
-                VOIR LES TARIFS
-              </Link>
+               <Link to="/boutique" className="btn-primary">
+                  Commander Maintenant
+               </Link>
+               <Link to="/boutique" className="text-xs font-black tracking-[0.3em] uppercase hover:text-coral transition-colors flex items-center gap-2">
+                  Spécifications <ArrowRight size={14} />
+               </Link>
             </motion.div>
+          </div>
 
-            {/* Stats Grid */}
-            <motion.div 
+          {/* ASYMMETRIC PRODUCT AREA */}
+          <div className="lg:absolute lg:top-[-40px] lg:right-[-50px] w-full lg:w-[600px] pointer-events-none mt-20 lg:mt-0">
+             <motion.div 
+               style={{ y: floatY }}
+               className="relative flex items-center justify-center p-12"
+             >
+                {/* Image principale avec effet de profondeur */}
+                <div className="relative group pointer-events-auto">
+                   <div className="absolute inset-0 bg-coral/5 rounded-full blur-[100px] animate-pulse" />
+                   <img 
+                     src="/product-v1.png" 
+                     alt="SmartCharge V1" 
+                     className="relative z-10 w-[400px] h-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.15)] scale-[1.1] transition-transform duration-1000"
+                   />
+                </div>
+
+                {/* Technical Micro-Card Overlap */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1, duration: 0.8 }}
+                  className="absolute bottom-[20%] left-0 z-30 pointer-events-auto"
+                >
+                   <div className="glass-solar !p-6 !rounded-sm border-l-4 border-l-coral shadow-2xl backdrop-blur-xl">
+                      <div className="flex items-center gap-3 mb-4">
+                         <div className="w-2 h-2 bg-coral rounded-full animate-ping" />
+                         <span className="text-[10px] font-black uppercase tracking-[0.3em] text-text-primary">Status: En Stock</span>
+                      </div>
+                      <div className="space-y-2">
+                         <div className="flex justify-between gap-12 items-center">
+                            <span className="text-[9px] uppercase tracking-widest text-text-muted font-bold">Technologie</span>
+                            <span className="text-[10px] font-mono text-text-primary">MagSafe Qi Gen 3</span>
+                         </div>
+                         <div className="flex justify-between gap-12 items-center">
+                            <span className="text-[9px] uppercase tracking-widest text-text-muted font-bold">Puissance</span>
+                            <span className="text-[10px] font-mono text-text-primary">15W Adaptive</span>
+                         </div>
+                      </div>
+                   </div>
+                </motion.div>
+
+                {/* Floating Badges */}
+                <div className="absolute top-[10%] right-[10%] pointer-events-auto">
+                   <span className="badge-float !bg-text-primary !text-white !border-none !text-[10px] !px-6">Luxe Durable</span>
+                </div>
+             </motion.div>
+          </div>
+
+          {/* BOTTOM STATS BAR (Non-Absolute to prevent overlap) */}
+          <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              className="grid grid-cols-3 gap-8 w-full max-w-md lg:max-w-none pt-8 border-t border-glass-border"
+              transition={{ delay: 1.2 }}
+              className="w-full lg:max-w-xl flex gap-12 pt-10 border-t border-glass-border mt-20"
             >
               {[
-                { label: "Puissance", value: "15W Qi", icon: Sun, color: "var(--color-accent-sun)" },
-                { label: "Vitesse", value: "2× Plus", icon: Zap, color: "var(--color-coral)" },
-                { label: "Disponibilité", value: "24/7", icon: Shield, color: "var(--color-text-primary)" }
+                { label: "Performance", value: "15W", icon: Sun },
+                { label: "Sourcing", value: "Bio-Tech", icon: Shield },
+                { label: "Inertie", value: "Nulle", icon: Zap }
               ].map((stat, idx) => (
-                <div key={idx} className="flex flex-col items-center lg:items-start gap-2">
-                  <div 
-                    className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
-                    style={{ backgroundColor: `${stat.color}15` }}
-                  >
-                    <stat.icon size={18} style={{ color: stat.color }} />
-                  </div>
-                  <div className="font-serif text-2xl text-text-primary tracking-tight">{stat.value}</div>
-                  <div className="text-[10px] uppercase tracking-[0.2em] text-text-muted font-semibold">
-                    {stat.label}
-                  </div>
+                <div key={idx} className="flex flex-col gap-1">
+                  <div className="text-[10px] uppercase tracking-[0.3em] text-coral font-black">{stat.label}</div>
+                  <div className="font-serif text-3xl text-text-primary tracking-tighter">{stat.value}</div>
                 </div>
               ))}
             </motion.div>
-          </div>
-
-          {/* Colonne Droite - Produit */}
-          <div className="relative flex items-center justify-center order-1 lg:order-2 px-10">
-            <motion.div 
-              style={{ y }}
-              className="relative w-full max-w-[380px] aspect-[4/5]"
-            >
-              {/* Halo doré derrière */}
-              <div className="absolute inset-0 bg-gradient-radial from-accent-sun/20 via-accent-sun/5 to-transparent blur-2xl scale-110 transform translate-y-8" />
-              
-              {/* Carte Produit Glass */}
-              <motion.div 
-                style={{ y: floatY }}
-                className="glass-card relative z-10"
-              >
-                {/* Carousel dots */}
-                <div className="carousel-dots">
-                  <div className="carousel-dot active"></div>
-                  <div className="carousel-dot"></div>
-                  <div className="carousel-dot"></div>
-                </div>
-
-                {/* Badge Énergie Pure */}
-                <motion.div 
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="badge-float top-right"
-                >
-                  Énergie Pure
-                </motion.div>
-
-                {/* Badge Luxe Durable */}
-                <motion.div 
-                  animate={{ y: [0, 8, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="badge-float mid-left"
-                >
-                  Luxe Durable
-                </motion.div>
-
-                {/* Image Produit */}
-                <div className="flex-1 flex flex-col items-center justify-center w-full relative p-4">
-                  <div className="relative z-10 w-full h-full flex items-center justify-center scale-125 hover:scale-150 transition-transform duration-700">
-                    <img 
-                      src="/product-v1.png" 
-                      alt="SmartCharge V1" 
-                      className="w-full h-full object-contain mix-blend-normal"
-                    />
-                  </div>
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-32 h-32 bg-accent-sun/10 rounded-full blur-3xl opacity-50" />
-                  </div>
-                </div>
-
-                {/* Code produit */}
-                <div className="product-code">
-                  <div className="label text-text-muted">Authenticité</div>
-                  <div className="code text-text-primary">SL-2026-PRESTIGE</div>
-                </div>
-
-                {/* Shine effect */}
-                <div className="shimmer-border" />
-              </motion.div>
-
-              {/* Ombre portée douce */}
-              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/10 blur-xl rounded-full" />
-            </motion.div>
-          </div>
         </div>
       </motion.div>
 
-      {/* Scroll indicator — ligne animée descendante (Lando-style) */}
-      <motion.div 
-        style={{ opacity }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
-      >
-        <span className="text-[10px] uppercase tracking-[0.3em] text-text-muted font-medium">
-          Initialiser
-        </span>
-        <div className="w-px h-12 bg-gradient-to-b from-coral to-transparent relative overflow-hidden">
-          <motion.div 
-            className="w-full h-1/2 bg-coral"
-            animate={{ y: ["-100%", "200%"] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </div>
-      </motion.div>
+      {/* Industrial Axis Indicator */}
+      <div className="absolute top-1/2 left-4 -translate-y-1/2 flex flex-col items-center gap-2 opacity-30">
+         <div className="w-[1px] h-32 bg-coral" />
+         <span className="text-[8px] font-mono [writing-mode:vertical-lr] text-text-muted uppercase tracking-widest">Axis Vector 2026.04</span>
+         <div className="w-[1px] h-32 bg-coral" />
+      </div>
+
     </section>
   );
 }

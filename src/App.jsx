@@ -17,7 +17,8 @@ import FAQ from './components/FAQ';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminProducts from './pages/AdminProducts';
 import AdminOrders from './pages/AdminOrders';
-import ThemeToggle from './components/ThemeToggle';
+import Account from './pages/Account';
+import Orders from './pages/Orders';
 
 function App() {
   const [auth, setAuth] = useState({
@@ -83,9 +84,8 @@ function App() {
     <Router>
       <PageTransition />
       <ScrollProgress />
-      <ThemeToggle />
       <div className="min-h-screen selection:bg-coral selection:text-white">
-        <Navbar cart={cart} />
+        <Navbar cart={cart} auth={auth} setAuth={setAuth} />
         
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -98,6 +98,8 @@ function App() {
           <Route path="/checkout" element={<Checkout auth={auth} cart={cart} clearCart={clearCart} />} />
           <Route path="/order-confirmation" element={<OrderConfirmation />} />
           <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} />} />
+          <Route path="/account" element={<Account auth={auth} />} />
+          <Route path="/orders" element={<Orders auth={auth} />} />
           <Route path="/admin" element={<AdminDashboard auth={auth} />} />
           <Route path="/admin/products" element={<AdminProducts auth={auth} />} />
           <Route path="/admin/orders" element={<AdminOrders auth={auth} />} />

@@ -33,10 +33,10 @@ Address: ${order.shipping_address}
 Phone: ${order.phone || 'N/A'}
 
 ORDER SUMMARY:
-${order.items?.map(item => `- ${item.product?.name || 'Product'} x${item.quantity}: $${(item.price * item.quantity).toFixed(2)}`).join('\n')}
+${order.items?.map(item => `- ${item.product?.name || 'Product'} x${item.quantity}: ${(item.price * item.quantity).toFixed(2)} DH`).join('\n')}
 
 ---------------------------------
-TOTAL AMOUNT: $${order.total_amount}
+TOTAL AMOUNT: ${order.total_amount} DH
 
 Thank you for choosing Solaris Lux.
 High-Performance Engineering for Eternity.

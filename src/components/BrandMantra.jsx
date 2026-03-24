@@ -55,14 +55,15 @@ export default function BrandMantra() {
 
         {/* Quote */}
         <motion.p
-          className="max-w-3xl font-sans text-lg lg:text-xl text-white/40 font-light leading-relaxed italic"
+          className="max-w-4xl font-sans text-lg lg:text-xl text-white/60 font-light leading-relaxed text-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, delay: 0.3 }}
         >
-          "La perfection n'est pas une destination. C'est le seul standard que nous acceptons.
-          Conçu pour le campus de demain — pour que l'énergie ne soit plus jamais un obstacle."
+          Avec <span className="text-white font-semibold">SOLARIS LUX</span>, notre objectif était de réinventer l’expérience e-commerce traditionnelle en créant un univers digital immersif pour le lancement du <span className="text-coral font-semibold">SmartCharge V1</span>. 
+          <br /><br />
+          J'ai conçu cette plateforme comme une véritable vitrine technologique, où le design industriel rencontre la performance du web moderne. En fusionnant <span className="text-white">React 19</span> avec la 3D interactive de <span className="text-white">Three.js</span>, j'ai développé une interface qui ne se contente pas de présenter un produit, mais qui raconte son histoire à chaque interaction.
         </motion.p>
 
         {/* Vertical line */}

@@ -58,26 +58,6 @@
   --solar-elevation-3: 0 12px 48px rgba(0,0,0,0.08);
 }
 
-[data-theme='eclipse'] {
-  /* THEME: LUNAR ECLIPSE (DARK) — Deep Space Premium */
-  --solar-bg-primary: #09090B;
-  --solar-bg-secondary: #0F0F14;
-  --solar-bg-tertiary: #18181F;
-  --solar-text-primary: #FAFAFA;
-  --solar-text-secondary: #A1A1AA;
-  --solar-text-muted: #52525B;
-  --solar-glass-bg: rgba(18, 18, 24, 0.78);
-  --solar-glass-border: rgba(255, 255, 255, 0.06);
-  --solar-glass-border-hover: rgba(139, 92, 246, 0.25);
-  --solar-accent-sun: #A78BFA;
-  --solar-accent-glow: rgba(139, 92, 246, 0.12);
-  --solar-card-shadow: 0 8px 40px rgba(0, 0, 0, 0.35), 0 0 1px rgba(255,255,255,0.03);
-  --solar-card-shadow-hover: 0 20px 60px rgba(139, 92, 246, 0.12), 0 0 1px rgba(255,255,255,0.06);
-  --solar-elevation-1: 0 1px 3px rgba(0,0,0,0.3);
-  --solar-elevation-2: 0 4px 16px rgba(0,0,0,0.4);
-  --solar-elevation-3: 0 12px 48px rgba(0,0,0,0.5);
-}
-
 /* ── BASE ── */
 @layer base {
   html, body {
@@ -100,11 +80,6 @@
   ::selection {
     background: rgba(232, 93, 78, 0.18);
     color: var(--color-coral);
-  }
-
-  [data-theme='eclipse'] ::selection {
-    background: rgba(139, 92, 246, 0.25);
-    color: #A78BFA;
   }
 }
 
@@ -327,13 +302,6 @@
     background: rgba(232, 93, 78, 0.04);
     box-shadow: 0 0 20px rgba(232, 93, 78, 0.08);
   }
-
-  [data-theme='eclipse'] .btn-secondary:hover {
-    border-color: var(--color-accent-sun);
-    color: var(--color-accent-sun);
-    background: rgba(139, 92, 246, 0.06);
-    box-shadow: 0 0 24px rgba(139, 92, 246, 0.1);
-  }
 }
 
 /* ── CARTE PRODUIT GLASS ── */
@@ -536,13 +504,6 @@
     border-color: var(--solar-glass-border-hover);
   }
 
-  /* Eclipse glow ring on hover */
-  [data-theme='eclipse'] .glass-solar:hover,
-  [data-theme='eclipse'] .bento-item-solar:hover,
-  [data-theme='eclipse'] .glass-card:hover {
-    box-shadow: var(--solar-card-shadow-hover), 0 0 0 1px rgba(139, 92, 246, 0.08);
-  }
-
   .bento-solar {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -619,10 +580,6 @@
   .marquee-item .value {
     color: var(--color-coral);
     font-weight: 700;
-  }
-
-  [data-theme='eclipse'] .marquee-item .value {
-    color: var(--color-accent-sun);
   }
 }
 
@@ -718,10 +675,6 @@
     transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     pointer-events: none;
     border-radius: inherit;
-  }
-
-  [data-theme='eclipse'] .bento-item-solar::after {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.06) 0%, rgba(167, 139, 250, 0.04) 100%);
   }
 
   .bento-item-solar:hover::after {
