@@ -12,13 +12,19 @@ dist
 dist-ssr
 *.local
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# Project specific ignores
+skills/
+autoresearch-master/
+frontend-design/
+frontend-design.zip
+*.pdf
+*.zip
+.gemini_screenshot*.png
+extracted_text.txt
+pdf-out.txt
+extract_out.txt
+extract*.js
+extract*.cjs
+use_case_and_pages.md
+pdf2json.js
+*.pptx.pdf
