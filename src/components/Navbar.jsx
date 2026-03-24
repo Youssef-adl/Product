@@ -93,7 +93,7 @@ export default function Navbar({ cart = [], auth, setAuth }) {
             S'ABONNER
           </a>
 
-          <Link to="/cart" className="hidden sm:flex btn-sun !px-5 !py-2.5 !text-[11px] shadow-sm relative group/cart">
+          <Link to="/cart" className="hidden sm:flex btn-sun !px-5 !py-2.5 !text-[11px] shadow-sm relative group/cart !overflow-visible">
             <ShoppingBag size={15} />
             <span className="ml-1.5 mt-0.5 uppercase tracking-widest">PANIER</span>
             {cartCount > 0 && (
