@@ -98,21 +98,21 @@ export default function ProductDetail({ addToCart }) {
   };
 
   if (loading) return (
-    <div className="min-h-screen bg-solar-cream flex flex-col items-center justify-center">
-       <div className="w-16 h-16 border-2 border-sand/30 border-t-coral-deep rounded-full animate-spin mb-6" />
-       <span className="subtitle-silk animate-pulse">Synchronisation Solaris...</span>
+    <div className="min-h-screen bg-solar-bg-primary flex flex-col items-center justify-center selection:bg-solar-accent-sun selection:text-white font-sans">
+       <div className="w-16 h-16 border-2 border-solar-glass-border border-t-solar-accent-sun rounded-full animate-spin mb-8" />
+       <span className="text-[10px] font-black uppercase tracking-[0.3em] animate-pulse text-solar-text-muted italic">Synchronisation Solaris...</span>
     </div>
   );
   
   if (!product) return (
-    <div className="min-h-screen bg-solar-cream flex flex-col items-center justify-center gap-8">
-      <h1 className="title-solar text-4xl">Asset Introuvable.</h1>
-      <Link to="/boutique" className="btn-sun">Retour Boutique</Link>
+    <div className="min-h-screen bg-solar-bg-primary flex flex-col items-center justify-center gap-10 selection:bg-solar-accent-sun selection:text-white font-sans">
+      <h1 className="font-heading text-4xl text-solar-text-primary font-black uppercase italic tracking-tighter">Asset Introuvable.</h1>
+      <Link to="/boutique" className="btn-primary no-underline">Retour Boutique</Link>
     </div>
   );
 
   return (
-    <div className="bg-solar-cream min-h-screen pt-32 pb-40 overflow-hidden relative">
+    <div className="bg-solar-bg-primary min-h-screen pt-32 pb-40 overflow-hidden relative selection:bg-solar-accent-sun selection:text-white font-sans">
       {/* GLOW DECORATIONS */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gold-sun/5 blur-[200px] rounded-full pointer-events-none" />
       <div className="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-coral-soft/5 blur-[150px] rounded-full pointer-events-none" />
@@ -122,26 +122,26 @@ export default function ProductDetail({ addToCart }) {
         <motion.nav 
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-4 mb-16"
+          className="flex items-center gap-5 mb-16"
         >
-          <Link to="/" className="text-[10px] font-bold tracking-[0.2em] text-slate-400 hover:text-coral-deep transition-colors uppercase">Accueil</Link>
-          <ChevronRight size={10} className="text-sand" />
-          <Link to="/boutique" className="text-[10px] font-bold tracking-[0.2em] text-slate-400 hover:text-coral-deep transition-colors uppercase">Boutique</Link>
-          <ChevronRight size={10} className="text-sand" />
-          <span className="text-[10px] font-bold tracking-[0.2em] text-navy-deep uppercase">{product.name}</span>
+          <Link to="/" className="text-[10px] font-black tracking-[0.2em] text-solar-text-muted hover:text-solar-accent-sun transition-colors uppercase italic">Accueil</Link>
+          <ChevronRight size={10} className="text-solar-glass-border" />
+          <Link to="/boutique" className="text-[10px] font-black tracking-[0.2em] text-solar-text-muted hover:text-solar-accent-sun transition-colors uppercase italic">Boutique</Link>
+          <ChevronRight size={10} className="text-solar-glass-border" />
+          <span className="text-[10px] font-black tracking-[0.2em] text-solar-text-primary uppercase italic">{product.name}</span>
         </motion.nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
           
           {/* LEFT: GALLERY */}
-          <div className="lg:col-span-7 flex flex-col gap-8">
+          <div className="lg:col-span-7 flex flex-col gap-10">
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
-              className="relative group glass-solar !p-0 aspect-square rounded-[48px] overflow-hidden bg-white/40 border-white/80 shadow-2xl flex items-center justify-center"
+              className="relative group bg-solar-bg-secondary rounded-[3rem] overflow-hidden border border-solar-glass-border shadow-2xl flex items-center justify-center p-12"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-gold-sun/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+              <div className="absolute inset-0 bg-gradient-to-br from-solar-accent-sun/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity " />
               
               <AnimatePresence mode="wait">
                 <motion.img 
@@ -152,22 +152,14 @@ export default function ProductDetail({ addToCart }) {
                   transition={{ duration: 0.6 }}
                   src={product.images[selectedImage]} 
                   alt={product.name}
-                  className="max-w-[80%] max-h-[80%] object-contain"
-                  style={{ mixBlendMode: 'multiply' }}
+                  className="max-w-[90%] max-h-[90%] object-contain grayscale group-hover:grayscale-0 transition-all "
                 />
               </AnimatePresence>
-
-              {/* FLOATING BADGE */}
-              <div className="absolute top-10 left-10">
-                <div className="solar-icon animate-pulse-sun shadow-xl">
-                  <Sparkles size={20} />
-                </div>
-              </div>
-
-              {/* ZOOM HINT */}
-              <div className="absolute bottom-10 right-10 flex gap-4 text-slate-300">
-                <div className="glass-solar !p-3 cursor-pointer hover:text-coral-deep transition-colors">
-                  <Maximize2 size={18} />
+ 
+               {/* ZOOM HINT */}
+              <div className="absolute bottom-10 right-10 flex gap-4 text-solar-text-muted">
+                <div className="bg-solar-bg-primary p-4 rounded-full border border-solar-glass-border shadow-sm cursor-pointer hover:text-solar-accent-sun transition-colors">
+                  <Maximize2 size={20} />
                 </div>
               </div>
             </motion.div>
@@ -195,92 +187,93 @@ export default function ProductDetail({ addToCart }) {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="flex items-center gap-4 mb-8">
-                <span className="subtitle-silk text-coral-deep">Série Solaris 2026 // {product.sku}</span>
-                <div className="flex text-gold-sun gap-1"><Star size={12} fill="currentColor"/><Star size={12} fill="currentColor"/><Star size={12} fill="currentColor"/><Star size={12} fill="currentColor"/><Star size={12} fill="currentColor"/></div>
+              <div className="flex items-center gap-6 mb-10">
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-solar-accent-sun italic">Série Solaris 2028 // {product.sku}</span>
+                <div className="flex text-solar-accent-sun gap-1 opacity-40"><Star size={10} fill="currentColor"/><Star size={10} fill="currentColor"/><Star size={10} fill="currentColor"/><Star size={10} fill="currentColor"/><Star size={10} fill="currentColor"/></div>
               </div>
-
-              <h1 className="title-solar text-5xl lg:text-7xl leading-none mb-8">
+ 
+              <h1 className="font-heading text-5xl lg:text-[5.5rem] leading-[0.9] mb-10 font-black uppercase italic tracking-tighter text-solar-text-primary">
                 {product.name.split('(')[0]} <br/>
-                <em className="text-gradient-sun">{product.name.includes('(') ? `(${product.name.split('(')[1]}` : ''}</em>
+                <span className="text-solar-accent-sun">{product.name.includes('(') ? `(${product.name.split('(')[1]}` : ''}</span>
               </h1>
-
-              <p className="font-sans text-lg text-slate-500 font-light italic leading-relaxed mb-12">
+ 
+              <p className="font-sans text-lg text-solar-text-muted font-bold italic leading-relaxed mb-12 opacity-80 uppercase tracking-tight">
                 {product.description}
               </p>
 
               {/* PRICE & AVAILABILITY */}
-              <div className="glass-solar !p-10 mb-12 border-white/80 bg-white/30 backdrop-blur-2xl">
-                <div className="flex items-baseline gap-4 mb-4">
-                  <span className="text-5xl font-sans font-light text-navy-deep">{product.price} DH</span>
-                  <span className="text-[10px] font-black tracking-widest text-slate-400 uppercase">TVA Incluse</span>
+              <div className="bg-solar-bg-secondary p-10 mb-12 border border-solar-glass-border rounded-[2rem] shadow-sm relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-solar-accent-sun" />
+                <div className="flex items-baseline gap-5 mb-5">
+                  <span className="text-6xl font-heading font-black text-solar-text-primary italic">{product.price} DH</span>
+                  <span className="text-[10px] font-black tracking-[0.2em] text-solar-text-muted uppercase italic">TVA Incluse</span>
                 </div>
-                <div className="flex items-center gap-3 text-emerald-600 font-sans text-[10px] font-bold tracking-widest uppercase">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#10b981]" />
-                  Stock Limité Campus ISTA
+                <div className="flex items-center gap-3 text-green-600 font-bold text-[10px] font-black tracking-[0.2em] uppercase italic">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e]" />
+                  Stock Limité Campus Solaris 2028
                 </div>
               </div>
 
               {/* QUANTITY & CTA */}
               <div className="space-y-6">
-                <div className="flex items-center justify-between glass-solar !py-2 !px-2 border-sand/20">
-                  <div className="flex items-center gap-4 pl-6">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Unités</span>
+                <div className="flex items-center justify-between bg-solar-bg-secondary p-2 rounded-full border border-solar-glass-border shadow-sm">
+                  <div className="flex items-center gap-4 pl-8">
+                    <span className="text-[10px] font-black text-solar-text-muted uppercase tracking-[0.3em] italic">Unités</span>
                   </div>
-                  <div className="flex items-center gap-8 pr-2">
+                  <div className="flex items-center gap-10 pr-2">
                     <button 
                       onClick={() => setQuantity(Math.max(1, quantity-1))} 
-                      className="w-12 h-12 flex items-center justify-center text-xl font-light bg-white rounded-2xl hover:bg-navy-deep hover:text-white transition-all shadow-sm"
+                      className="w-12 h-12 flex items-center justify-center text-xl font-black bg-solar-bg-primary rounded-full hover:bg-solar-accent-sun hover:text-white transition-all border border-solar-glass-border cursor-pointer shadow-sm"
                     >
                       −
                     </button>
-                    <span className="text-2xl font-serif text-navy-deep min-w-[30px] text-center">{quantity}</span>
+                    <span className="text-2xl font-heading font-black text-solar-text-primary min-w-[30px] text-center italic">{quantity}</span>
                     <button 
                       onClick={() => setQuantity(quantity+1)} 
-                      className="w-12 h-12 flex items-center justify-center text-xl font-light bg-white rounded-2xl hover:bg-navy-deep hover:text-white transition-all shadow-sm"
+                      className="w-12 h-12 flex items-center justify-center text-xl font-black bg-solar-bg-primary rounded-full hover:bg-solar-accent-sun hover:text-white transition-all border border-solar-glass-border cursor-pointer shadow-sm"
                     >
                       +
                     </button>
                   </div>
                 </div>
-
-                <div className="flex flex-col gap-4">
+ 
+                <div className="flex flex-col gap-5 pt-4">
                   <motion.button 
-                    whileHover={{ y: -4, shadow: '0 20px 40px rgba(209,77,63,0.3)' }}
+                    whileHover={{ y: -4 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleAddToCart}
-                    className={`w-full py-6 rounded-3xl font-bold text-xs uppercase tracking-[0.2em] transition-all duration-500 flex items-center justify-center gap-4 shadow-xl
-                      ${added ? 'bg-emerald-500 text-white shadow-emerald-500/20' : 'bg-coral-deep text-white'}
+                    className={`btn-primary w-full justify-center !py-6 !text-sm !font-black !tracking-[0.3em]
+                      ${added ? '!bg-green-600 !border-green-600' : ''}
                     `}
                   >
                     {added ? (
-                      <>CONFIRMÉ <CheckCircle size={18} /></>
+                      <>CONFIRMÉ <CheckCircle size={20} /></>
                     ) : (
-                      <>AJOUTER AU PANIER <ShoppingCart size={18} /></>
+                      <>AJOUTER AU PANIER <ShoppingCart size={20} /></>
                     )}
                   </motion.button>
                   
                   <Link 
                     to="/boutique"
-                    className="w-full py-6 rounded-3xl font-bold text-xs uppercase tracking-[0.2em] bg-white border border-sand/40 text-slate-600 hover:bg-solar-warm transition-all flex items-center justify-center gap-3"
+                    className="w-full py-6 rounded-full font-black text-[10px] uppercase tracking-[0.3em] bg-solar-bg-secondary border border-solar-glass-border text-solar-text-muted hover:text-solar-accent-sun hover:border-solar-accent-sun transition-all flex items-center justify-center gap-4 italic no-underline"
                   >
                     <ArrowLeft size={16} /> Retour à la Boutique
                   </Link>
                 </div>
               </div>
             </motion.div>
-
+ 
             {/* SPECS GRID */}
             <motion.div 
                initial={{ opacity: 0, y: 20 }}
                animate={{ opacity: 1, y: 0 }}
                transition={{ duration: 0.8, delay: 0.4 }}
-               className="grid grid-cols-2 gap-8 pt-10 border-t border-sand/30"
+               className="grid grid-cols-2 gap-10 pt-12 border-t border-solar-glass-border"
             >
                {product.specs.map((spec, i) => (
-                 <div key={i} className="flex flex-col gap-1 group">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-coral-deep transition-colors">{spec.label}</span>
-                    <span className="text-sm font-sans text-navy-deep font-semibold tracking-tight">{spec.value}</span>
+                 <div key={i} className="flex flex-col gap-2 group">
+                    <span className="text-[10px] font-black text-solar-text-muted uppercase tracking-[0.3em] group-hover:text-solar-accent-sun transition-all italic">{spec.label}</span>
+                    <span className="text-sm font-bold text-solar-text-primary uppercase tracking-wider">{spec.value}</span>
                  </div>
                ))}
             </motion.div>

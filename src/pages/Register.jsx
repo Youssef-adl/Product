@@ -62,16 +62,16 @@ export default function Register({ setAuth }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-bg-primary pt-32 pb-20 px-4 selection:bg-coral selection:text-white">
-      <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-0 glass-solar !p-0 overflow-hidden animate-in fade-in slide-in-from-bottom duration-1000">
+    <div className="min-h-screen flex items-center justify-center bg-solar-bg-primary pt-32 pb-20 px-4 selection:bg-solar-accent-sun selection:text-white">
+      <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-0 glass-solar !p-0 overflow-hidden rounded-[2.5rem] shadow-2xl">
         
         {/* LEFT SIDE: INFO */}
-        <div className="bg-bg-secondary p-12 flex flex-col justify-center border-r border-glass-border">
+        <div className="bg-solar-bg-secondary p-12 flex flex-col justify-center border-r border-solar-glass-border">
           <div className="mb-10">
-            <h2 className="font-serif text-4xl text-text-primary mb-4 leading-tight">
+            <h2 className="font-heading text-4xl text-solar-text-primary mb-4 leading-tight font-black uppercase italic">
               Rejoignez l'élite du Sourcing Solaire
             </h2>
-            <p className="text-text-muted text-sm font-medium leading-relaxed">
+            <p className="text-solar-text-muted text-sm font-medium leading-relaxed font-sans">
               Accédez à notre catalogue exclusif SmartCharge et bénéficiez de conditions préférentielles pour vos projets d'envergure.
             </p>
           </div>
@@ -83,10 +83,10 @@ export default function Register({ setAuth }) {
               { icon: Building, text: "Support logistique dédié aux entreprises" }
             ].map((item, idx) => (
               <div key={idx} className="flex items-center gap-4 group">
-                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-glass-border group-hover:border-coral/30 transition-colors">
-                  <item.icon className="h-5 w-5 text-coral" />
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-solar-glass-border group-hover:border-solar-accent-sun/30 transition-colors">
+                  <item.icon className="h-5 w-5 text-solar-accent-sun" />
                 </div>
-                <p className="text-xs font-bold text-text-secondary uppercase tracking-widest">{item.text}</p>
+                <p className="text-xs font-bold text-solar-text-secondary uppercase tracking-widest">{item.text}</p>
               </div>
             ))}
           </div>
@@ -101,82 +101,82 @@ export default function Register({ setAuth }) {
         {/* RIGHT SIDE: FORM */}
         <div className="p-12 bg-white/40">
           <div className="mb-10">
-            <h3 className="font-serif text-3xl text-text-primary mb-2">Inscription</h3>
-            <p className="text-[10px] font-bold text-text-muted tracking-widest uppercase">
+            <h3 className="font-heading text-3xl text-solar-text-primary mb-2 font-black uppercase italic">Inscription</h3>
+            <p className="text-[10px] font-bold text-solar-text-muted tracking-widest uppercase">
               Formulaire d'accréditation
             </p>
           </div>
 
           {error && (
-            <div className="mb-6 bg-coral/5 border border-coral/20 p-4 rounded-xl">
-              <p className="text-[10px] font-bold text-coral uppercase tracking-widest text-center">{error}</p>
+            <div className="mb-6 bg-solar-accent-sun/5 border border-solar-accent-sun/20 p-4 rounded-3xl ">
+              <p className="text-[10px] font-bold text-solar-accent-sun uppercase tracking-widest text-center">{error}</p>
             </div>
           )}
 
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-4">
               <div className="relative group">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted group-focus-within:text-coral transition-colors" />
+                <User className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-solar-text-muted group-focus-within:text-solar-accent-sun transition-colors" />
                 <input
                   name="name"
                   type="text"
                   required
-                  className="w-full pl-12 pr-4 py-3 bg-bg-secondary/50 border border-glass-border rounded-xl text-sm font-medium text-text-primary focus:ring-2 focus:ring-coral/10 focus:border-coral outline-none transition-all placeholder:text-text-muted/40"
+                  className="w-full pl-16 pr-6 py-4 bg-solar-bg-secondary/50 border border-solar-glass-border rounded-full text-sm font-medium text-solar-text-primary focus:ring-2 focus:ring-solar-accent-sun/10 focus:border-solar-accent-sun outline-none transition-all placeholder:text-solar-text-muted/40 uppercase tracking-widest"
                   placeholder="NOM COMPLET"
                   onChange={handleChange}
                 />
               </div>
               <div className="relative group">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted group-focus-within:text-coral transition-colors" />
+                <Mail className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-solar-text-muted group-focus-within:text-solar-accent-sun transition-colors" />
                 <input
                   name="email"
                   type="email"
                   required
-                  className="w-full pl-12 pr-4 py-3 bg-bg-secondary/50 border border-glass-border rounded-xl text-sm font-medium text-text-primary focus:ring-2 focus:ring-coral/10 focus:border-coral outline-none transition-all placeholder:text-text-muted/40"
+                  className="w-full pl-16 pr-6 py-4 bg-solar-bg-secondary/50 border border-solar-glass-border rounded-full text-sm font-medium text-solar-text-primary focus:ring-2 focus:ring-solar-accent-sun/10 focus:border-solar-accent-sun outline-none transition-all placeholder:text-solar-text-muted/40 uppercase tracking-widest"
                   placeholder="EMAIL PROFESSIONNEL"
                   onChange={handleChange}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="relative group">
-                   <Building className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted group-focus-within:text-coral transition-colors" />
+                   <Building className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-solar-text-muted group-focus-within:text-solar-accent-sun transition-colors" />
                    <input
                      name="company"
                      type="text"
-                     className="w-full pl-11 pr-3 py-3 bg-bg-secondary/50 border border-glass-border rounded-xl text-xs font-medium text-text-primary focus:ring-2 focus:ring-coral/10 focus:border-coral outline-none transition-all placeholder:text-text-muted/40"
+                     className="w-full pl-14 pr-4 py-4 bg-solar-bg-secondary/50 border border-solar-glass-border rounded-full text-xs font-medium text-solar-text-primary focus:ring-2 focus:ring-solar-accent-sun/10 focus:border-solar-accent-sun outline-none transition-all placeholder:text-solar-text-muted/40 uppercase tracking-widest"
                      placeholder="ENTREPRISE"
                      onChange={handleChange}
                    />
                 </div>
                 <div className="relative group">
-                   <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted group-focus-within:text-coral transition-colors" />
+                   <Phone className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-solar-text-muted group-focus-within:text-solar-accent-sun transition-colors" />
                    <input
                      name="phone"
                      type="text"
-                     className="w-full pl-11 pr-3 py-3 bg-bg-secondary/50 border border-glass-border rounded-xl text-xs font-medium text-text-primary focus:ring-2 focus:ring-coral/10 focus:border-coral outline-none transition-all placeholder:text-text-muted/40"
+                     className="w-full pl-14 pr-4 py-4 bg-solar-bg-secondary/50 border border-solar-glass-border rounded-full text-xs font-medium text-solar-text-primary focus:ring-2 focus:ring-solar-accent-sun/10 focus:border-solar-accent-sun outline-none transition-all placeholder:text-solar-text-muted/40 uppercase tracking-widest"
                      placeholder="TÉLÉPHONE"
                      onChange={handleChange}
                    />
                 </div>
               </div>
               <div className="relative group">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted group-focus-within:text-coral transition-colors" />
+                <Lock className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-solar-text-muted group-focus-within:text-solar-accent-sun transition-colors" />
                 <input
                   name="password"
                   type="password"
                   required
-                  className="w-full pl-12 pr-4 py-3 bg-bg-secondary/50 border border-glass-border rounded-xl text-sm font-medium text-text-primary focus:ring-2 focus:ring-coral/10 focus:border-coral outline-none transition-all placeholder:text-text-muted/40"
+                  className="w-full pl-16 pr-6 py-4 bg-solar-bg-secondary/50 border border-solar-glass-border rounded-full text-sm font-medium text-solar-text-primary focus:ring-2 focus:ring-solar-accent-sun/10 focus:border-solar-accent-sun outline-none transition-all placeholder:text-solar-text-muted/40 uppercase tracking-widest"
                   placeholder="MOT DE PASSE"
                   onChange={handleChange}
                 />
               </div>
               <div className="relative group">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted group-focus-within:text-coral transition-colors" />
+                <Lock className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-solar-text-muted group-focus-within:text-solar-accent-sun transition-colors" />
                 <input
                   name="password_confirmation"
                   type="password"
                   required
-                  className="w-full pl-12 pr-4 py-3 bg-bg-secondary/50 border border-glass-border rounded-xl text-sm font-medium text-text-primary focus:ring-2 focus:ring-coral/10 focus:border-coral outline-none transition-all placeholder:text-text-muted/40"
+                  className="w-full pl-16 pr-6 py-4 bg-solar-bg-secondary/50 border border-solar-glass-border rounded-full text-sm font-medium text-solar-text-primary focus:ring-2 focus:ring-solar-accent-sun/10 focus:border-solar-accent-sun outline-none transition-all placeholder:text-solar-text-muted/40 uppercase tracking-widest"
                   placeholder="CONFIRMATION"
                   onChange={handleChange}
                 />
@@ -193,12 +193,12 @@ export default function Register({ setAuth }) {
             </button>
           </form>
 
-          <div className="mt-8 text-center">
-            <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest">
+          <div className="mt-8 text-center border-t border-solar-glass-border pt-8">
+            <p className="text-[10px] font-bold text-solar-text-muted uppercase tracking-widest">
               DÉJÀ INSCRIT ?{' '}
               <Link 
                 to="/login"
-                className="text-coral hover:text-coral/80 transition-colors ml-2"
+                className="text-solar-accent-sun hover:text-solar-accent-sun/80 transition-colors ml-2"
               >
                 SE CONNECTER
               </Link>

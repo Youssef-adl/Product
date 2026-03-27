@@ -13,9 +13,9 @@ const inclusions = [
 
 export default function Packaging() {
   return (
-    <section className="relative py-32 lg:py-48 bg-bg-primary transition-colors duration-500 overflow-hidden">
+    <section className="relative py-32 lg:py-48 bg-solar-bg-secondary transition-colors duration-500 overflow-hidden">
       {/* Glow */}
-      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-gold-sun/10 dark:bg-lunar-violet/10 rounded-full blur-[150px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
+      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-solar-accent-sun/10 rounded-full blur-[150px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
 
       <div className="container-solar relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
@@ -29,19 +29,19 @@ export default function Packaging() {
             transition={{ duration: 0.8 }}
           >
             <div>
-              <div className="subtitle-silk mb-6">Unboxing // Expérience</div>
-              <h2 className="title-solar text-5xl lg:text-6xl mb-6">
+              <div className="subtitle-silk mb-6 !font-sans !tracking-[0.3em] !text-[10px]">Unboxing // Expérience</div>
+              <h2 className="title-solar text-5xl lg:text-6xl mb-6 !font-heading !font-black uppercase">
                 Le rituel <br />
-                <em className="text-gradient-sun">de l'ouverture.</em>
+                <em className="text-solar-accent-sun italic">de l'ouverture.</em>
               </h2>
-              <p className="font-sans text-base text-text-secondary font-light leading-relaxed italic max-w-sm">
+              <p className="font-sans text-base text-solar-text-muted font-normal leading-relaxed italic max-w-sm opacity-80">
                 Chaque SmartCharge V1 est livré dans un coffret en carton recyclé haute densité, scellé par un ruban d'authenticité. L'expérience commence avant même la première charge.
               </p>
             </div>
 
             {/* Inclusions list */}
             <div className="flex flex-col gap-3">
-              <div className="font-sans text-[10px] uppercase tracking-[0.3em] text-text-muted mb-2">Contenu de la boîte</div>
+              <div className="font-mono text-[9px] uppercase tracking-[0.3em] text-solar-accent-sun mb-2 font-bold">Contenu de la boîte</div>
               {inclusions.map((item, i) => (
                 <motion.div
                   key={i}
@@ -51,8 +51,8 @@ export default function Packaging() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.1 + i * 0.08 }}
                 >
-                  <CheckCircle2 size={16} className="text-coral flex-shrink-0" />
-                  <span className="font-sans text-sm text-text-primary">{item}</span>
+                  <CheckCircle2 size={16} className="text-solar-accent-sun flex-shrink-0" />
+                  <span className="font-sans text-sm text-solar-text-primary uppercase tracking-wider font-black">{item}</span>
                 </motion.div>
               ))}
             </div>
@@ -67,38 +67,26 @@ export default function Packaging() {
             transition={{ duration: 0.8 }}
           >
             <div
-              className="glass-solar p-16 flex flex-col items-center justify-center gap-8 w-full aspect-square max-w-sm mx-auto"
-              style={{ 
-                background: 'var(--color-glass-bg)',
-                borderColor: 'var(--color-glass-border)'
-              }}
+              className="glass-solar p-16 flex flex-col items-center justify-center gap-8 w-full aspect-square max-w-sm mx-auto rounded-none border-solar-glass-border bg-solar-glass-bg backdrop-blur-3xl shadow-2xl"
             >
               {/* Box icon */}
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="w-28 h-28 rounded-3xl flex items-center justify-center shadow-lg transition-colors duration-500"
-                style={{ 
-                  background: 'var(--color-bg-secondary)', 
-                  border: '1px solid var(--color-glass-border)' 
-                }}
+                className="w-28 h-28 rounded-none flex items-center justify-center shadow-2xl transition-colors duration-500 bg-solar-bg-primary/40 border border-solar-glass-border"
               >
-                <Package size={52} className="text-coral" />
+                <Package size={52} className="text-solar-accent-sun" />
               </motion.div>
 
               {/* Label */}
               <div className="text-center">
-                <div className="font-serif text-2xl text-text-primary mb-1">SmartCharge V1</div>
-                <div className="font-sans text-[10px] uppercase tracking-[0.3em] text-text-muted">Édition Solaris Lux — 2026</div>
+                <div className="font-heading text-2xl text-solar-text-primary mb-1 uppercase font-black italic">SmartCharge V1</div>
+                <div className="font-mono text-[9px] uppercase tracking-[0.3em] text-solar-accent-sun font-bold">Édition Solaris Lux — 2027</div>
               </div>
 
               {/* Seal */}
               <div
-                className="px-6 py-2 rounded-full font-sans text-[10px] uppercase tracking-[0.25em] font-bold text-coral flex items-center gap-2"
-                style={{ 
-                  background: 'var(--color-bg-secondary)', 
-                  border: '2px solid var(--color-coral)' 
-                }}
+                className="px-6 py-2 rounded-none font-sans text-[10px] uppercase tracking-[0.25em] font-black text-solar-accent-sun flex items-center gap-2 border-2 border-solar-accent-sun bg-solar-accent-sun/5"
               >
                 <span className="text-xs">✦</span> Authenticité Garantie
               </div>

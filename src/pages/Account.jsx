@@ -32,35 +32,36 @@ export default function Account({ auth }) {
   const user = auth.user;
 
   return (
-    <div className="min-h-screen bg-bg-primary pt-32 pb-20 px-4">
+    <div className="min-h-screen bg-solar-bg-primary pt-32 pb-20 px-4 selection:bg-solar-accent-sun selection:text-white font-sans">
       <div className="container-solar max-w-5xl">
         {/* HEADER */}
-        <div className="mb-12 animate-in fade-in slide-in-from-bottom duration-700">
-          <h1 className="font-serif text-5xl text-text-primary mb-4">Mon Compte</h1>
-          <p className="text-text-muted tracking-widest uppercase text-xs font-medium">
-            Gérez vos informations et vos commandes SOLARIS
+        <div className="mb-12 ">
+          <h1 className="font-heading text-5xl text-solar-text-primary mb-4 font-black uppercase italic tracking-tighter">Mon Compte</h1>
+          <p className="text-solar-text-muted tracking-widest uppercase text-[10px] font-bold">
+            Gérez vos informations et vos commandes SOLARIS 2028
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* PROFILE CARD */}
           <div className="lg:col-span-1">
-            <div className="glass-solar p-8 text-center flex flex-col items-center animate-in fade-in slide-in-from-left duration-700 delay-100">
-              <div className="w-24 h-24 bg-gradient-sun rounded-full flex items-center justify-center mb-6 shadow-xl">
-                <User size={40} className="text-white" />
+            <div className="bg-solar-bg-secondary p-8 text-center flex flex-col items-center rounded-[2.5rem] border border-solar-glass-border shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-1 bg-solar-accent-sun" />
+              <div className="w-24 h-24 bg-solar-accent-sun/10 rounded-full flex items-center justify-center mb-6 shadow-sm border border-solar-accent-sun/20">
+                <User size={40} className="text-solar-accent-sun" />
               </div>
-              <h2 className="text-2xl font-serif text-text-primary mb-1">{user.name}</h2>
-              <p className="text-coral font-sans text-xs font-bold tracking-widest uppercase mb-6">
+              <h2 className="text-2xl font-heading font-black text-solar-text-primary mb-1 uppercase tracking-tight italic">{user.name}</h2>
+              <p className="text-solar-accent-sun font-sans text-xs font-bold tracking-[0.2em] uppercase mb-6 italic opacity-80">
                 {user.role || 'Client Privé'}
               </p>
               
-              <div className="w-full border-t border-glass-border pt-6 mt-2 space-y-4">
-                <div className="flex items-center gap-3 text-text-secondary text-sm">
-                  <Calendar size={16} className="text-accent-sun" />
+              <div className="w-full border-t border-solar-glass-border pt-6 mt-2 space-y-4">
+                <div className="flex items-center gap-4 text-solar-text-secondary text-[10px] font-bold uppercase tracking-widest">
+                  <Calendar size={16} className="text-solar-accent-sun" />
                   <span>Membre depuis 2026</span>
                 </div>
-                <div className="flex items-center gap-3 text-text-secondary text-sm">
-                  <Shield size={16} className="text-accent-sun" />
+                <div className="flex items-center gap-4 text-solar-text-secondary text-[10px] font-bold uppercase tracking-widest">
+                  <Shield size={16} className="text-solar-accent-sun" />
                   <span>Compte Vérifié</span>
                 </div>
               </div>
@@ -68,86 +69,86 @@ export default function Account({ auth }) {
           </div>
 
           {/* DETAILS & ACTIONS */}
-          <div className="lg:col-span-2 space-y-8 animate-in fade-in slide-in-from-right duration-700 delay-200">
+          <div className="lg:col-span-2 space-y-8 ">
             {/* PERSONAL INFO */}
-            <div className="glass-solar !overflow-visible">
-              <div className="flex items-center justify-between mb-8">
-                <h3 className="text-xl font-serif text-text-primary">Informations Personnelles</h3>
-                <button className="text-[10px] font-bold tracking-widest uppercase text-accent-sun hover:text-coral transition-colors">
+            <div className="bg-solar-bg-secondary p-10 rounded-[2.5rem] border border-solar-glass-border shadow-sm">
+              <div className="flex items-center justify-between mb-10">
+                <h3 className="text-xl font-heading font-black text-solar-text-primary uppercase tracking-widest italic">Informations Personnelles</h3>
+                <button className="text-[10px] font-bold tracking-widest uppercase text-solar-accent-sun hover:opacity-70 transition-colors">
                   Modifier
                 </button>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-1">
-                  <p className="text-[10px] font-black text-text-muted uppercase tracking-widest">Nom Complet</p>
-                  <div className="flex items-center gap-3 text-text-primary">
-                    <User size={18} className="text-glass-border" />
-                    <p className="font-medium">{user.name}</p>
+ 
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div className="space-y-2">
+                  <p className="text-[8px] font-black text-solar-text-muted uppercase tracking-[0.2em] italic">Nom Complet</p>
+                  <div className="flex items-center gap-4 text-solar-text-primary">
+                    <User size={18} className="text-solar-accent-sun" />
+                    <p className="font-bold text-sm uppercase tracking-wider">{user.name}</p>
                   </div>
                 </div>
-                <div className="space-y-1">
-                  <p className="text-[10px] font-black text-text-muted uppercase tracking-widest">Email Professionnel</p>
-                  <div className="flex items-center gap-3 text-text-primary">
-                    <Mail size={18} className="text-glass-border" />
-                    <p className="font-medium">{user.email}</p>
+                <div className="space-y-2">
+                  <p className="text-[8px] font-black text-solar-text-muted uppercase tracking-[0.2em] italic">Email Professionnel</p>
+                  <div className="flex items-center gap-4 text-solar-text-primary">
+                    <Mail size={18} className="text-solar-accent-sun" />
+                    <p className="font-bold text-sm uppercase tracking-wider">{user.email}</p>
                   </div>
                 </div>
-                <div className="space-y-1">
-                  <p className="text-[10px] font-black text-text-muted uppercase tracking-widest">Téléphone</p>
-                  <div className="flex items-center gap-3 text-text-primary">
-                    <Phone size={18} className="text-glass-border" />
-                    <p className="font-medium">{user.phone || 'Non renseigné'}</p>
+                <div className="space-y-2">
+                  <p className="text-[8px] font-black text-solar-text-muted uppercase tracking-[0.2em] italic">Téléphone</p>
+                  <div className="flex items-center gap-4 text-solar-text-primary">
+                    <Phone size={18} className="text-solar-accent-sun" />
+                    <p className="font-bold text-sm uppercase tracking-wider">{user.phone || 'Non renseigné'}</p>
                   </div>
                 </div>
-                <div className="space-y-1">
-                  <p className="text-[10px] font-black text-text-muted uppercase tracking-widest">Entreprise / Organisation</p>
-                  <div className="flex items-center gap-3 text-text-primary">
-                    <Building size={18} className="text-glass-border" />
-                    <p className="font-medium">{user.company || 'Indépendant'}</p>
+                <div className="space-y-2">
+                  <p className="text-[8px] font-black text-solar-text-muted uppercase tracking-[0.2em] italic">Entreprise / Organisation</p>
+                  <div className="flex items-center gap-4 text-solar-text-primary">
+                    <Building size={18} className="text-solar-accent-sun" />
+                    <p className="font-bold text-sm uppercase tracking-wider">{user.company || 'Indépendant'}</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* ORDERS PREVIEW */}
-            <div className="glass-solar">
+            <div className="bg-solar-bg-secondary p-10 rounded-[2.5rem] border border-solar-glass-border shadow-sm">
               <div className="flex items-center justify-between mb-8">
-                <h3 className="text-xl font-serif text-text-primary">Commandes Récentes</h3>
-                <Link to="/orders" className="text-[10px] font-bold tracking-widest uppercase text-accent-sun hover:text-coral transition-colors flex items-center gap-2">
+                <h3 className="text-xl font-heading font-black text-solar-text-primary uppercase tracking-widest italic">Commandes Récentes</h3>
+                <Link to="/orders" className="text-[10px] font-bold tracking-widest uppercase text-solar-accent-sun hover:opacity-70 transition-colors flex items-center gap-2">
                   Voir tout <ArrowRight size={12} />
                 </Link>
               </div>
-
+ 
               {isLoading ? (
                 <div className="flex flex-col items-center justify-center py-12">
-                   <Loader2 size={24} className="animate-spin text-coral mb-2" />
-                   <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest">Chargement des données...</p>
+                   <Loader2 size={24} className="animate-spin text-solar-accent-sun mb-2" />
+                   <p className="text-[10px] font-bold text-solar-text-muted uppercase tracking-widest">Chargement des données...</p>
                 </div>
               ) : orders.length > 0 ? (
                 <div className="space-y-4">
                   {orders.slice(0, 3).map((order) => (
-                    <div key={order.id} className="p-4 rounded-2xl bg-white/50 border border-glass-border hover:border-coral/20 transition-all group">
-                      <div className="flex justify-between items-start mb-3">
+                    <div key={order.id} className="p-6 rounded-3xl bg-solar-bg-primary/50 border border-solar-glass-border hover:border-solar-accent-sun/20 transition-all group">
+                      <div className="flex justify-between items-start mb-4">
                         <div>
-                          <p className="text-[10px] font-black text-text-muted uppercase tracking-widest mb-1">Commande #{order.order_number}</p>
-                          <p className="text-xs font-bold text-text-primary">
+                          <p className="text-[8px] font-black text-solar-text-muted uppercase tracking-[0.2em] mb-1 italic">Commande #{order.order_number}</p>
+                          <p className="text-xs font-bold text-solar-text-primary uppercase tracking-wider">
                             {order.items?.length} article(s) • {new Date(order.created_at).toLocaleDateString('fr-FR')}
                           </p>
                         </div>
                         <div className="text-right">
-                          <p className="text-sm font-black text-text-primary">{parseFloat(order.total_amount).toFixed(2)} DH</p>
-                          <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-1 rounded-full ${
-                            order.status === 'pending' ? 'bg-amber-100 text-amber-700' : 'bg-green-100 text-green-700'
+                          <p className="text-sm font-black text-solar-text-primary">{parseFloat(order.total_amount).toFixed(2)} DH</p>
+                          <span className={`text-[8px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full italic ${
+                            order.status === 'pending' ? 'bg-amber-100/50 text-amber-700 border border-amber-200' : 'bg-green-100/50 text-green-700 border border-green-200'
                           }`}>
                             {order.status === 'pending' ? 'En attente' : 'Terminée'}
                           </span>
                         </div>
                       </div>
-                      <div className="flex gap-2 overflow-x-auto pb-2">
+                      <div className="flex gap-3 overflow-x-auto pb-2">
                          {order.items?.map((item, idx) => (
-                           <div key={idx} className="flex-shrink-0 w-8 h-8 rounded-lg bg-bg-secondary flex items-center justify-center border border-glass-border">
-                              <img src={item.product?.image_url} alt="" className="w-6 h-6 object-contain" onError={(e) => e.target.src = '/noise.svg'} />
+                           <div key={idx} className="flex-shrink-0 w-10 h-10 rounded-xl bg-solar-bg-secondary flex items-center justify-center border border-solar-glass-border shadow-sm">
+                              <img src={item.product?.image_url} alt="" className="w-7 h-7 object-contain grayscale group-hover:grayscale-0 transition-all" onError={(e) => e.target.src = '/noise.svg'} />
                            </div>
                          ))}
                       </div>
@@ -156,12 +157,12 @@ export default function Account({ auth }) {
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <div className="w-16 h-16 bg-bg-secondary rounded-full flex items-center justify-center mb-4 border border-glass-border">
-                    <Package size={24} className="text-text-muted" />
+                  <div className="w-16 h-16 bg-solar-bg-primary rounded-full flex items-center justify-center mb-6 border border-solar-glass-border shadow-sm">
+                    <Package size={24} className="text-solar-text-muted" />
                   </div>
-                  <p className="text-text-secondary text-sm font-medium mb-1">Aucune commande pour le moment.</p>
-                  <p className="text-text-muted text-xs">Vos futures acquisitions apparaîtront ici.</p>
-                  <Link to="/boutique" className="mt-6 btn-primary !py-3 !px-6 !text-[10px]">
+                  <p className="text-solar-text-secondary text-sm font-bold uppercase tracking-widest mb-1 italic">Aucune commande pour le moment.</p>
+                  <p className="text-solar-text-muted text-[10px] uppercase font-medium tracking-widest opacity-60">Vos futures acquisitions apparaîtront ici.</p>
+                  <Link to="/boutique" className="mt-8 btn-primary !py-4 !px-8">
                     Explorer la Boutique
                   </Link>
                 </div>

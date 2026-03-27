@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollProgress from './components/ScrollProgress';
@@ -17,9 +17,10 @@ import FAQ from './components/FAQ';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminProducts from './pages/AdminProducts';
 import AdminOrders from './pages/AdminOrders';
+import AdminReturns from './pages/AdminReturns';
+import AdminUsers from './pages/AdminUsers';
 import Account from './pages/Account';
 import Orders from './pages/Orders';
-
 function App() {
   const [auth, setAuth] = useState({
     token: localStorage.getItem('auth_token'),
@@ -80,11 +81,19 @@ function App() {
 
   const clearCart = () => setCart([]);
 
+  const AdminRoute = ({ children }) => {
+    if (!auth.user || auth.user.role !== 'admin') {
+      return <Navigate to="/login" replace />;
+    }
+    return children;
+  };
+
   return (
     <Router>
       <PageTransition />
       <ScrollProgress />
-      <div className="min-h-screen selection:bg-coral selection:text-white">
+      <div className="min-h-screen selection:bg-solar-accent-sun selection:text-white relative">
+        <div className="noise-overlay" />
         <Navbar cart={cart} auth={auth} setAuth={setAuth} />
         
         <Routes>
@@ -100,9 +109,13 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} />} />
           <Route path="/account" element={<Account auth={auth} />} />
           <Route path="/orders" element={<Orders auth={auth} />} />
-          <Route path="/admin" element={<AdminDashboard auth={auth} />} />
-          <Route path="/admin/products" element={<AdminProducts auth={auth} />} />
-          <Route path="/admin/orders" element={<AdminOrders auth={auth} />} />
+          
+          {/* Protected Admin Routes */}
+          <Route path="/admin" element={<AdminRoute><AdminDashboard auth={auth} /></AdminRoute>} />
+          <Route path="/admin/products" element={<AdminRoute><AdminProducts auth={auth} /></AdminRoute>} />
+          <Route path="/admin/orders" element={<AdminRoute><AdminOrders auth={auth} /></AdminRoute>} />
+          <Route path="/admin/returns" element={<AdminRoute><AdminReturns auth={auth} /></AdminRoute>} />
+          <Route path="/admin/users" element={<AdminRoute><AdminUsers auth={auth} /></AdminRoute>} />
         </Routes>
 
         <Footer />

@@ -1,6 +1,6 @@
 # SOLARIS LUX — Backend API
 
-> **Powering the SmartCharge Experience.** A robust, secure, and scalable API built with Laravel 11 to handle orders, products, and user management for the Solaris Lux ecosystem.
+> **The Digital Core of Power.** A hardened, high-performance API ecosystem built with Laravel 11. Engineered for reliability, security, and seamless energy management within the Solaris Lux portfolio.
 
 [![Laravel](https://img.shields.io/badge/Laravel-11-FF2D20?logo=laravel&logoColor=white)](https://laravel.com/)
 [![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?logo=php&logoColor=white)](https://www.php.net/)
@@ -10,11 +10,10 @@
 
 ## 🛠️ Tech Stack & Features
 
-- **Framework**: Laravel 11 (PHP 8.2+)
-- **Authentication**: Secure token-based auth via **Laravel Sanctum**.
-- **Database**: Eloquent ORM with support for MySQL/PostgreSQL/SQLite.
-- **Security**: Granular access control with custom **Admin Middleware**.
-- **Architecture**: RESTful API design with dedicated Controllers and Request validation.
+- **Framework**: Laravel 11 / PHP 8.2+
+- **Security**: 2025 Hardened standards featuring **Mass Assignment Prevention**, **IDOR mitigation**, and strictly scoped relationships.
+- **Authentication**: High-security token management via **Laravel Sanctum** with API Throttling.
+- **Architecture**: Domain-driven RESTful patterns with dedicated Controllers and comprehensive Validation.
 
 ---
 
@@ -80,6 +79,9 @@ The system uses a relational schema designed for e-commerce performance:
 
 ---
 
-## 🛡️ Security
-- All sensitive routes are protected by the `auth:sanctum` middleware.
-- Administrative routes (`/api/products` for mutations) require the custom `admin` middleware.
+## 🛡️ Security Posture
+Solaris Lux prioritizes data integrity and access security:
+- **Rate Limiting**: Login endpoints are protected against brute-force attacks via `throttle:6,1`.
+- **Sanctum Protection**: All non-public routes require a valid Bearer token.
+- **RBAC (Role-Based Access Control)**: Administrative mutations are strictly guarded by custom `admin` middleware and null-safe user validation.
+- **Mass Assignment Hardening**: Critical models (`User`, `Order`, `OrderItem`) use strict `$fillable` configurations to prevent unauthorized attribute manipulation.

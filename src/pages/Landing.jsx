@@ -24,51 +24,27 @@ export default function Landing() {
       {/* 01 — Hero : High Intensity Entrance */}
       <Hero />
 
-      {/* 02 — Stats : Dynamic Proof */}
-      <StatsSection />
+      {/* 02 — BrandMantra : Philosophy & Vision */}
+      <BrandMantra />
 
-      {/* 03 — TrustBar — partenaires & crédibilité */}
-      <TrustBar />
-
-      {/* 04 — MarqueeTicker */}
-      <MarqueeTicker />
-
-      {/* 05 — Gallery — viewer 3D interactif */}
-      <section id="gallery">
-        <Gallery />
-      </section>
-
-      {/* 06 — Features */}
+      {/* 03 — Features : The Core Value */}
       <section id="features">
         <Features />
       </section>
 
-      {/* 07 — HowItWorks */}
-      <HowItWorks />
+      {/* 04 — Gallery : Visual Proof */}
+      <section id="gallery">
+        <Gallery />
+      </section>
 
-      {/* 08 — Engineering */}
+      {/* 05 — Engineering : Deep Tech (Bento Core) */}
       <Engineering />
 
-      {/* 09 — BrandMantra */}
-      <BrandMantra />
-
-      {/* 10 — Specs */}
-      <Specs />
-
-      {/* 11 — Testimonials */}
+      {/* 06 — Testimonials : Client Trust */}
       <Testimonials />
 
-      {/* 12 — Packaging */}
-      <Packaging />
-
-      {/* 13 — CTA */}
+      {/* 07 — Final CTA : Acquisition Point */}
       <CTA />
-
-      {/* 14 — FAQ */}
-      <FAQ />
-
-      {/* 15 — Newsletter */}
-      <Newsletter />
     </main>
   );
 }

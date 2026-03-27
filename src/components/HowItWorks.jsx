@@ -25,9 +25,9 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="relative py-32 lg:py-48 bg-bg-secondary overflow-hidden transition-colors duration-500">
+    <section id="how-it-works" className="relative py-32 lg:py-48 bg-solar-bg-primary overflow-hidden transition-colors duration-500">
       {/* Decorative vertical line */}
-      <div className="absolute left-1/2 top-32 bottom-32 w-px bg-gradient-to-b from-transparent via-coral/10 to-transparent hidden lg:block" />
+      <div className="absolute left-1/2 top-32 bottom-32 w-px bg-gradient-to-b from-transparent via-solar-accent-sun/10 to-transparent hidden lg:block" />
 
       <div className="container-solar relative z-10">
         {/* Header */}
@@ -38,10 +38,10 @@ export default function HowItWorks() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7 }}
         >
-          <div className="subtitle-silk">Utilisation // Guide</div>
-          <h2 className="title-solar text-5xl lg:text-7xl">
+          <div className="subtitle-silk !font-sans !tracking-[0.3em] !text-[10px]">Utilisation // Guide</div>
+          <h2 className="title-solar text-5xl lg:text-7xl !font-heading !font-black">
             Trois étapes, <br />
-            <em className="text-gradient-sun">zéro friction.</em>
+            <em className="text-solar-accent-sun italic">zéro friction.</em>
           </h2>
         </motion.div>
 
@@ -57,23 +57,23 @@ export default function HowItWorks() {
               transition={{ duration: 0.7, delay: i * 0.15 }}
             >
               {/* Step number */}
-              <div className="font-serif text-[5rem] leading-none font-light text-gradient-sun opacity-20 absolute -top-4 left-1/2 -translate-x-1/2 pointer-events-none select-none">
+              <div className="font-heading text-[5rem] leading-none font-black text-solar-accent-sun opacity-10 absolute -top-10 left-1/2 -translate-x-1/2 pointer-events-none select-none italic">
                 {step.num}
               </div>
 
               {/* Icon circle */}
               <div
-                className="relative z-10 w-20 h-20 rounded-full flex items-center justify-center border border-accent-sun/20 shadow-lg"
-                style={{ background: 'linear-gradient(135deg, var(--color-bg-secondary) 0%, var(--color-bg-primary) 100%)' }}
+                className="relative z-10 w-20 h-20 rounded-none flex items-center justify-center border border-solar-accent-sun/20 shadow-2xl"
+                style={{ background: 'linear-gradient(135deg, #FFFFFF 0%, var(--solar-bg-secondary) 100%)' }}
               >
-                <step.icon size={28} className="text-accent-sun" />
+                <step.icon size={28} className="text-solar-accent-sun" />
               </div>
 
               {/* Content */}
-              <div className="bg-glass-bg backdrop-blur-3xl border border-glass-border rounded-3xl p-8 w-full shadow-lg">
-                <div className="font-sans text-[10px] uppercase tracking-[0.3em] text-text-muted mb-3">{step.num}</div>
-                <h3 className="font-serif text-3xl text-text-primary mb-4 tracking-tight">{step.title}</h3>
-                <p className="font-sans text-sm text-text-muted leading-relaxed font-light">{step.desc}</p>
+              <div className="bg-white border border-solar-glass-border rounded-none p-8 w-full shadow-md hover:shadow-xl transition-all">
+                <div className="font-mono text-[9px] uppercase tracking-[0.3em] text-solar-accent-sun mb-3 font-bold">{step.num}</div>
+                <h3 className="font-heading text-3xl text-solar-text-primary mb-4 tracking-tight font-black uppercase italic">{step.title}</h3>
+                <p className="font-sans text-sm text-solar-text-muted leading-relaxed font-normal opacity-80">{step.desc}</p>
               </div>
 
               {/* Connector arrow (between cards on desktop) */}
