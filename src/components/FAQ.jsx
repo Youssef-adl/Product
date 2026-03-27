@@ -30,28 +30,32 @@ const FAQS = [
     q: "Peut-on installer plusieurs stations sur un même campus ?",
     a: "Absolument — c'est même l'usage recommandé. Chaque unité fonctionne de manière autonome sur secteur 220V standard. Nous proposons un plan de déploiement multi-stations pour les salles de classe et espaces communs de l'ISTA Témara."
   },
+  {
+    q: "Puis-je retourner ma commande si le produit ne me plaît pas ?",
+    a: "Absolument. Si le produit ne correspond pas à vos attentes, vous disposez de 14 jours après réception pour demander un retour depuis votre espace \"Historique des Commandes\". Le remboursement sera intégral après vérification de l'état."
+  },
 ];
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <section id="faq" className="relative py-24 lg:py-32 overflow-hidden bg-[#FDF8F3]">
+    <section id="faq" className="relative py-24 lg:py-32 overflow-hidden bg-solar-bg-secondary transition-colors duration-500">
       {/* Éléments décoratifs solaires */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-gold-sun/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-coral-soft/5 rounded-full blur-2xl translate-y-1/4 -translate-x-1/4" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-solar-accent-sun/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-solar-accent-sun/5 rounded-full blur-2xl translate-y-1/4 -translate-x-1/4" />
 
       <div className="container-solar relative z-10 lg:flex gap-20">
         <div className="lg:w-1/3 flex flex-col gap-10 mb-16 lg:mb-0">
-           <div className="subtitle-silk text-coral-deep">
+           <div className="subtitle-silk !text-solar-accent-sun !font-sans !tracking-[0.3em] !text-[10px]">
               Archive // Q&A
            </div>
-           <h2 className="title-solar text-6xl lg:text-7xl text-slate-900">
+           <h2 className="title-solar text-6xl lg:text-7xl !text-solar-text-primary !font-heading !font-black uppercase">
               PROTOCOLE<br/>
-              <em className="text-gradient-sun">SOLAIRE</em>
+              <em className="text-solar-accent-sun italic">SOLAIRE</em>
            </h2>
-           <p className="max-w-sm text-slate-500 font-light text-sm leading-relaxed italic">
-              Toutes les réponses techniques sur la quintessence technologique du Solaris Solaris.
+           <p className="max-w-sm text-solar-text-muted font-normal text-sm leading-relaxed italic opacity-80">
+              Toutes les réponses techniques sur la quintessence technologique du SmartCharge V1.
            </p>
         </div>
 
@@ -59,26 +63,26 @@ export default function FAQ() {
           {FAQS.map((faq, i) => (
             <div 
               key={i} 
-              className={`glass-solar transition-all duration-500 overflow-hidden cursor-pointer border border-gold-sun/10
-                ${openIndex === i ? 'bg-white/90 shadow-xl' : 'bg-white/40 hover:bg-white/60'}
+              className={`glass-solar transition-all duration-500 overflow-hidden cursor-pointer border border-solar-glass-border rounded-none
+                ${openIndex === i ? 'bg-solar-bg-primary/95 shadow-2xl border-solar-accent-sun' : 'bg-solar-bg-primary/20 hover:bg-solar-bg-primary/40'}
               `}
               onClick={() => setOpenIndex(openIndex === i ? null : i)}
             >
               <div className="flex justify-between items-center p-8">
-                 <h4 className={`font-serif text-lg md:text-xl tracking-tight transition-colors duration-300
-                   ${openIndex === i ? 'text-coral-deep' : 'text-slate-800'}
+                 <h4 className={`font-heading text-lg md:text-xl tracking-tight transition-colors duration-300 font-black uppercase italic
+                   ${openIndex === i ? 'text-solar-accent-sun' : 'text-solar-text-primary'}
                  `}>
                     {faq.q}
                  </h4>
-                 <div className={`transition-transform duration-500 ${openIndex === i ? 'rotate-180 text-gold-sun' : 'text-slate-300'}`}>
+                 <div className={`transition-transform duration-500 ${openIndex === i ? 'rotate-180 text-solar-accent-sun' : 'text-solar-text-muted'}`}>
                     {openIndex === i ? <Minus size={20} /> : <Plus size={20} />}
                  </div>
               </div>
               
-              <div className={`transition-all duration-700 ease-[var(--ease-luxury)]
+              <div className={`transition-all ease-[var(--ease-luxury)]
                 ${openIndex === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
               `}>
-                 <p className="px-8 pb-8 pt-0 text-slate-500 font-sans text-base leading-relaxed max-w-2xl">
+                 <p className="px-8 pb-8 pt-0 text-solar-text-muted font-sans text-base leading-relaxed max-w-2xl opacity-80">
                     {faq.a}
                  </p>
               </div>

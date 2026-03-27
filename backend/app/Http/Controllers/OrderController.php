@@ -24,14 +24,37 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = Order::where('user_id', $request->user()->id)
-            ->with(['items.product'])
-            ->latest()
-            ->get();
+        $query = Order::with(['user', 'items.product'])->latest();
+
+        if ($request->user()->role !== 'admin') {
+            $query->where('user_id', $request->user()->id);
+        }
 
         return response()->json([
             'success' => true,
-            'orders' => $orders
+            'orders' => $query->get()
+        ]);
+    }
+
+    /**
+     * Update the specified order in storage.
+     */
+    public function update(Request $request, Order $order)
+    {
+        if ($request->user()->role !== 'admin') {
+            return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+        }
+
+        $validated = $request->validate([
+            'status' => 'required|string|in:pending,Processing,Shipped,Delivered,Cancelled'
+        ]);
+
+        $order->update($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Order updated successfully',
+            'order' => $order
         ]);
     }
 
@@ -51,11 +74,11 @@ class OrderController extends Controller
             'items.*.price' => 'required|numeric',
         ]);
 
-        return DB::transaction(function () use ($validated) {
+        return DB::transaction(function () use ($validated, $request) {
             $orderNumber = 'SOL-' . date('Ymd') . '-' . mt_rand(1000, 9999);
 
             $order = Order::create([
-                'user_id' => $validated['user_id'],
+                'user_id' => $request->user()->id,
                 'order_number' => $orderNumber,
                 'total_amount' => $validated['total_amount'],
                 'shipping_address' => $validated['shipping_address'],

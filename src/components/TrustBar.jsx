@@ -12,15 +12,15 @@ export default function TrustBar() {
     <div className="relative py-12 overflow-hidden bg-transparent">
       <div className="container-solar">
         <motion.div 
-          className="glass-solar !p-8 flex flex-col md:flex-row items-center justify-between gap-10 border border-white/40 shadow-xl"
+          className="glass-solar !p-8 flex flex-col md:flex-row items-center justify-between gap-10 border border-solar-glass-border shadow-sm bg-white rounded-none"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <div className="flex items-center gap-4">
-            <div className="w-8 h-px bg-coral-deep/30" />
-            <span className="font-sans text-[10px] uppercase tracking-[0.4em] text-slate-400 font-bold whitespace-nowrap">
+            <div className="w-8 h-px bg-solar-accent-sun/30" />
+            <span className="font-sans text-[10px] uppercase tracking-[0.4em] text-solar-text-muted font-black whitespace-nowrap">
               Partenaires & Écosystème
             </span>
           </div>
@@ -29,7 +29,7 @@ export default function TrustBar() {
              {brands.map((brand, i) => (
                <motion.span 
                  key={brand} 
-                 className="font-sans text-navy-deep text-[11px] lg:text-xs font-black tracking-[0.35em] hover:text-coral-deep cursor-default transition-all duration-500 opacity-40 hover:opacity-100 hover:scale-105"
+                 className="font-heading text-solar-text-primary text-[11px] lg:text-xs font-black tracking-[0.35em] hover:text-solar-accent-sun cursor-default transition-all duration-500 opacity-40 hover:opacity-100 hover:scale-105"
                  initial={{ opacity: 0 }}
                  whileInView={{ opacity: 0.4 }}
                  viewport={{ once: true }}

@@ -26,7 +26,7 @@ export default function Loader() {
         </div>
 
         <div className="flex flex-col items-center gap-8 text-center">
-           <div className="headline-editorial text-5xl lg:text-7xl text-white tracking-[0.5em] animate-pulse">
+           <div className="headline-editorial text-5xl lg:text-7xl text-solar-text-primary tracking-[0.5em] animate-pulse">
               SYS.INIT // LOADING
            </div>
            
@@ -44,8 +44,8 @@ export default function Loader() {
       </div>
 
       {/* CORNER DATA */}
-      <div className="absolute top-20 left-20 title-tech text-white/10 text-xl tracking-[0.5em]">Solaris // SPEC-R</div>
-      <div className="absolute bottom-20 right-20 title-tech text-white/10 text-xl tracking-[0.5em]">EST. 2026 // MONACO</div>
+      <div className="absolute top-20 left-20 title-tech text-solar-text-muted opacity-50 text-xl tracking-[0.5em]">Solaris // SPEC-R</div>
+      <div className="absolute bottom-20 right-20 title-tech text-solar-text-muted opacity-50 text-xl tracking-[0.5em]">EST. 2026 // MONACO</div>
     </div>
   );
 }

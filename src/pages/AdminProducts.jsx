@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Search, Edit, Trash2, Package, Filter, AlertCircle, X } from 'lucide-react';
-import AdminNavbar from '../components/AdminNavbar';
 
 export default function AdminProducts({ auth }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentProduct, setCurrentProduct] = useState({ name: '', sku: '', category: 'Hardware', price: '', stock: '', description: '' });
+  const [currentProduct, setCurrentProduct] = useState({ name: '', sku: '', category: 'UNITÉ PRINCIPALE', price: '', stock: '', description: '', spec: '', image_url: '' });
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
@@ -62,7 +61,7 @@ export default function AdminProducts({ auth }) {
       setCurrentProduct(product);
       setIsEditing(true);
     } else {
-      setCurrentProduct({ name: '', sku: '', category: 'Hardware', price: '', stock: '', description: '' });
+      setCurrentProduct({ name: '', sku: '', category: 'UNITÉ PRINCIPALE', price: '', stock: '', description: '', spec: '', image_url: '' });
       setIsEditing(false);
     }
     setIsModalOpen(true);
@@ -70,7 +69,7 @@ export default function AdminProducts({ auth }) {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setCurrentProduct({ name: '', sku: '', category: 'Hardware', price: '', stock: '', description: '' });
+    setCurrentProduct({ name: '', sku: '', category: 'UNITÉ PRINCIPALE', price: '', stock: '', description: '', spec: '', image_url: '' });
   };
 
   const deleteProduct = async (id) => {
@@ -91,21 +90,18 @@ export default function AdminProducts({ auth }) {
 
   return (
     <div className="bg-gray-50 min-h-screen pb-12">
-      {/* ADMIN TOP NAV */}
-      <AdminNavbar />
-
-      <div className="max-w-7xl mx-auto px-8 pt-40">
+      <div className="max-w-7xl mx-auto px-8 pt-32">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Catalogue Management</h1>
-            <p className="text-gray-500">Manage industrial equipment and stock levels.</p>
+            <h1 className="text-2xl font-bold text-gray-900">Solaris Product Range</h1>
+            <p className="text-gray-500">Manage Solaris Lux ecosystem products and stock levels.</p>
           </div>
           <button 
             onClick={() => openModal()}
-            className="flex items-center gap-2 bg-orange-600 text-white px-6 py-2.5 rounded-lg hover:bg-orange-700 transition-colors font-semibold shadow-sm"
+            className="flex items-center gap-2 bg-orange-600 text-solar-text-primary px-6 py-2.5 rounded-lg hover:bg-orange-700 transition-colors font-semibold shadow-sm"
           >
             <Plus size={18}/>
-            Add Sourcing Item
+            Add Solaris Product
           </button>
         </div>
 
@@ -137,9 +133,13 @@ export default function AdminProducts({ auth }) {
                     <tr key={p.id} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="h-10 w-10 bg-gray-100 rounded flex items-center justify-center text-gray-400">
-                            <Package size={20}/>
-                          </div>
+                          {p.image_url ? (
+                            <img src={p.image_url} alt={p.name} className="h-10 w-10 object-contain bg-gray-50 rounded p-1" />
+                          ) : (
+                            <div className="h-10 w-10 bg-gray-100 rounded flex items-center justify-center text-solar-text-secondary">
+                              <Package size={20}/>
+                            </div>
+                          )}
                           <div>
                             <div className="text-sm font-semibold text-gray-900">{p.name}</div>
                             <div className="text-xs text-gray-500">ID: #{p.id}</div>
@@ -152,7 +152,7 @@ export default function AdminProducts({ auth }) {
                           {p.category}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm font-semibold text-gray-900">${p.price}</td>
+                      <td className="px-6 py-4 text-sm font-semibold text-gray-900">{parseFloat(p.price).toFixed(2)} DH</td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
                           <div className={`h-1.5 w-1.5 rounded-full ${p.stock < 100 ? 'bg-red-500' : 'bg-green-500'}`}></div>
@@ -163,14 +163,14 @@ export default function AdminProducts({ auth }) {
                         <div className="flex justify-end gap-2">
                           <button 
                             onClick={() => openModal(p)}
-                            className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all" 
+                            className="p-2 text-solar-text-secondary hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all" 
                             title="Edit"
                           >
                             <Edit size={18}/>
                           </button>
                           <button 
                             onClick={() => deleteProduct(p.id)}
-                            className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all" 
+                            className="p-2 text-solar-text-secondary hover:text-red-600 hover:bg-red-50 rounded-lg transition-all" 
                             title="Delete"
                           >
                             <Trash2 size={18}/>
@@ -191,8 +191,8 @@ export default function AdminProducts({ auth }) {
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeModal}></div>
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg relative z-10 overflow-hidden">
               <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-                <h3 className="text-lg font-bold text-gray-900">{isEditing ? 'Edit Industrial Asset' : 'Add New Sourcing Item'}</h3>
-                <button onClick={closeModal} className="text-gray-400 hover:text-gray-600"><X size={20}/></button>
+                <h3 className="text-lg font-bold text-gray-900">{isEditing ? 'Edit Solaris Product' : 'Add New Product'}</h3>
+                <button onClick={closeModal} className="text-solar-text-secondary hover:text-gray-600"><X size={20}/></button>
               </div>
               <form onSubmit={handleSave} className="p-6 space-y-4">
                 <div className="grid grid-cols-2 gap-4">
@@ -223,13 +223,12 @@ export default function AdminProducts({ auth }) {
                       onChange={e => setCurrentProduct({...currentProduct, category: e.target.value})}
                       className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:border-orange-500 outline-none"
                     >
-                      <option>Hardware</option>
-                      <option>Accessories</option>
-                      <option>Industrial</option>
+                      <option>UNITÉ PRINCIPALE</option>
+                      <option>ACCESSOIRE</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Price ($)</label>
+                    <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Price (DH)</label>
                     <input 
                       type="number" 
                       step="0.01"
@@ -249,9 +248,38 @@ export default function AdminProducts({ auth }) {
                       className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:border-orange-500 outline-none"
                     />
                   </div>
+                  <div className="col-span-2">
+                    <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Image URL</label>
+                    <input 
+                      type="text" 
+                      value={currentProduct.image_url || ''}
+                      onChange={e => setCurrentProduct({...currentProduct, image_url: e.target.value})}
+                      placeholder="/product-v1.png"
+                      className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:border-orange-500 outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Specification (Spec)</label>
+                    <input 
+                      type="text" 
+                      value={currentProduct.spec || ''}
+                      onChange={e => setCurrentProduct({...currentProduct, spec: e.target.value})}
+                      placeholder="e.g. TITANE G5 USINÉ"
+                      className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:border-orange-500 outline-none"
+                    />
+                  </div>
+                  <div className="col-span-2">
+                    <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Description</label>
+                    <textarea 
+                      rows={2}
+                      value={currentProduct.description || ''}
+                      onChange={e => setCurrentProduct({...currentProduct, description: e.target.value})}
+                      className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:border-orange-500 outline-none resize-none"
+                    />
+                  </div>
                 </div>
-                <button type="submit" className="w-full py-3 bg-orange-600 text-white rounded-lg font-bold hover:bg-orange-700 transition-all shadow-lg shadow-orange-200">
-                  {isEditing ? 'Save Changes' : 'List Product'}
+                <button type="submit" className="w-full py-3 bg-orange-600 text-solar-text-primary rounded-lg font-bold hover:bg-orange-700 transition-all shadow-lg shadow-orange-200">
+                  {isEditing ? 'Save Changes' : 'Add Product'}
                 </button>
               </form>
             </div>

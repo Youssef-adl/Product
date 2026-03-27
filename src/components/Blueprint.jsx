@@ -1,69 +1,92 @@
-import { useState, useEffect } from 'react'
-import HackyText from './HackyText'
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
-function Blueprint() {
-  const [coords, setCoords] = useState({ x: 0, y: 0 })
+const Blueprint = () => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isScrolling, setIsScrolling] = useState(false);
 
   useEffect(() => {
-    let rafId
-    const handleMouse = (e) => {
-      if (rafId) return
-      rafId = requestAnimationFrame(() => {
-        setCoords({ x: e.clientX, y: e.clientY })
-        rafId = null
-      })
-    }
-    window.addEventListener('mousemove', handleMouse)
+    let timeout;
+    const handleScroll = () => {
+      setIsScrolling(true);
+      clearTimeout(timeout);
+      timeout = setTimeout(() => setIsScrolling(false), 150);
+    };
+
+    const handleMouseMove = (e) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('mousemove', handleMouseMove);
     return () => {
-      window.removeEventListener('mousemove', handleMouse)
-      if (rafId) cancelAnimationFrame(rafId)
-    }
-  }, [])
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   return (
-    <div className="blueprint-overlay">
-      {/* Corner Tracking Markers */}
-      <div className="blueprint-marker" style={{ top: 'var(--space-4)', left: 'var(--space-4)' }}>
-        <HackyText text="UNIT_SYS_01" delay={1000} />
-      </div>
-      <div className="blueprint-marker" style={{ top: 'var(--space-4)', right: 'var(--space-4)' }}>
-        <HackyText text="COORD: 34.0522 N" delay={1200} />
-      </div>
-      <div className="blueprint-marker" style={{ bottom: 'var(--space-4)', left: 'var(--space-4)' }}>
-        <HackyText text="PWR_OUTPUT: 15W" delay={1400} />
-      </div>
-      <div className="blueprint-marker" style={{ bottom: 'var(--space-4)', right: 'var(--space-4)' }}>
-        <HackyText text="LON: -118.2437 W" delay={1600} />
-      </div>
-
-      {/* Real-time Coordinate Tracker */}
+    <div className="fixed inset-0 pointer-events-none z-[60] overflow-hidden opacity-30">
+      {/* Precision Grid */}
       <div 
-        className="blueprint-cursor-tracker"
-        style={{ 
-          transform: `translate(${coords.x + 15}px, ${coords.y + 15}px)`,
+        className="absolute inset-0 transition-opacity "
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px)
+          `,
+          backgroundSize: '80px 80px',
+          opacity: isScrolling ? 0.6 : 0.2
         }}
+      />
+
+      {/* Crosshair Follower */}
+      <motion.div
+        className="absolute w-20 h-20 flex items-center justify-center"
+        animate={{ x: mousePos.x - 40, y: mousePos.y - 40 }}
+        transition={{ type: 'spring', damping: 30, stiffness: 200, mass: 0.5 }}
       >
-        <div className="blueprint-cursor-line" />
-        <div className="blueprint-cursor-coords">
-          X: {coords.x.toString().padStart(4, '0')}<br />
-          Y: {coords.y.toString().padStart(4, '0')}
+        <div className="w-[1px] h-full bg-coral/30 absolute top-0" />
+        <div className="w-full h-[1px] bg-coral/30 absolute left-0" />
+        <div className="w-2 h-2 border border-coral/50 rounded-full" />
+        
+        {/* Coordinate Text */}
+        <div className="absolute top-0 left-6 whitespace-nowrap">
+           <span className="font-mono text-[8px] text-coral font-black uppercase tracking-[0.3em]">
+             X:{Math.round(mousePos.x)} Y:{Math.round(mousePos.y)}
+           </span>
         </div>
+      </motion.div>
+
+      {/* Edge Counters (Industrial Aesthetic) */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 flex gap-20 py-4 opacity-10">
+         {[10, 20, 30, 40, 50, 60, 70, 80, 90].map(n => (
+           <span key={n} className="font-mono text-[7px] text-text-primary font-bold">{n}% SCALE</span>
+         ))}
       </div>
 
-      {/* Axis Lines */}
-      <div className="blueprint-axis blueprint-axis--x" style={{ top: coords.y }} />
-      <div className="blueprint-axis blueprint-axis--y" style={{ left: coords.x }} />
-      
-      {/* Center Target */}
-      <div className="blueprint-marker" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)', opacity: 0.15 }}>
-        <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M70 0V140M0 70H140" stroke="var(--precision-cyan)" strokeWidth="0.5" strokeDasharray="4 4"/>
-          <circle cx="70" cy="70" r="20" stroke="var(--precision-cyan)" strokeWidth="0.5"/>
-          <circle cx="70" cy="70" r="40" stroke="var(--precision-cyan)" strokeWidth="0.5" opacity="0.5"/>
-        </svg>
+      {/* Floating Blueprint Markers */}
+      <div className="absolute inset-0">
+        {[
+          { x: '10%', y: '15%', label: 'DET_01 / SRC' },
+          { x: '85%', y: '10%', label: 'VCC_IN / 15W' },
+          { x: '5%', y: '85%', label: 'GND_BUS / SHIELD' },
+          { x: '92%', y: '88%', label: 'TX_RX_PROTO' }
+        ].map((marker, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.3 }}
+            className="absolute flex flex-col gap-1"
+            style={{ left: marker.x, top: marker.y }}
+          >
+            <div className="w-1 h-1 bg-coral rounded-full" />
+            <span className="font-mono text-[7px] text-text-muted font-black tracking-tighter uppercase">{marker.label}</span>
+          </motion.div>
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Blueprint
+export default Blueprint;

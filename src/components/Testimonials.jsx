@@ -33,7 +33,7 @@ function StarRow({ count }) {
   return (
     <div className="flex gap-1">
       {Array.from({ length: count }).map((_, i) => (
-        <Star key={i} size={14} className="fill-[#FFB347] text-[#FFB347]" />
+        <Star key={i} size={14} className="fill-solar-accent-sun text-solar-accent-sun" />
       ))}
     </div>
   );
@@ -41,9 +41,9 @@ function StarRow({ count }) {
 
 export default function Testimonials() {
   return (
-    <section className="relative py-32 lg:py-48 bg-bg-primary overflow-hidden">
+    <section className="relative py-32 lg:py-48 bg-solar-bg-secondary overflow-hidden transition-colors duration-500">
       {/* Background accent */}
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-accent-sun/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-solar-accent-sun/5 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="container-solar relative z-10">
         {/* Header */}
@@ -54,10 +54,10 @@ export default function Testimonials() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7 }}
         >
-          <div className="subtitle-silk">Témoignages // Communauté</div>
-          <h2 className="title-solar text-5xl lg:text-7xl">
+          <div className="subtitle-silk !font-sans !tracking-[0.3em] !text-[10px]">Témoignages // Communauté</div>
+          <h2 className="title-solar text-5xl lg:text-7xl !font-heading !font-black uppercase">
             Ils l'utilisent <br />
-            <em className="text-gradient-sun">chaque jour.</em>
+            <em className="text-solar-accent-sun italic">chaque jour.</em>
           </h2>
         </motion.div>
 
@@ -66,7 +66,7 @@ export default function Testimonials() {
           {reviews.map((r, i) => (
             <motion.div
               key={i}
-              className="glass-solar flex flex-col gap-6 p-10"
+              className="glass-solar flex flex-col gap-6 p-10 bg-white shadow-sm hover:shadow-xl transition-all duration-500 rounded-3xl"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
@@ -76,23 +76,23 @@ export default function Testimonials() {
               <StarRow count={r.stars} />
 
               {/* Quote */}
-              <p className="font-serif text-xl text-text-secondary leading-relaxed flex-1 italic">
+              <p className="font-serif text-xl text-solar-text-secondary leading-relaxed flex-1 italic">
                 "{r.quote}"
               </p>
 
               {/* Author */}
-              <div className="flex items-center gap-4 pt-8 mt-auto border-t border-glass-border/40">
+              <div className="flex items-center gap-4 pt-8 mt-auto border-t border-solar-glass-border/40">
                 <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center font-sans text-sm font-bold flex-shrink-0 
-                             bg-[#FFF5EB] text-coral 
-                             transition-all duration-300"
+                  className="w-12 h-12 rounded-none flex items-center justify-center font-heading text-sm font-black flex-shrink-0 
+                             bg-solar-accent-sun/10 text-solar-accent-sun 
+                             transition-all duration-300 border border-solar-accent-sun/20"
                 >
                   {r.initials}
                 </div>
                 <div className="flex flex-col gap-0.5">
-                  <div className="font-sans text-[15px] font-semibold text-text-primary tracking-tight">{r.name}</div>
-                  <div className="font-sans text-[11px] text-text-secondary opacity-70 uppercase tracking-wider font-medium">{r.role}</div>
-                  <div className="font-sans text-[10px] text-coral font-bold uppercase tracking-[0.15em] mt-0.5">{r.location}</div>
+                  <div className="font-heading text-[15px] font-black text-solar-text-primary tracking-tight uppercase italic">{r.name}</div>
+                  <div className="font-sans text-[11px] text-solar-text-muted opacity-70 uppercase tracking-[0.2em] font-bold">{r.role}</div>
+                  <div className="font-mono text-[9px] text-solar-accent-sun font-bold uppercase tracking-[0.3em] mt-0.5">{r.location}</div>
                 </div>
               </div>
             </motion.div>

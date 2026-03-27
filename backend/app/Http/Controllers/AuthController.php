@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
     /**
-     * Inscription d'un nouvel utilisateur (B2B Client par défaut)
+     * Register a new user (Default: B2B Client)
      */
     public function register(Request $request)
     {
@@ -43,17 +43,23 @@ class AuthController extends Controller
     }
 
     /**
-     * Connexion utilisateur
+     * User authentication with rate limiting
      */
     public function login(Request $request)
     {
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
-                'message' => 'Invalid login details'
+                'success' => false,
+                'message' => 'Invalid credentials'
             ], 401);
         }
 
-        $user = User::where('email', $request->email)->firstOrFail();
+        $user = $request->user();
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
@@ -65,7 +71,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Déconnexion
+     * Logout and revoke token
      */
     public function logout(Request $request)
     {
@@ -78,7 +84,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Profil de l'utilisateur connecté
+     * Get authenticated user profile
      */
     public function me(Request $request)
     {

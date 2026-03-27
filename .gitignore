@@ -13,13 +13,26 @@ dist-ssr
 *.local
 
 # Project specific ignores
+.agent/
+.gemini/
+.gemini_screenshot*.png
+PIE-A2-P4-support stagiaires.pptx.pdf
+
+# Agent skills & internal tools
 skills/
+search-specialist/
+security/
+security_extracted/
+skill-creator-extracted/
+skill_creator_extracted/
+awesome_skills_extracted/
 autoresearch-master/
 frontend-design/
 frontend-design.zip
-*.pdf
+
+# Temporary/Extracted files
 *.zip
-.gemini_screenshot*.png
+*.pdf
 extracted_text.txt
 pdf-out.txt
 extract_out.txt
@@ -27,4 +40,8 @@ extract*.js
 extract*.cjs
 use_case_and_pages.md
 pdf2json.js
-*.pptx.pdf
+
+# Internal scripts
+fix_theme_classes.js
+remove_animations.js
+rename_store_route.js

@@ -9,20 +9,19 @@ export default function Login({ setAuth }) {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const queryParams = new URLSearchParams(window.location.search);
+  const errorParam = queryParams.get('error');
+
+  const getErrorMessage = () => {
+    if (errorParam === 'admin_required') return 'Accès Administrateur Requis. Veuillez vous connecter avec un compte autorisé.';
+    if (errorParam === 'session_expired') return 'Votre session a expiré. Veuillez vous reconnecter.';
+    return error;
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-
-    // Mock logic for B2B portal if API fails
-    if (email === 'admin@Solaris.com' && password === 'admin2026') {
-        const mockUser = { id: 1, name: 'Administrateur Solaris', email: 'admin@Solaris.com', role: 'admin' };
-        localStorage.setItem('auth_token', 'mock_token_123');
-        localStorage.setItem('user', JSON.stringify(mockUser));
-        setAuth({ token: 'mock_token_123', user: mockUser });
-        navigate('/admin');
-        return;
-    }
 
     try {
       const response = await fetch('http://localhost:8000/api/login', {
@@ -37,47 +36,46 @@ export default function Login({ setAuth }) {
       const data = await response.json();
 
       if (data.success) {
+        console.log('Login success, user role:', data.user.role);
         localStorage.setItem('auth_token', data.access_token);
         localStorage.setItem('user', JSON.stringify(data.user));
         setAuth({ token: data.access_token, user: data.user });
-        navigate('/');
+        
+        if (data.user.role === 'admin') {
+          navigate('/admin');
+        } else {
+          navigate('/');
+        }
       } else {
         setError(data.message || 'Identifiants incorrects. Veuillez réessayer.');
       }
     } catch (err) {
-      setError('Erreur de connexion. Tentative de portail local...');
-      // Fallback to mock for testing if email and password are provided
-      if (email && password) {
-         const mockUser = { id: 2, name: 'Client Privilège', email: email, role: 'client' };
-         localStorage.setItem('auth_token', 'mock_client_token');
-         localStorage.setItem('user', JSON.stringify(mockUser));
-         setAuth({ token: 'mock_client_token', user: mockUser });
-         navigate('/');
-      }
+      console.error('Login API error:', err);
+      setError('Erreur de connexion au serveur (' + err.message + ')');
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-bg-primary pt-24 pb-12 px-4 selection:bg-coral selection:text-white">
-      <div className="max-w-md w-full glass-solar !p-12 animate-in fade-in slide-in-from-bottom duration-1000">
+    <div className="min-h-screen flex items-center justify-center bg-solar-bg-primary pt-24 pb-12 px-4 selection:bg-solar-accent-sun selection:text-white">
+      <div className="max-w-md w-full glass-solar !p-12 rounded-[2.5rem] shadow-2xl">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-sun rounded-full mb-8 shadow-2xl animate-pulse-sun">
-            <ShieldCheck className="h-10 w-10 text-white" />
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-solar-accent-sun rounded-full mb-8 shadow-2xl ">
+            <ShieldCheck className="h-10 w-10 text-solar-text-primary" />
           </div>
-          <h2 className="font-serif text-5xl text-text-primary tracking-tight mb-4">
+          <h2 className="font-heading text-5xl text-solar-text-primary tracking-tight mb-4 font-black uppercase italic">
             Connexion
           </h2>
-          <p className="text-[10px] font-bold text-text-muted tracking-[0.2em] uppercase">
+          <p className="text-[10px] font-bold text-solar-text-muted tracking-[0.2em] uppercase">
             Accréditation Sourcing Professionnel
           </p>
         </div>
         
-        {error && (
-          <div className="mb-8 bg-coral/5 border border-coral/20 p-4 rounded-2xl animate-shake">
-            <p className="text-[10px] font-bold text-coral uppercase tracking-widest text-center">
-              {error}
+        {(error || errorParam) && (
+          <div className={`mb-8 p-4 rounded-3xl border ${errorParam ? 'bg-orange-50 border-orange-200' : 'bg-solar-accent-sun/5 border-solar-accent-sun/20'}`}>
+            <p className={`text-[10px] font-bold uppercase tracking-widest text-center ${errorParam ? 'text-orange-700' : 'text-solar-accent-sun'}`}>
+              {getErrorMessage()}
             </p>
           </div>
         )}
@@ -85,22 +83,22 @@ export default function Login({ setAuth }) {
         <form className="space-y-6" onSubmit={handleLogin}>
           <div className="space-y-4">
             <div className="relative group">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-text-muted group-focus-within:text-coral transition-colors" />
+              <Mail className="absolute left-6 top-1/2 -translate-y-1/2 h-5 w-5 text-solar-text-muted group-focus-within:text-solar-accent-sun transition-colors" />
               <input
                 type="email"
                 required
-                className="w-full pl-12 pr-4 py-4 bg-bg-secondary border border-glass-border rounded-2xl text-sm font-medium text-text-primary focus:ring-2 focus:ring-coral/20 focus:border-coral outline-none transition-all placeholder:text-text-muted/50"
+                className="w-full pl-16 pr-6 py-5 bg-solar-bg-secondary border border-solar-glass-border rounded-full text-sm font-medium text-solar-text-primary focus:ring-2 focus:ring-solar-accent-sun/10 focus:border-solar-accent-sun outline-none transition-all placeholder:text-solar-text-muted/50 uppercase tracking-widest"
                 placeholder="EMAIL PROFESSIONNEL"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="relative group">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-text-muted group-focus-within:text-coral transition-colors" />
+              <Lock className="absolute left-6 top-1/2 -translate-y-1/2 h-5 w-5 text-solar-text-muted group-focus-within:text-solar-accent-sun transition-colors" />
               <input
                 type="password"
                 required
-                className="w-full pl-12 pr-4 py-4 bg-bg-secondary border border-glass-border rounded-2xl text-sm font-medium text-text-primary focus:ring-2 focus:ring-coral/20 focus:border-coral outline-none transition-all placeholder:text-text-muted/50"
+                className="w-full pl-16 pr-6 py-5 bg-solar-bg-secondary border border-solar-glass-border rounded-full text-sm font-medium text-solar-text-primary focus:ring-2 focus:ring-solar-accent-sun/10 focus:border-solar-accent-sun outline-none transition-all placeholder:text-solar-text-muted/50 uppercase tracking-widest"
                 placeholder="MOT DE PASSE"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -112,11 +110,11 @@ export default function Login({ setAuth }) {
             <label className="flex items-center cursor-pointer group">
               <input
                 type="checkbox"
-                className="h-4 w-4 bg-bg-secondary border-glass-border rounded text-coral focus:ring-coral/20"
+                className="h-4 w-4 bg-solar-bg-secondary border-solar-glass-border rounded text-solar-accent-sun focus:ring-solar-accent-sun/20"
               />
-              <span className="ml-2 text-[10px] font-bold text-text-muted uppercase tracking-widest group-hover:text-text-secondary transition-colors">Rester connecté</span>
+              <span className="ml-3 text-[10px] font-bold text-solar-text-muted uppercase tracking-widest group-hover:text-solar-text-secondary transition-colors">Rester connecté</span>
             </label>
-            <a href="#" className="text-[10px] font-bold tracking-widest uppercase text-text-muted hover:text-coral transition-colors">
+            <a href="#" className="text-[10px] font-bold tracking-widest uppercase text-solar-text-muted hover:text-solar-accent-sun transition-colors">
               Oublié ?
             </a>
           </div>
@@ -141,12 +139,12 @@ export default function Login({ setAuth }) {
           </div>
         </form>
         
-        <div className="text-center pt-8 mt-4 border-t border-glass-border">
-          <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest">
+        <div className="text-center pt-8 mt-4 border-t border-solar-glass-border">
+          <p className="text-[10px] font-bold text-solar-text-muted uppercase tracking-widest">
             PAS ENCORE MEMBRE ?{' '}
             <Link 
               to="/register"
-              className="text-coral hover:text-coral/80 transition-colors ml-2"
+              className="text-solar-accent-sun hover:text-solar-accent-sun/80 transition-colors ml-2"
             >
               CRÉER UN COMPTE
             </Link>

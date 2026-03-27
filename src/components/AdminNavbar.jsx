@@ -6,10 +6,12 @@ export default function AdminNavbar() {
     { name: 'Dashboard', path: '/admin' },
     { name: 'Products', path: '/admin/products' },
     { name: 'Orders', path: '/admin/orders' },
+    { name: 'Returns', path: '/admin/returns' },
+    { name: 'Users', path: '/admin/users' },
   ];
 
   return (
-    <div className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-30 pt-16">
+    <div className="bg-white/80 backdrop-blur-md border-b border-t border-gray-200 fixed top-[104px] left-0 right-0 z-30">
       <div className="max-w-7xl mx-auto px-8 flex gap-8">
         {navItems.map((item) => (
           <NavLink

@@ -1,0 +1,217 @@
+{
+    "message": "Illuminate\\Routing\\Router::group(): Argument #1 ($attributes) must be of type array, Closure given, called in C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php on line 355",
+    "exception": "TypeError",
+    "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+    "line": 457,
+    "trace": [
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php",
+            "line": 355,
+            "function": "group",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\routes\\api.php",
+            "line": 30,
+            "function": "__callStatic",
+            "class": "Illuminate\\Support\\Facades\\Facade",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteFileRegistrar.php",
+            "line": 35,
+            "function": "require"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 511,
+            "function": "register",
+            "class": "Illuminate\\Routing\\RouteFileRegistrar",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 465,
+            "function": "loadRoutes",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteRegistrar.php",
+            "line": 194,
+            "function": "group",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\app\\Providers\\RouteServiceProvider.php",
+            "line": 32,
+            "function": "group",
+            "class": "Illuminate\\Routing\\RouteRegistrar",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 36,
+            "function": "App\\Providers\\{closure}",
+            "class": "App\\Providers\\RouteServiceProvider",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php",
+            "line": 41,
+            "function": "Illuminate\\Container\\{closure}",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 81,
+            "function": "unwrapIfClosure",
+            "class": "Illuminate\\Container\\Util",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 35,
+            "function": "callBoundMethod",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
+            "line": 662,
+            "function": "call",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider.php",
+            "line": 120,
+            "function": "call",
+            "class": "Illuminate\\Container\\Container",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider.php",
+            "line": 45,
+            "function": "loadRoutes",
+            "class": "Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 36,
+            "function": "Illuminate\\Foundation\\Support\\Providers\\{closure}",
+            "class": "Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php",
+            "line": 41,
+            "function": "Illuminate\\Container\\{closure}",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 81,
+            "function": "unwrapIfClosure",
+            "class": "Illuminate\\Container\\Util",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 35,
+            "function": "callBoundMethod",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
+            "line": 662,
+            "function": "call",
+            "class": "Illuminate\\Container\\BoundMethod",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\ServiceProvider.php",
+            "line": 119,
+            "function": "call",
+            "class": "Illuminate\\Container\\Container",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php",
+            "line": 1062,
+            "function": "callBootedCallbacks",
+            "class": "Illuminate\\Support\\ServiceProvider",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php",
+            "line": 1040,
+            "function": "bootProvider",
+            "class": "Illuminate\\Foundation\\Application",
+            "type": "->"
+        },
+        {
+            "function": "Illuminate\\Foundation\\{closure}",
+            "class": "Illuminate\\Foundation\\Application",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php",
+            "line": 1039,
+            "function": "array_walk"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\BootProviders.php",
+            "line": 17,
+            "function": "boot",
+            "class": "Illuminate\\Foundation\\Application",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php",
+            "line": 286,
+            "function": "bootstrap",
+            "class": "Illuminate\\Foundation\\Bootstrap\\BootProviders",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 186,
+            "function": "bootstrapWith",
+            "class": "Illuminate\\Foundation\\Application",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 170,
+            "function": "bootstrap",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 144,
+            "function": "sendRequestThroughRouter",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\public\\index.php",
+            "line": 51,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\youssef\\Desktop\\pie\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php",
+            "line": 16,
+            "function": "require_once"
+        }
+    ]
+}

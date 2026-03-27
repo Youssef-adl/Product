@@ -9,10 +9,10 @@ export default function OrderConfirmation() {
   // If no order data, show a friendly fallback or redirect
   if (!order) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center p-6">
+      <div className="min-h-screen bg-solar-bg-primary flex items-center justify-center p-6 font-sans">
         <div className="text-center">
-          <h1 className="text-2xl font-black text-gray-900 uppercase tracking-widest mb-4">No Active Procurement</h1>
-          <Link to="/store" className="bg-black text-white px-8 py-4 rounded-full font-black text-xs uppercase tracking-widest no-underline">
+          <h1 className="text-2xl font-heading font-black text-solar-text-primary uppercase tracking-[0.2em] mb-4 italic">No Active Procurement</h1>
+          <Link to="/boutique" className="btn-primary no-underline">
             Return to Catalogue
           </Link>
         </div>
@@ -54,59 +54,61 @@ High-Performance Engineering for Eternity.
   };
 
   return (
-    <div className="bg-white min-h-screen pt-32 pb-20 font-sans">
+    <div className="bg-solar-bg-primary min-h-screen pt-32 pb-20 font-sans selection:bg-solar-accent-sun selection:text-white">
       <div className="container mx-auto px-6 max-w-3xl">
         
         <div className="flex flex-col items-center text-center mb-12">
-           <div className="w-24 h-24 bg-green-50 rounded-full flex items-center justify-center text-green-500 mb-8 animate-bounce-subtle">
+           <div className="w-24 h-24 bg-solar-accent-sun/5 rounded-full flex items-center justify-center text-solar-accent-sun mb-8 border border-solar-accent-sun/20">
               <CheckCircle size={48} strokeWidth={2.5} />
            </div>
-           <h1 className="text-4xl font-black tracking-tighter text-gray-900 uppercase tracking-[0.2em] mb-4">
+           <h1 className="text-4xl font-heading font-black tracking-tighter text-solar-text-primary uppercase tracking-[0.2em] mb-4 italic">
               Procurement Confirmed
            </h1>
-           <p className="text-gray-500 font-bold text-sm uppercase tracking-widest max-w-md leading-relaxed">
-              Order <span className="text-black">#{order.order_number || 'LS-2026-CONF'}</span> is now in the fulfillment queue. 
+           <p className="text-solar-text-muted font-bold text-sm uppercase tracking-widest max-w-md leading-relaxed">
+              Order <span className="text-solar-accent-sun font-black">#{order.order_number || 'LS-2026-CONF'}</span> is now in the fulfillment queue. 
               Our logistics partners are synchronizing your delivery.
            </p>
         </div>
 
-        <div className="bg-gray-50 rounded-[3rem] p-10 border border-gray-100 shadow-sm mb-12">
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 pb-10 border-b border-gray-200">
+        <div className="bg-solar-bg-secondary rounded-[2.5rem] p-10 border border-solar-glass-border shadow-sm mb-12 relative overflow-hidden">
+           <div className="absolute top-0 right-0 w-32 h-32 bg-solar-accent-sun/5 blur-3xl pointer-events-none" />
+           
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 pb-10 border-b border-solar-glass-border">
               <div className="flex items-start gap-4">
-                 <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-blue-600 shadow-sm">
+                 <div className="w-10 h-10 bg-solar-bg-primary rounded-xl flex items-center justify-center text-solar-accent-sun shadow-sm border border-solar-glass-border">
                     <Calendar size={20} />
                  </div>
                  <div>
-                    <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Estimated Delivery</div>
-                    <div className="text-sm font-black text-gray-900">March 28 - April 02, 2026</div>
+                    <div className="text-[10px] font-black text-solar-text-muted uppercase tracking-widest mb-1 italic">Estimated Delivery</div>
+                    <div className="text-sm font-black text-solar-text-primary">March 28 - April 02, 2026</div>
                  </div>
               </div>
               <div className="flex items-start gap-4">
-                 <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-blue-600 shadow-sm">
+                 <div className="w-10 h-10 bg-solar-bg-primary rounded-xl flex items-center justify-center text-solar-accent-sun shadow-sm border border-solar-glass-border">
                     <Truck size={20} />
                  </div>
                  <div>
-                    <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Carrier Assignment</div>
-                    <div className="text-sm font-black text-gray-900">DHL Global Forwarding</div>
+                    <div className="text-[10px] font-black text-solar-text-muted uppercase tracking-widest mb-1 italic">Carrier Assignment</div>
+                    <div className="text-sm font-black text-solar-text-primary uppercase tracking-wider">DHL Global Forwarding</div>
                  </div>
               </div>
            </div>
-
-           <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/boutique" className="flex-1 bg-black text-white p-5 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-800 transition-all flex items-center justify-center gap-3 no-underline">
+ 
+           <div className="flex flex-col sm:flex-row gap-6">
+              <Link to="/boutique" className="btn-primary flex-1 justify-center no-underline">
                  Continue Sourcing <ArrowRight size={16}/>
               </Link>
               <button 
                 onClick={handleDownloadInvoice}
-                className="flex-1 bg-white text-gray-900 p-5 rounded-2xl font-black text-[10px] uppercase tracking-widest border border-gray-200 hover:border-black transition-all flex items-center justify-center gap-3"
+                className="flex-1 bg-white text-solar-text-primary px-8 py-4 rounded-full font-black text-[10px] uppercase tracking-widest border border-solar-glass-border hover:border-solar-accent-sun transition-all flex items-center justify-center gap-3 shadow-sm"
               >
-                 <Printer size={16}/> Download Invoice
+                 <Printer size={18} className="text-solar-accent-sun"/> Download Invoice
               </button>
            </div>
         </div>
 
         <div className="text-center">
-           <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-relaxed">
+           <p className="text-[10px] font-bold text-solar-text-muted uppercase tracking-[0.2em] leading-relaxed italic opacity-70">
               A detailed confirmation and procurement manifest have been sent to your registered corporate email. 
               For bulk adjustments, contact your dedicated account manager.
            </p>

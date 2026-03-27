@@ -20,9 +20,9 @@ const items = [
 function TickerItem({ label, value }) {
   return (
     <span className="marquee-item">
-      <span>{label}</span>
+      <span className="!font-heading">{label}</span>
       <span className="dot-sep" />
-      <span className="value">{value}</span>
+      <span className="value !font-heading">{value}</span>
       <span className="dot-sep" />
     </span>
   );

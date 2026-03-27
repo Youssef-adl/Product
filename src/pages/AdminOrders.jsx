@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingBag, Eye, Truck, CheckCircle, Clock, AlertCircle, Search, Filter } from 'lucide-react';
-import AdminNavbar from '../components/AdminNavbar';
 
 export default function AdminOrders({ auth }) {
   const [orders, setOrders] = useState([]);
@@ -49,11 +48,8 @@ export default function AdminOrders({ auth }) {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen pb-12">
-      {/* ADMIN TOP NAV */}
-      <AdminNavbar />
-
-      <div className="max-w-7xl mx-auto px-8 pt-40">
+    <div className="bg-transparent min-h-screen pb-12">
+      <div className="max-w-7xl mx-auto px-8 pt-32">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Procurement Oversight</h1>
@@ -64,7 +60,7 @@ export default function AdminOrders({ auth }) {
         {/* FILTERS */}
         <div className="bg-white p-4 rounded-xl border border-gray-100 flex flex-col md:flex-row gap-4 mb-6 shadow-sm">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18}/>
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-solar-text-secondary" size={18}/>
             <input 
               type="text" 
               placeholder="Filter by Order ID or Client Name..."
@@ -112,7 +108,7 @@ export default function AdminOrders({ auth }) {
                         <div className="text-sm font-medium text-gray-900">{order.user?.name || 'Anonymous Client'}</div>
                         <div className="text-xs text-gray-500">Corporate Account</div>
                       </td>
-                      <td className="px-6 py-4 text-sm font-bold text-gray-900">${parseFloat(order.total_amount).toLocaleString()}</td>
+                      <td className="px-6 py-4 text-sm font-bold text-gray-900">{parseFloat(order.total_amount).toLocaleString()} DH</td>
                       <td className="px-6 py-4">
                         <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${
                           order.status === 'Delivered' ? 'bg-green-100 text-green-700' :
@@ -128,7 +124,7 @@ export default function AdminOrders({ auth }) {
                       </td>
                       <td className="px-6 py-4 text-right">
                         <div className="flex justify-end gap-2">
-                          <button className="p-2 text-gray-400 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all" title="View Details">
+                          <button className="p-2 text-solar-text-secondary hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all" title="View Details">
                             <Eye size={18}/>
                           </button>
                           <select 

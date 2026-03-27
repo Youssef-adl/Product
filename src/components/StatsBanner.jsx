@@ -11,17 +11,17 @@ const stats = [
 
 export default function StatsBanner() {
   return (
-    <section className="relative py-16 bg-solar-cream border-y border-sand overflow-hidden">
+    <section className="relative py-16 bg-solar-bg-secondary border-y border-solar-glass-border overflow-hidden transition-colors duration-500">
       {/* subtle warm glow */}
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 60% 80% at 50% 50%, rgba(255,179,71,0.06), transparent)' }} />
+        style={{ background: 'radial-gradient(ellipse 60% 80% at 50% 50%, rgba(255,95,21,0.06), transparent)' }} />
 
       <div className="container-solar relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((s, i) => (
             <motion.div
               key={i}
-              className="glass-solar flex flex-col items-center text-center gap-4 p-8"
+              className="glass-solar flex flex-col items-center text-center gap-4 p-8 rounded-none border-solar-glass-border bg-white shadow-sm hover:shadow-md transition-all"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
@@ -31,9 +31,9 @@ export default function StatsBanner() {
                 <s.icon size={22} />
               </div>
               <div>
-                <div className="font-serif text-4xl font-light text-gradient-sun leading-none mb-1">{s.value}</div>
-                <div className="font-sans text-sm font-semibold text-slate-700 mb-1">{s.label}</div>
-                <div className="font-sans text-[10px] uppercase tracking-[0.2em] text-slate-400">{s.sub}</div>
+                <div className="font-heading text-4xl font-black text-solar-accent-sun leading-none mb-1 uppercase italic">{s.value}</div>
+                <div className="font-sans text-sm font-black text-solar-text-primary mb-1 uppercase italic">{s.label}</div>
+                <div className="font-mono text-[9px] uppercase tracking-[0.3em] text-solar-text-muted font-bold">{s.sub}</div>
               </div>
             </motion.div>
           ))}
