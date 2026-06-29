@@ -1,10 +1,10 @@
 "use client";
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { CheckCircle, Package, ArrowRight, Printer, Calendar, Truck, Loader2 } from 'lucide-react';
 
-export default function OrderConfirmation() {
+function OrderConfirmationContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get('orderId');
   const [order, setOrder] = useState(null);
@@ -12,10 +12,6 @@ export default function OrderConfirmation() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Attempt to get order from navigation state (if redirected from checkout)
-    // In Next.js with app router, we usually don't have location.state unless using custom wrapper.
-    // So we'll prioritize fetching from the API using the orderId.
-    
     if (orderId) {
         fetchOrder();
     } else {
@@ -109,7 +105,6 @@ High-Performance Engineering for Eternity.
         }
       `}</style>
 
-      {/* Background Accents */}
       <div className="absolute top-0 right-[-10%] w-[50vw] h-[50vw] bg-[var(--accent-primary)]/5 blur-[150px] rounded-full pointer-events-none" />
       <div className="absolute bottom-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-white/5 blur-[120px] rounded-full pointer-events-none" />
 
@@ -141,7 +136,6 @@ High-Performance Engineering for Eternity.
         </div>
 
         <div className="glass-obsidian rounded-[4rem] p-16 border border-[var(--glass-border)] shadow-5xl mb-16 relative overflow-hidden group">
-           {/* Scanning Effect */}
            <div className="absolute top-0 left-0 w-full h-[1px] bg-[var(--accent-primary)]/20 shadow-[0_0_20px_rgba(136, 8, 8,0.5)] animate-[scan_5s_linear_infinite] pointer-events-none" />
            
            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 pb-16 border-b border-[var(--border-light)]">
@@ -194,5 +188,18 @@ High-Performance Engineering for Eternity.
 
       </div>
     </div>
+  );
+}
+
+export default function OrderConfirmation() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[var(--bg-primary)] flex flex-col items-center justify-center p-6 font-sans">
+        <Loader2 size={48} className="text-[var(--accent-primary)] animate-spin mb-6" />
+        <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.5em] italic">Accessing Secure Archive...</p>
+      </div>
+    }>
+      <OrderConfirmationContent />
+    </Suspense>
   );
 }

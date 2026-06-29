@@ -1,6 +1,7 @@
 "use client";
 
-import { Target, Zap, Shield, Layers, Activity, Cpu, Sparkles, Box } from 'lucide-react';
+import { Target, Zap, Shield, Layers, Activity, Cpu, Sparkles, Box, Monitor, Radio } from 'lucide-react';
+import { motion } from 'framer-motion';
 import SketchfabViewer from '../../components/SketchfabViewer';
 
 export default function Technique() {
@@ -58,7 +59,7 @@ export default function Technique() {
          <div className="max-w-[1400px] mx-auto px-8 lg:px-16 grid lg:grid-cols-2 gap-12">
             <div className="glass-obsidian p-16 lg:p-20 relative rounded-[3.5rem] transition-all duration-700 hover:scale-[1.02] group overflow-hidden">
                <div className="absolute top-0 right-0 p-12 text-white/5 group-hover:text-[#1ED760]/10 transition-colors">
-                  <Terminal size={120} strokeWidth={1} />
+                  <Monitor size={120} strokeWidth={1} />
                </div>
                <div className="relative z-10">
                  <h3 className="font-heading text-4xl text-white mb-10 tracking-widest flex items-center gap-6 font-black uppercase italic">
@@ -162,7 +163,7 @@ export default function Technique() {
                
                <div className="absolute -top-6 -right-6 glass-obsidian px-6 py-4 rounded-2xl border border-[#1ED760]/30 z-20">
                   <div className="flex items-center gap-3">
-                     <CpuIcon size={16} className="text-[#1ED760]" />
+                      <Cpu size={16} className="text-[#1ED760]" />
                      <span className="font-mono text-[10px] font-black text-white uppercase tracking-widest italic">Live Telemetry</span>
                   </div>
                </div>
