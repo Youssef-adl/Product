@@ -16,7 +16,7 @@ class ProductSeeder extends Seeder
             'id' => 1,
             'name' => 'SmartCharge V1 (Edition Titane)',
             'description' => 'L\'unité phare avec recharge 15W et dissipateur thermique ionique.',
-            'price' => 159.00,
+            'price' => 249.00,
             'category' => 'UNITÉ PRINCIPALE',
             'stock' => 500,
             'sku' => 'SL-V1-TITAN',
@@ -52,12 +52,24 @@ class ProductSeeder extends Seeder
             'id' => 4,
             'name' => 'Adaptateur Mural 45W Plus',
             'description' => 'Énergie ultra-compacte avec protection contre les surtensions.',
-            'price' => 59.00,
+            'price' => 79.00,
             'category' => 'ACCESSOIRE',
             'stock' => 1500,
             'sku' => 'SL-ACC-WALL',
             'spec' => 'GAN TECHNOLOGY',
             'image_url' => '/product-gan.png'
+        ]);
+
+        \App\Models\Product::create([
+            'id' => 5,
+            'name' => 'Pack Complet Solaris',
+            'description' => 'L\'expérience Solaris Lux complète.',
+            'price' => 399.00,
+            'category' => 'BUNDLES',
+            'stock' => 300,
+            'sku' => 'SL-BUN-ULTIMATE',
+            'spec' => 'KIT COMPLET',
+            'image_url' => '/product-bundle.png'
         ]);
     }
 }

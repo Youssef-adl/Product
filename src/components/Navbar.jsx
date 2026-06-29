@@ -1,14 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ShoppingBag, Menu, X, ArrowRight, LogOut } from 'lucide-react';
-import { motion } from 'framer-motion';
+"use client";
 
-export default function Navbar({ cart = [], auth, setAuth }) {
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { ShoppingBag, Menu, X, ArrowRight, LogOut, LogIn } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { signOut } from 'next-auth/react';
+import { useApp } from '../contexts/AppProvider';
+import { useSoundEffects } from '../hooks/useSoundEffects';
+
+export default function Navbar() {
+  const { cart, auth } = useApp();
+  const { playSound } = useSoundEffects();
   const cartCount = cart.reduce((acc, item) => acc + (Number(item.quantity) || 1), 0);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const isLoginPage = pathname === '/login';
+  const isRegisterPage = pathname === '/register';
+  const isAuthPage = isLoginPage || isRegisterPage;
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -16,29 +28,18 @@ export default function Navbar({ cart = [], auth, setAuth }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const isHome = location.pathname === '/';
-
   const handleLogout = async () => {
     try {
-      await fetch('http://localhost:8000/api/logout', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${auth.token}`,
-          'Accept': 'application/json'
-        }
-      });
+      await signOut({ redirect: false });
+      router.push('/');
+      router.refresh();
+      setIsMenuOpen(false);
     } catch (err) {
       console.error('Logout error:', err);
-    } finally {
-      localStorage.removeItem('auth_token');
-      localStorage.removeItem('user');
-      setAuth({ token: null, user: null });
-      setIsMenuOpen(false);
-      navigate('/');
     }
   };
 
-  const isAdminRoute = location.pathname.startsWith('/admin');
+  const isAdminRoute = pathname.startsWith('/admin');
 
   const regularLinks = [
     { name: 'ACCUEIL',     path: '/',          anchor: null },
@@ -58,147 +59,214 @@ export default function Navbar({ cart = [], auth, setAuth }) {
   const navLinks = isAdminRoute ? adminLinks : regularLinks;
 
   return (
-    <nav className={`nav-pill transition-all duration-500 ${isScrolled ? 'scrolled' : ''}`}>
-      <div className="flex items-center gap-6 px-4">
+    <nav className={`fixed top-0 left-0 w-full z-[1000] transition-all duration-500 ${isScrolled ? 'bg-[var(--glass-bg)] backdrop-blur-[40px] border-b border-[var(--glass-border)] py-4' : 'bg-transparent py-8'} px-6 lg:px-12`}>
+      <div className="flex items-center justify-between max-w-[1600px] mx-auto h-12">
         
-        {/* LOGO: Clean & Bold */}
-        <Link to="/" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="flex items-center group mr-8">
-          <span className="font-heading font-black text-sm tracking-[0.2em] text-solar-text-primary group-hover:text-solar-accent-sun transition-colors duration-300 uppercase leading-tight">
-            SOLARIS<br />LUX
-          </span>
+        {/* LOGO */}
+        <Link
+          href="/"
+          onClick={() => {
+            playSound('click');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+          }}
+          className="flex items-center group"
+        >
+          <div className="flex items-center bg-[var(--glass-bg)] backdrop-blur-xl px-5 py-2 rounded-full border border-[var(--glass-border)] group-hover:border-accent-secondary/50 transition-all duration-500">
+            <span className="font-serif font-bold text-[var(--text-primary)] text-base tracking-[0.1em] uppercase">
+              SOLARIS <span className="text-accent-secondary">LUX</span>
+            </span>
+          </div>
         </Link>
 
-        {/* NAV LINKS: Minimal Style */}
-        <div className="hidden lg:flex items-center gap-1 md:gap-4 lg:gap-8 border-l border-solar-glass-border ml-4 pl-4">
+        {/* NAV LINKS (CENTER) */}
+        <div className="hidden lg:flex items-center justify-center gap-8 absolute left-1/2 transform -translate-x-1/2">
           {navLinks.map((link) => {
             const isActive = link.anchor 
-              ? location.hash === `#${link.anchor}` 
-              : location.pathname === link.path && !location.hash;
+              ? false 
+              : pathname === link.path;
             return (
               <Link
                 key={link.name}
-                to={link.path}
+                href={link.path}
+                onMouseEnter={() => playSound('hover')}
                 onClick={(e) => {
+                  playSound('click');
                   if (link.anchor) {
-                    if (location.pathname === '/') {
+                    if (pathname === '/') {
                       e.preventDefault();
                       document.getElementById(link.anchor)?.scrollIntoView({ behavior: 'smooth' });
                     }
                   }
                 }}
-                className={`nav-item flex flex-col items-center group relative ${isActive ? 'active text-solar-accent-sun' : ''}`}
+                className={`relative font-sans text-[13px] font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105 ${isActive ? 'text-accent-primary' : 'text-[var(--text-subtle)] hover:text-accent-primary'}`}
               >
-                <span className="relative z-10 group-hover:text-solar-accent-sun transition-colors">
-                  {link.name}
-                </span>
+                {link.name}
                 {isActive && (
                   <motion.div 
-                    layoutId="nav-glow"
-                    className="absolute inset-0 bg-solar-accent-sun/5 blur-md -z-10"
+                    layoutId="active-nav-indicator"
+                    className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 bg-accent-primary rounded-full" 
                   />
                 )}
-                {/* Indicator */}
-                <div className={`mt-1 h-[2px] w-0 group-hover:w-full bg-solar-accent-sun transition-all duration-300 ${isActive ? 'w-full' : ''}`} />
               </Link>
             );
           })}
         </div>
 
         {/* ACTIONS */}
-        <div className="flex items-center gap-4 ml-auto">
-          
-          <Link
-            to="/boutique"
-            className="btn-primary !px-5 !py-2 !text-[9px] !gap-3 hidden sm:flex"
-          >
-            COMMANDER <ArrowRight size={14} />
-          </Link>
-
-          {/* User Auth: Design Style */}
-          <div className="hidden md:flex items-center gap-6 border-l border-solar-glass-border pl-6">
-            <Link to="/cart" className="relative p-2 text-solar-text-primary hover:text-solar-accent-sun transition-all group">
-              <ShoppingBag size={24} strokeWidth={1.2} />
-              {cartCount > 0 && (
-                <motion.span 
-                  initial={{ scale: 0.5, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  key={cartCount}
-                  className="absolute -top-1.5 -right-1.5 bg-[#2D2D2A] text-white text-[10px] font-bold h-[18px] min-w-[18px] flex items-center justify-center rounded-full z-[1001] shadow-lg border border-white"
-                >
-                  {cartCount}
-                </motion.span>
-              )}
-            </Link>
-
-            <div className="flex items-center gap-4">
-              <Link to="/account" className="font-heading text-[10px] font-black tracking-widest text-solar-text-primary hover:text-solar-accent-sun uppercase">
-                ACCOUNT
+        <div className="flex items-center gap-4 lg:gap-6">
+          {/* Cart & Auth */}
+          <div className="flex items-center gap-4">
+            {auth.user?.role !== 'admin' && (
+              <Link href="/cart" className="relative p-2 text-[var(--text-subtle)] hover:text-[var(--text-primary)] hover:scale-110 transition-all bg-[var(--bg-secondary)] rounded-full">
+                <ShoppingBag size={18} strokeWidth={2} />
+                <AnimatePresence mode="wait">
+                  {cartCount > 0 && (
+                    <motion.span
+                      key={cartCount}
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.8, opacity: 0 }}
+                      className="absolute -top-1 -right-1 bg-accent-primary text-white text-[10px] font-black h-4 min-w-[16px] flex items-center justify-center rounded-full shadow-sm px-1"
+                    >
+                      {cartCount}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
               </Link>
-              {auth.user ? (
-                <button 
-                  onClick={handleLogout}
-                  className="text-solar-text-primary hover:text-solar-accent-sun transition-colors"
-                >
-                  <LogOut size={18} />
-                </button>
-              ) : (
-                <Link to="/login" className="text-solar-text-primary hover:text-solar-accent-sun transition-colors">
-                  <LogOut size={18} className="rotate-180" />
-                </Link>
+            )}
+
+            {auth.user && auth.user?.role !== 'admin' && (
+              <Link href="/account" className="hidden md:flex p-2 text-[var(--text-subtle)] hover:text-[var(--text-primary)] hover:scale-110 transition-all bg-[var(--bg-secondary)] rounded-full">
+                <span className="font-sans text-[11px] font-bold tracking-widest uppercase">Compte</span>
+              </Link>
+            )}
+
+            <div className="hidden md:flex items-center gap-3">
+              {auth.user && (
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-[var(--glass-bg)] border border-[var(--glass-border)] rounded-full">
+                  <div className={`w-1.5 h-1.5 rounded-full ${auth.user.role === 'admin' ? 'bg-accent-primary animate-pulse' : 'bg-red-400'}`} />
+                  <span className="text-[10px] font-black uppercase tracking-widest text-[var(--text-primary)] opacity-90">
+                    {auth.user.role === 'admin' ? 'ADMIN' : auth.user.name.split(' ')[0]}
+                  </span>
+                </div>
+              )}
+
+              {!isAuthPage && (
+                auth.user ? (
+                  <button
+                    onClick={handleLogout}
+                    className="p-2 text-[var(--text-subtle)] hover:text-[var(--text-primary)] hover:scale-110 transition-all bg-[var(--bg-secondary)] rounded-full"
+                  >
+                    <LogOut size={16} />
+                  </button>
+                ) : (
+                  <div className="flex items-center gap-4">
+                    <Link 
+                      href="/login" 
+                      className="text-[11px] font-bold text-[var(--text-muted)] hover:text-[var(--text-primary)] uppercase tracking-[0.2em] transition-all"
+                    >
+                      Connexion
+                    </Link>
+                    <Link 
+                      href="/register" 
+                      className="px-8 py-2.5 bg-[var(--accent-secondary)] text-black text-[11px] font-black uppercase tracking-[0.2em] rounded-full hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)] transition-all shadow-xl"
+                    >
+                      Inscription
+                    </Link>
+                  </div>
+                )
               )}
             </div>
           </div>
 
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden text-solar-text-primary hover:text-solar-accent-sun p-1 transition-colors">
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="lg:hidden text-[var(--text-primary)] hover:text-accent-primary p-2 transition-colors ml-2"
+          >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* MOBILE HUD OVERLAY */}
-      <div className={`fixed top-full mt-4 left-1/2 -translate-x-1/2 w-[95vw] bg-solar-bg-primary border border-solar-glass-border p-8 rounded-none flex flex-col items-start gap-6 transition-all duration-500 origin-top z-50 overflow-hidden
-        ${isMenuOpen ? 'opacity-100 scale-100 pointer-events-auto border-solar-glass-border-hover shadow-xl' : 'opacity-0 scale-95 pointer-events-none'}
-      `}>
-        {/* Background Decorative Grid */}
-        
-        {navLinks.map((link) => (
-          <Link
-            key={link.name}
-            to={link.path}
-            onClick={(e) => {
-              if (link.anchor) {
-                if (location.pathname === '/') {
-                  e.preventDefault();
-                  document.getElementById(link.anchor)?.scrollIntoView({ behavior: 'smooth' });
-                }
-              }
-              setIsMenuOpen(false);
-            }}
-            className="group relative font-heading text-5xl text-solar-text-primary hover:text-lando-yellow transition-all duration-300 font-extrabold uppercase italic tracking-tighter"
+      {/* MOBILE OVERLAY */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            className="fixed inset-0 bg-[var(--bg-primary)] z-[2000] flex flex-col justify-between p-6 overflow-hidden"
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
           >
-            <span className="relative z-10">{link.name}</span>
-            <div className="absolute left-0 bottom-0 h-2 w-0 group-hover:w-full bg-solar-accent-sun -z-10 transition-all duration-300" />
-          </Link>
-        ))}
-        
-        <div className="w-full h-[1px] bg-white/10 my-4" />
-        
-        <div className="flex gap-10">
-          <Link 
-            to="/account" 
-            onClick={() => setIsMenuOpen(false)}
-            className="font-heading text-lg text-solar-text-primary hover:text-lando-yellow font-black uppercase tracking-widest"
-          >
-            ACCOUNT
-          </Link>
-          <button 
-            onClick={handleLogout}
-            className="font-heading text-lg text-solar-accent-sun font-black uppercase tracking-widest border-none bg-transparent cursor-pointer"
-          >
-            LOGOUT
-          </button>
-        </div>
-      </div>
+            <div>
+              <div className="flex justify-between items-center mb-10">
+                <span className="font-sans font-black text-[var(--text-primary)] text-2xl tracking-tighter uppercase">
+                  SOLARIS LUX
+                </span>
+                <button
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-[var(--text-primary)] hover:text-accent-primary p-2 transition-colors"
+                >
+                  <X size={28} />
+                </button>
+              </div>
+
+              <div className="flex flex-col gap-6">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.path}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="font-sans text-3xl font-bold text-[var(--text-primary)] hover:text-accent-primary transition-colors uppercase tracking-tight"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            
+            <div className="flex flex-col gap-4 mb-4">
+              {auth.user && auth.user?.role !== 'admin' && (
+                <Link 
+                  href="/account" 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="font-sans text-sm text-[var(--text-subtle)] hover:text-[var(--text-primary)] font-bold uppercase tracking-widest transition-colors"
+                >
+                  Mon Compte
+                </Link>
+              )}
+              
+              {!isAuthPage && (
+                auth.user ? (
+                  <button 
+                    onClick={handleLogout}
+                    className="font-sans text-left text-sm text-accent-primary font-bold uppercase tracking-widest transition-opacity hover:opacity-70 mt-4"
+                  >
+                    Déconnexion
+                  </button>
+                ) : (
+                  <div className="flex flex-col gap-4 mt-6">
+                    <Link 
+                      href="/login"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="text-[var(--text-muted)] font-black text-xs uppercase tracking-[0.4em] italic hover:text-[var(--text-primary)] transition-colors"
+                    >
+                      Connexion
+                    </Link>
+                    <Link 
+                      href="/register"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="w-full py-5 bg-[var(--text-primary)] text-[var(--bg-primary)] text-center font-black text-xs uppercase tracking-[0.4em] italic rounded-2xl"
+                    >
+                      Inscription
+                    </Link>
+                  </div>
+                )
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

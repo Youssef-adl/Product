@@ -1,5 +1,8 @@
+"use client";
+import Link from 'next/link';
+
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+
 
 export default function AdminNavbar() {
   const navItems = [
@@ -11,18 +14,18 @@ export default function AdminNavbar() {
   ];
 
   return (
-    <div className="bg-white/80 backdrop-blur-md border-b border-t border-gray-200 fixed top-[104px] left-0 right-0 z-30">
-      <div className="max-w-7xl mx-auto px-8 flex gap-8">
+    <div className="bg-[#121212]/95 backdrop-blur-xl border-b border-white/5 fixed top-[80px] left-0 right-0 z-30 shadow-2xl">
+      <div className="max-w-7xl mx-auto px-8 flex gap-10">
         {navItems.map((item) => (
           <NavLink
             key={item.path}
-            to={item.path}
+            href={item.path}
             end
             className={({ isActive }) => 
-              `py-4 text-sm font-bold border-b-2 transition-colors no-underline ${
+              `py-5 text-[11px] font-black uppercase tracking-[0.2em] transition-all duration-300 border-b-2 no-underline ${
                 isActive 
-                  ? 'border-orange-600 text-orange-600' 
-                  : 'border-transparent text-gray-500 hover:text-gray-700'
+                  ? 'border-[var(--accent-primary)] text-white' 
+                  : 'border-transparent text-white/40 hover:text-white'
               }`
             }
           >

@@ -1,8 +1,9 @@
+"use client";
+
 import React from 'react';
 
 /**
- * MarqueeTicker — bannière horizontale en boucle continue
- * inspirée du marquee du site Lando Norris.
+ * MarqueeTicker — bannière horizontale en boucle continue.
  * Affiche les specs clés du produit SmartCharge.
  */
 

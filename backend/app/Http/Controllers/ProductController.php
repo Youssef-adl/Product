@@ -24,7 +24,19 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'price' => 'required|numeric',
+            'category' => 'required|string',
+            'sku' => 'required|string|unique:products',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $product = Product::create($request->all());
+        return response()->json(['success' => true, 'data' => $product], 201);
     }
 
     /**
@@ -32,7 +44,19 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::find($id);
+        
+        if (!$product) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Product not found'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $product
+        ]);
     }
 
     /**
@@ -40,7 +64,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $product = Product::find($id);
+        if (!$product) return response()->json(['message' => 'Not found'], 404);
+
+        $product->update($request->all());
+        return response()->json(['success' => true, 'data' => $product]);
     }
 
     /**
@@ -48,6 +76,10 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::find($id);
+        if (!$product) return response()->json(['message' => 'Not found'], 404);
+
+        $product->delete();
+        return response()->json(['success' => true, 'message' => 'Product deleted']);
     }
 }

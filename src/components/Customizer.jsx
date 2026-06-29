@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from 'react'
 import ModelViewer from './ModelViewer'
 import { useReveal } from '../hooks/useReveal'

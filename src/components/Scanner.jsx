@@ -1,3 +1,5 @@
+"use client";
+
 function Scanner() {
   return (
     <div className="scanner-line-wrapper">

@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, Zap, Star, Clock } from 'lucide-react';
@@ -21,7 +23,7 @@ export default function StatsBanner() {
           {stats.map((s, i) => (
             <motion.div
               key={i}
-              className="glass-solar flex flex-col items-center text-center gap-4 p-8 rounded-none border-solar-glass-border bg-white shadow-sm hover:shadow-md transition-all"
+              className="glass-solar flex flex-col items-center text-center gap-4 p-8 rounded-none border-solar-glass-border bg-white/40 backdrop-blur-xl shadow-sm hover:shadow-md transition-all"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}

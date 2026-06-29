@@ -1,6 +1,7 @@
+"use client";
+
 import { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
-import './PixelTransition.css';
 
 function PixelTransition({
   firstContent,

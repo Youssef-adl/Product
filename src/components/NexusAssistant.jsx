@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useRef } from 'react'
 import HackyText from './HackyText'
 import AiHandshake from './AiHandshake'

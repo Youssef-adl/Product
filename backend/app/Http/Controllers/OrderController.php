@@ -24,15 +24,40 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Order::with(['user', 'items.product'])->latest();
-
-        if ($request->user()->role !== 'admin') {
-            $query->where('user_id', $request->user()->id);
+        $user = $request->user();
+        
+        if ($user && $user->role === 'admin') {
+            // Admin sees everything
+            $orders = Order::with(['user', 'items.product'])->latest()->get();
+        } else {
+            // Clients only see their own
+            $orders = Order::where('user_id', $user->id)
+                ->with(['user', 'items.product'])
+                ->latest()
+                ->get();
         }
 
         return response()->json([
             'success' => true,
-            'orders' => $query->get()
+            'orders' => $orders
+        ]);
+    }
+
+    /**
+     * Display the specified order.
+     */
+    public function show(Request $request, Order $order)
+    {
+        $user = $request->user();
+
+        // Check if user is authorized to view this order
+        if ($user->role !== 'admin' && $order->user_id !== $user->id) {
+            return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+        }
+
+        return response()->json([
+            'success' => true,
+            'order' => $order->load(['user', 'items.product'])
         ]);
     }
 
@@ -64,7 +89,6 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
             'total_amount' => 'required|numeric',
             'shipping_address' => 'required|string',
             'phone' => 'nullable|string',

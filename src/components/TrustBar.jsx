@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -12,7 +14,7 @@ export default function TrustBar() {
     <div className="relative py-12 overflow-hidden bg-transparent">
       <div className="container-solar">
         <motion.div 
-          className="glass-solar !p-8 flex flex-col md:flex-row items-center justify-between gap-10 border border-solar-glass-border shadow-sm bg-white rounded-none"
+          className="glass-solar !p-8 flex flex-col md:flex-row items-center justify-between gap-10 border border-solar-glass-border shadow-sm bg-white/40 backdrop-blur-xl rounded-none"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

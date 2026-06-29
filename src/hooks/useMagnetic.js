@@ -1,51 +1,56 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
-export function useMagnetic() {
-  const ref = useRef(null)
-  const [position, setPosition] = useState({ x: 0, y: 0 })
-  const requestRef = useRef()
+export default function useMagnetic() {
+  const magneticRef = useRef(null);
 
   useEffect(() => {
-    const el = ref.current
-    if (!el) return
+    const el = magneticRef.current;
+    if (!el) return;
+
+    const xTo = gsap.to(el, { duration: 1, x: 0, ease: 'elastic.out(1, 0.3)', paused: true });
+    const yTo = gsap.to(el, { duration: 1, y: 0, ease: 'elastic.out(1, 0.3)', paused: true });
 
     const handleMouseMove = (e) => {
-      if (requestRef.current) cancelAnimationFrame(requestRef.current)
+      const { clientX, clientY } = e;
+      const { height, width, left, top } = el.getBoundingClientRect();
+      const x = clientX - (left + width / 2);
+      const y = clientY - (top + height / 2);
       
-      requestRef.current = requestAnimationFrame(() => {
-        const { clientX, clientY } = e
-        const { left, top, width, height } = el.getBoundingClientRect()
-        
-        const centerX = left + width / 2
-        const centerY = top + height / 2
-        
-        const distanceX = clientX - centerX
-        const distanceY = clientY - centerY
+      const distance = Math.sqrt(x*x + y*y);
+      const magnetRadius = width * 1.5; // Dynamic radius based on element size
 
-        // If mouse is within a certain range (e.g. 100px)
-        const range = 100
-        if (Math.abs(distanceX) < range && Math.abs(distanceY) < range) {
-          setPosition({ x: distanceX * 0.35, y: distanceY * 0.35 })
-        } else {
-          setPosition({ x: 0, y: 0 })
-        }
-      })
-    }
+      if (distance < magnetRadius) {
+        // High-end elastic pull
+        gsap.to(el, {
+          x: x * 0.35,
+          y: y * 0.35,
+          duration: 1,
+          ease: 'power4.out',
+          overwrite: 'auto'
+        });
+      } else {
+        handleMouseLeave();
+      }
+    };
 
     const handleMouseLeave = () => {
-      if (requestRef.current) cancelAnimationFrame(requestRef.current)
-      setPosition({ x: 0, y: 0 })
-    }
+      gsap.to(el, {
+        x: 0,
+        y: 0,
+        duration: 1.5,
+        ease: 'elastic.out(1, 0.3)'
+      });
+    };
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true })
-    el.addEventListener('mouseleave', handleMouseLeave)
+    window.addEventListener('mousemove', handleMouseMove);
+    el.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-      el.removeEventListener('mouseleave', handleMouseLeave)
-      if (requestRef.current) cancelAnimationFrame(requestRef.current)
-    }
-  }, [])
+      window.removeEventListener('mousemove', handleMouseMove);
+      el.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
 
-  return { ref, x: position.x, y: position.y }
+  return magneticRef;
 }

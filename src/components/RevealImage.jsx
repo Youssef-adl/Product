@@ -1,3 +1,5 @@
+"use client";
+
 import { useReveal } from '../hooks/useReveal'
 
 const RevealImage = ({ src, alt, className = "", style = {}, delay = 0 }) => {

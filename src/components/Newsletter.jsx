@@ -1,6 +1,8 @@
+"use client";
+
 import React, { useState } from 'react';
 import { Mail, ArrowRight, Check, Send } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Newsletter() {
   const [email, setEmail] = useState('');
@@ -13,62 +15,102 @@ export default function Newsletter() {
     setTimeout(() => {
       setStatus('success');
       setEmail('');
+      setTimeout(() => setStatus('idle'), 5000);
     }, 1500);
   };
 
   return (
-    <section className="relative py-24 overflow-hidden bg-solar-bg-primary transition-colors duration-500 border-t border-solar-glass-border">
-      <div className="container-solar relative z-10">
-        <div className="glass-solar p-12 lg:p-20 flex flex-col lg:flex-row items-center justify-between gap-12 border border-solar-glass-border shadow-2xl bg-solar-bg-secondary rounded-none">
-          <div className="flex flex-col gap-6 text-center lg:text-left">
-            <div className="subtitle-silk !text-solar-accent-sun mx-auto lg:mx-0 !font-sans !tracking-[0.3em] !text-[10px]">
-               Signal // Solaire
+    <section className="relative py-32 lg:py-48 overflow-hidden bg-[var(--bg-primary)] transition-colors duration-500 font-sans">
+      {/* Cinematic Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-accent-primary/5 blur-[150px] pointer-events-none" />
+      
+      <div className="container-solar relative z-10 px-6">
+        <div className="bg-[var(--bg-secondary)] p-12 lg:p-24 flex flex-col lg:flex-row items-center justify-between gap-20 border border-[var(--glass-border)] rounded-[4rem] relative overflow-hidden group shadow-2xl">
+          
+          {/* Internal Glow Effect */}
+          <div className="absolute top-0 right-0 w-[40%] h-full bg-accent-primary/10 blur-[120px] pointer-events-none group-hover:bg-accent-primary/20 transition-all duration-1000" />
+          
+          <div className="flex flex-col gap-8 text-center lg:text-left relative z-10 max-w-2xl">
+            <div className="flex items-center gap-6 justify-center lg:justify-start">
+               <div className="h-[1px] w-12 bg-accent-secondary/40" />
+               <span className="font-heading text-[11px] font-black tracking-[1em] text-accent-secondary uppercase italic pt-1">
+                 TRANSMISSION // SOLARIS
+               </span>
             </div>
-            <h2 className="title-solar text-4xl lg:text-6xl text-solar-text-primary !font-heading !font-black uppercase tracking-tighter">RESTEZ <em className="text-solar-accent-sun italic">ÉCLAIRÉ</em>.</h2>
-            <p className="max-w-md font-sans text-base text-solar-text-muted font-normal leading-relaxed italic opacity-80">
-               Inscrivez-vous pour recevoir les protocoles de mise à jour et les alertes de réapprovisionnement de la série <span className="text-solar-accent-sun font-black uppercase tracking-wider">Solaris Lux</span>.
+            
+            <h2 className="font-heading text-4xl lg:text-6xl text-[var(--text-primary)] font-black uppercase tracking-tighter leading-[0.85]">
+              RESTEZ <br/>
+              <span className="text-accent-primary">ÉCLAIRÉ.</span>
+            </h2>
+            
+            <p className="font-sans text-xl text-[var(--text-muted)] italic leading-relaxed max-w-xl">
+               Rejoignez le cercle restreint pour recevoir les protocoles de mise à jour et les alertes exclusives de la série <span className="text-[var(--text-primary)] font-black uppercase tracking-widest not-italic">Obsidian Lux</span>.
             </p>
           </div>
           
           <form 
             onSubmit={handleSubmit}
-            className="w-full max-w-xl flex flex-col gap-4"
+            className="w-full lg:max-w-md flex flex-col gap-6 relative z-10"
           >
-            <div className="relative group">
-              <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-solar-text-muted/40 group-focus-within:text-solar-accent-sun transition-colors" size={20} />
+            <div className="relative group/input">
+              <Mail className="absolute left-8 top-1/2 -translate-y-1/2 text-[var(--text-muted)] group-focus-within/input:text-accent-primary transition-colors" size={20} />
               <input 
                 type="email" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="VOTRE@EMAIL.PRESTIGE" 
-                className="w-full py-6 pl-16 pr-44 bg-solar-bg-primary/40 border border-solar-glass-border/30 focus:border-solar-accent-sun outline-none font-sans text-solar-text-primary transition-all tracking-[0.2em] text-[10px] rounded-none backdrop-blur-md placeholder:text-solar-text-muted/30 uppercase font-black"
+                className="w-full py-8 pl-20 pr-6 bg-[var(--glass-bg)] border border-[var(--glass-border)] focus:border-accent-primary/50 outline-none font-sans text-[var(--text-primary)] transition-all tracking-[0.4em] text-[11px] rounded-sm backdrop-blur-3xl placeholder:text-[var(--text-muted)] uppercase font-black"
                 required
+                disabled={status === 'success'}
               />
-              <button 
-                type="submit"
-                disabled={status !== 'idle'}
-                className="absolute right-3 top-1/2 -translate-y-1/2 !px-8 !py-3 !text-[10px] rounded-none bg-solar-accent-sun text-solar-bg-primary font-black tracking-widest uppercase hover:bg-solar-text-primary transition-all duration-500"
-              >
-                 {status === 'loading' ? (
-                   <span className="animate-pulse">CONNEXION...</span>
-                 ) : status === 'success' ? (
-                   <Check size={18} />
-                 ) : (
-                   <span className="flex items-center gap-2">
-                     S'INCRIRE <Send size={14} />
-                   </span>
-                 )}
-              </button>
             </div>
-            {status === 'success' && (
-              <motion.p 
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="font-sans text-solar-accent-sun text-[11px] tracking-widest uppercase text-center lg:text-left mt-2 font-black"
-              >
-                Bienvenue dans le cercle Solaris.
-              </motion.p>
-            )}
+            
+            <button 
+              type="submit"
+              disabled={status !== 'idle'}
+              className={`group relative overflow-hidden py-8 rounded-sm font-black tracking-[0.8em] text-[12px] uppercase transition-all duration-700 shadow-2xl flex items-center justify-center gap-4 font-heading border border-transparent
+                ${status === 'success' 
+                  ? 'bg-[var(--text-primary)] text-[var(--bg-primary)]' 
+                  : 'bg-accent-primary text-black hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)] hover:scale-[1.02] active:scale-[0.98]'
+                }
+              `}
+            >
+               <AnimatePresence mode="wait">
+                 {status === 'loading' ? (
+                   <motion.span 
+                    key="loading"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="animate-pulse"
+                   >
+                     CONNEXION...
+                   </motion.span>
+                 ) : status === 'success' ? (
+                   <motion.div 
+                    key="success"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="flex items-center gap-3"
+                   >
+                     CONFIRMÉ <Check size={18} strokeWidth={4} />
+                   </motion.div>
+                 ) : (
+                   <motion.div 
+                    key="idle"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex items-center gap-4"
+                   >
+                     DÉCLENCHER <ArrowRight size={18} strokeWidth={4} className="group-hover:translate-x-2 transition-transform" />
+                   </motion.div>
+                 )}
+               </AnimatePresence>
+            </button>
+
+            <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.4em] text-center lg:text-left font-heading italic">
+              Protocole de confidentialité actif // Sécurité Chiffrée.
+            </p>
           </form>
         </div>
       </div>

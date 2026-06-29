@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from 'react'
 
 function AnimatedBackground() {
@@ -15,10 +17,10 @@ function AnimatedBackground() {
 
     // ── Orbs ──────────────────────────────────────────────
     const orbs = [
-      { x: width * 0.15, y: height * 0.2,  r: 380, vx: 0.18, vy: 0.12,  color: [15, 76, 129],   opacity: 0.18 },
-      { x: width * 0.85, y: height * 0.15, r: 320, vx: -0.14, vy: 0.16,  color: [0,  210, 255],  opacity: 0.12 },
-      { x: width * 0.75, y: height * 0.75, r: 420, vx: -0.10, vy: -0.14, color: [100, 0,  255],  opacity: 0.10 },
-      { x: width * 0.5,  y: height * 1.1,  r: 500, vx: 0.08,  vy: -0.08, color: [0,  85,  255],  opacity: 0.08 },
+      { x: width * 0.15, y: height * 0.2,  r: 450, vx: 0.12, vy: 0.10,  color: [255, 40, 0],    opacity: 0.12 }, // Ferrari Red
+      { x: width * 0.85, y: height * 0.15, r: 350, vx: -0.10, vy: 0.14,  color: [200, 0, 0],     opacity: 0.10 }, // Deep Red
+      { x: width * 0.75, y: height * 0.75, r: 400, vx: -0.08, vy: -0.12, color: [255, 100, 0],   opacity: 0.08 }, // Orange/Fire
+      { x: width * 0.5,  y: height * 1.1,  r: 550, vx: 0.06,  vy: -0.06, color: [150, 0, 0],     opacity: 0.06 }, // Subtle Bottom Glow
     ]
 
     // ── Particles ─────────────────────────────────────────
@@ -37,7 +39,7 @@ function AnimatedBackground() {
     function drawGrid() {
       const spacing = 100 // Increased spacing
       ctx.save()
-      ctx.strokeStyle = 'rgba(0, 140, 255, 0.03)'
+      ctx.strokeStyle = 'rgba(255, 40, 0, 0.02)'
       ctx.lineWidth = 0.5
       ctx.beginPath()
       for (let x = 0; x < width; x += spacing) {
@@ -92,7 +94,7 @@ function AnimatedBackground() {
         
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(140, 200, 255, ${p.opacity})`
+        ctx.fillStyle = `rgba(255, 200, 200, ${p.opacity})`
         ctx.fill()
       })
 

@@ -1,9 +1,13 @@
+"use client";
+
 import { useState, useEffect, useRef } from 'react'
 
 const CHARS = 'ABCDEFGHJKLMNOPQRSTUVWXYZ0123456789-_/[]{}<>*#&@+!?'
 
 const HackyText = ({ text, delay = 0, duration = 1500, className = "" }) => {
-  const [displayText, setDisplayText] = useState("")
+  // Initialize with the actual text to avoid hydration mismatch
+  // (Math.random in render causes server/client mismatch)
+  const [displayText, setDisplayText] = useState(text)
   const [isAnimating, setIsAnimating] = useState(false)
   const timerRef = useRef(null)
   const iterationRef = useRef(0)
@@ -45,7 +49,7 @@ const HackyText = ({ text, delay = 0, duration = 1500, className = "" }) => {
 
   return (
     <span className={className}>
-      {displayText || text.split("").map(() => CHARS[Math.floor(Math.random() * CHARS.length)]).join("")}
+      {displayText}
     </span>
   )
 }

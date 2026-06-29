@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef, useState, useEffect } from 'react'
 
 const ParallaxImage = ({ src, alt, speed = 0.1, className = "", style = {} }) => {

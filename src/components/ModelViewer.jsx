@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/no-unknown-property */
 import { Suspense, useRef, useLayoutEffect, useEffect, useMemo } from 'react';
@@ -6,7 +8,7 @@ import { OrbitControls, useGLTF, useFBX, useProgress, Html, Environment, Contact
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import * as THREE from 'three';
 
-const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+// Removed top-level isTouch to avoid hydration mismatch
 const deg2rad = d => (d * Math.PI) / 180;
 const DECIDE = 8;
 const ROTATE_SPEED = 0.005;
@@ -68,6 +70,10 @@ const ModelInner = ({
   onLoaded
 }) => {
   const outer = useRef(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
   const inner = useRef(null);
   const { camera, gl } = useThree();
 
@@ -142,7 +148,7 @@ const ModelInner = ({
   }, [content]);
 
   useEffect(() => {
-    if (!enableManualRotation || isTouch) return;
+    if (!enableManualRotation || isTouchDevice) return;
     const el = gl.domElement;
     let drag = false;
     let lx = 0,
@@ -176,7 +182,7 @@ const ModelInner = ({
   }, [gl, enableManualRotation]);
 
   useEffect(() => {
-    if (!isTouch) return;
+    if (!isTouchDevice) return;
     const el = gl.domElement;
     const pts = new Map();
 
@@ -265,7 +271,7 @@ const ModelInner = ({
   }, [gl, enableManualRotation, enableManualZoom, minZoom, maxZoom]);
 
   useEffect(() => {
-    if (isTouch) return;
+    if (isTouchDevice) return;
     const mm = e => {
       if (e.pointerType !== 'mouse') return;
       const nx = (e.clientX / window.innerWidth) * 2 - 1;
@@ -361,6 +367,11 @@ const ModelViewer = ({
   const rendererRef = useRef(null);
   const sceneRef = useRef(null);
   const cameraRef = useRef(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
 
   const initYaw = deg2rad(defaultRotationX);
   const initPitch = deg2rad(defaultRotationY);
@@ -469,7 +480,7 @@ const ModelViewer = ({
           />
         </Suspense>
 
-        {!isTouch && (
+        {!isTouchDevice && (
           <DesktopControls pivot={pivot} min={minZoomDistance} max={maxZoomDistance} zoomEnabled={enableManualZoom} />
         )}
       </Canvas>

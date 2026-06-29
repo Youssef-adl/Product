@@ -22,7 +22,7 @@ Designed to redefine the standard e-commerce journey, this platform showcases th
 ▸ **Industrial Aesthetics**: A "Luxury Industrial" design system built with **Tailwind CSS 4**, featuring glassmorphism and real-time lighting effects.
 ▸ **Full-Stack Architecture**: A robust decoupled architecture with a **React 19** frontend and a **Laravel 11** backend.
 ▸ **High Performance**: Optimized for speed, 60 FPS rendering, and responsiveness using Vite 8.
-▸ **Agentic Security & Excellence**: Hardened via systematic security audits and meta-skill automation, ensuring 2025 industry standards for data integrity and professional documentation.
+▸ **Security & Excellence**: Hardened via systematic security audits, ensuring industry standards for data integrity and professional documentation.
 
 ---
 
@@ -80,7 +80,7 @@ This project has undergone a comprehensive "Phase 2" hardening and excellence re
 - **IDOR Mitigation**: Enforced strict ownership on all transaction-sensitive endpoints.
 - **API Throttling**: Implemented brute-force protection on authentication routes.
 - **Luxury Typography**: Standardized on the `Barlow` family for a bold, technical industrial feel.
-- **Skill-Driven QA**: Utilized custom agentic skills to maintain high-signal documentation and code quality.
+- **Quality Assurance**: Systematic testing and documentation refinement to maintain high-signal code quality and reliability.
 
 ---
 

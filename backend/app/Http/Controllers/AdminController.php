@@ -18,7 +18,7 @@ class AdminController extends Controller
                 'id' => $order->order_number,
                 'client' => $order->user ? $order->user->name : 'Anonymous',
                 'total' => $order->total_amount,
-                'status' => ucfirst($order->status),
+                'status' => strtolower($order->status),
             ];
         });
 

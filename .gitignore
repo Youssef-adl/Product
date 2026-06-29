@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+.next
+.env
 
 # Project specific ignores
 .agent/
@@ -29,10 +31,11 @@ awesome_skills_extracted/
 autoresearch-master/
 frontend-design/
 frontend-design.zip
-
-# Temporary/Extracted files
 *.zip
 *.pdf
+.gemini_screenshot*.png
+
+# Temporary/Extracted files
 extracted_text.txt
 pdf-out.txt
 extract_out.txt
@@ -40,8 +43,31 @@ extract*.js
 extract*.cjs
 use_case_and_pages.md
 pdf2json.js
+response.json
+test.json
 
 # Internal scripts
 fix_theme_classes.js
 remove_animations.js
 rename_store_route.js
+list_users.php
+reset_admin.php
+setup_admin.php
+test_dashboard.php
+
+/src/generated/prisma
+tmp_business_pptx/
+scratch/
+scratch_read_pptx.cjs
+scratch_read_pptx.py
+speaker_video.js
+skills-lock.json
+build.log
+awesome-design-md/
+versionhtml/
+img_cable.png
+img_gan.png
+img_smartcharge.png
+img_support.png
+*.glb
+*.mp4
