@@ -1,29 +1,28 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]/route";
+import { prisma } from "@/lib/prisma";
 
-const LARAVEL_API = process.env.LARAVEL_API_URL || "http://localhost:8000/api";
-
-export async function GET(req) {
+export async function GET() {
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   try {
-    const res = await fetch(`${LARAVEL_API}/orders`, {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${session.user.access_token}`,
-      },
-      cache: "no-store",
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      return NextResponse.json({ error: data?.message || "Failed to fetch orders" }, { status: res.status });
+    let orders;
+    if (session.user.role === "admin") {
+      orders = await prisma.order.findMany({
+        include: { user: true, items: { include: { product: true } } },
+        orderBy: { createdAt: "desc" },
+      });
+    } else {
+      orders = await prisma.order.findMany({
+        where: { userId: parseInt(session.user.id) },
+        include: { user: true, items: { include: { product: true } } },
+        orderBy: { createdAt: "desc" },
+      });
     }
 
-    return NextResponse.json(data);
+    return NextResponse.json({ success: true, orders });
   } catch (error) {
     console.error("Fetch orders error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
@@ -38,40 +37,32 @@ export async function POST(req) {
     const body = await req.json();
     const { items, shipping_address, phone, total_amount } = body;
 
-    const res = await fetch(`${LARAVEL_API}/orders`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${session.user.access_token}`,
-      },
-      body: JSON.stringify({
-        user_id: parseInt(session.user.id),
-        total_amount,
-        shipping_address,
-        phone,
-        items: items.map((item) => ({
-          product_id: item.product_id || item.id,
-          quantity: item.quantity,
-          price: item.price,
-        })),
-      }),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      return NextResponse.json({ 
-        error: data?.message || "Failed to create order",
-        errors: data?.errors || null,
-        success: false
-      }, { status: res.status });
+    if (!items || !items.length || !shipping_address || !total_amount) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    return NextResponse.json({
-      success: true,
-      ...data
+    const orderNumber = `SOL-${new Date().toISOString().slice(0, 10).replace(/-/g, "")}-${Math.floor(1000 + Math.random() * 9000)}`;
+
+    const order = await prisma.order.create({
+      data: {
+        userId: parseInt(session.user.id),
+        orderNumber,
+        totalAmount: parseFloat(total_amount),
+        shippingAddress: shipping_address,
+        phone: phone || null,
+        status: "pending",
+        items: {
+          create: items.map((item) => ({
+            productId: item.product_id || item.id,
+            quantity: item.quantity,
+            price: parseFloat(item.price),
+          })),
+        },
+      },
+      include: { items: { include: { product: true } } },
     });
+
+    return NextResponse.json({ success: true, message: "Order placed successfully", order }, { status: 201 });
   } catch (error) {
     console.error("Create order error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

@@ -1,29 +1,21 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]/route";
+import { prisma } from "@/lib/prisma";
 
-const LARAVEL_API = process.env.LARAVEL_API_URL || "http://localhost:8000/api";
-
-export async function GET(req) {
+export async function GET() {
   const session = await getServerSession(authOptions);
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!session || session.user.role !== "admin") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+  }
 
   try {
-    const res = await fetch(`${LARAVEL_API}/return-requests`, {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${session.user.access_token}`,
-      },
-      cache: "no-store",
+    const returns = await prisma.returnRequest.findMany({
+      include: { order: { include: { items: { include: { product: true } } } }, user: true },
+      orderBy: { createdAt: "desc" },
     });
 
-    const data = await res.json();
-
-    if (!res.ok) {
-      return NextResponse.json({ error: data?.message || "Failed to fetch return requests" }, { status: res.status });
-    }
-
-    return NextResponse.json(data);
+    return NextResponse.json({ success: true, returns });
   } catch (error) {
     console.error("Fetch return requests error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
@@ -36,23 +28,36 @@ export async function POST(req) {
 
   try {
     const body = await req.json();
-    const res = await fetch(`${LARAVEL_API}/return-requests`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${session.user.access_token}`,
-      },
-      body: JSON.stringify(body),
-    });
+    const { order_id, reason } = body;
 
-    const data = await res.json();
-
-    if (!res.ok) {
-      return NextResponse.json({ error: data?.message || "Failed to create return request" }, { status: res.status });
+    if (!order_id || !reason) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    return NextResponse.json(data);
+    const order = await prisma.order.findFirst({
+      where: { id: parseInt(order_id), userId: parseInt(session.user.id) },
+    });
+
+    if (!order) {
+      return NextResponse.json({ error: "Order not found" }, { status: 404 });
+    }
+
+    const existing = await prisma.returnRequest.findUnique({ where: { orderId: parseInt(order_id) } });
+    if (existing) {
+      return NextResponse.json({ error: "Return request already exists for this order" }, { status: 409 });
+    }
+
+    const returnRequest = await prisma.returnRequest.create({
+      data: {
+        orderId: parseInt(order_id),
+        userId: parseInt(session.user.id),
+        reason,
+        status: "pending",
+      },
+      include: { order: true },
+    });
+
+    return NextResponse.json({ success: true, message: "Return request submitted", return_request: returnRequest }, { status: 201 });
   } catch (error) {
     console.error("Create return request error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

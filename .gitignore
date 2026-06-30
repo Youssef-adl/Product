@@ -14,6 +14,13 @@ dist-ssr
 .next
 .env
 
+# Prisma
+prisma/dev.db
+prisma/dev.db-journal
+dev.db
+dev.db-journal
+/src/generated/prisma
+
 # Project specific ignores
 .agent/
 .gemini/
@@ -55,7 +62,6 @@ reset_admin.php
 setup_admin.php
 test_dashboard.php
 
-/src/generated/prisma
 tmp_business_pptx/
 scratch/
 scratch_read_pptx.cjs

@@ -1,22 +1,10 @@
 import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
-const LARAVEL_API = process.env.LARAVEL_API_URL || "http://localhost:8000/api";
-
-export async function GET(req) {
+export async function GET() {
   try {
-    const res = await fetch(`${LARAVEL_API}/products`, {
-      headers: { Accept: "application/json" },
-      cache: "no-store",
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      return NextResponse.json({ error: "Failed to fetch products" }, { status: res.status });
-    }
-
-    // Laravel returns { success: true, data: [...] }
-    return NextResponse.json(data);
+    const products = await prisma.product.findMany({ orderBy: { id: "asc" } });
+    return NextResponse.json({ success: true, data: products });
   } catch (error) {
     console.error("Fetch products error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
@@ -26,27 +14,22 @@ export async function GET(req) {
 export async function POST(req) {
   try {
     const body = await req.json();
+    const { name, price, category, sku, description, stock, spec, imageUrl } = body;
 
-    // Pass through any auth token that upstream components may include
-    const authHeader = req.headers.get("Authorization");
-
-    const res = await fetch(`${LARAVEL_API}/products`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        ...(authHeader ? { Authorization: authHeader } : {}),
-      },
-      body: JSON.stringify(body),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      return NextResponse.json({ error: data?.message || "Failed to create product" }, { status: res.status });
+    if (!name || !price || !category || !sku) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    return NextResponse.json(data);
+    const existing = await prisma.product.findUnique({ where: { sku } });
+    if (existing) {
+      return NextResponse.json({ error: "SKU already exists" }, { status: 409 });
+    }
+
+    const product = await prisma.product.create({
+      data: { name, price: parseFloat(price), category, sku, description, stock: parseInt(stock) || 0, spec, imageUrl },
+    });
+
+    return NextResponse.json({ success: true, data: product }, { status: 201 });
   } catch (error) {
     console.error("Create product error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

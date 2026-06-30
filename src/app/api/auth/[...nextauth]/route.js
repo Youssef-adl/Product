@@ -1,5 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { compare } from "bcryptjs";
+import { prisma } from "@/lib/prisma";
 
 export const authOptions = {
   providers: [
@@ -13,31 +15,23 @@ export const authOptions = {
         if (!credentials?.email || !credentials?.password) return null;
 
         try {
-          const res = await fetch(`${process.env.LARAVEL_API_URL || "http://localhost:8000/api"}/login`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-            body: JSON.stringify({
-              email: credentials.email,
-              password: credentials.password,
-            }),
+          const user = await prisma.user.findUnique({
+            where: { email: credentials.email },
           });
 
-          const data = await res.json();
+          if (!user) return null;
 
-          if (!res.ok || !data.success) return null;
+          const isValid = await compare(credentials.password, user.password);
+          if (!isValid) return null;
 
           return {
-            id: data.user.id.toString(),
-            name: data.user.name,
-            email: data.user.email,
-            role: data.user.role,
-            access_token: data.access_token,
+            id: user.id.toString(),
+            name: user.name,
+            email: user.email,
+            role: user.role,
           };
         } catch (err) {
-          console.error("NextAuth authorize error:", err);
+          console.error("Auth error:", err);
           return null;
         }
       },
@@ -48,7 +42,6 @@ export const authOptions = {
       if (user) {
         token.id = user.id;
         token.role = user.role;
-        token.access_token = user.access_token;
       }
       return token;
     },
@@ -56,7 +49,6 @@ export const authOptions = {
       if (token) {
         session.user.id = token.id;
         session.user.role = token.role;
-        session.user.access_token = token.access_token;
       }
       return session;
     },

@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../auth/[...nextauth]/route";
-
-const LARAVEL_API = process.env.LARAVEL_API_URL || "http://localhost:8000/api";
+import { prisma } from "@/lib/prisma";
 
 export async function PUT(req, { params }) {
   const session = await getServerSession(authOptions);
@@ -10,27 +9,22 @@ export async function PUT(req, { params }) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
 
-  const { id } = params;
-
   try {
+    const { id } = await params;
     const body = await req.json();
-    const res = await fetch(`${LARAVEL_API}/return-requests/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${session.user.access_token}`,
-      },
-      body: JSON.stringify(body),
-    });
+    const { status, admin_note } = body;
 
-    const data = await res.json();
-
-    if (!res.ok) {
-      return NextResponse.json({ error: data?.message || "Failed to update return request" }, { status: res.status });
+    if (!status || !["approved", "rejected"].includes(status)) {
+      return NextResponse.json({ error: "Invalid status" }, { status: 400 });
     }
 
-    return NextResponse.json(data);
+    const returnRequest = await prisma.returnRequest.update({
+      where: { id: parseInt(id) },
+      data: { status, adminNote: admin_note || null },
+      include: { order: true, user: true },
+    });
+
+    return NextResponse.json({ success: true, message: "Return request updated", return_request: returnRequest });
   } catch (error) {
     console.error("Update return request error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
